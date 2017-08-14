@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BulkCopy\DataTableFactoryTests.cs" />
-    <Compile Include="BulkCopy\SqlBulkCopyProcessor.cs" />
     <Compile Include="Context\Children.cs" />
     <Compile Include="Context\Parent.cs" />
     <Compile Include="Context\TestDbContext.cs" />

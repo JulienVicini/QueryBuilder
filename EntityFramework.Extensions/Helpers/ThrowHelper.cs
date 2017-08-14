@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace EntityFramework.Extensions.Helpers
 {
-    public static class ThrowHelper
+    internal static class ThrowHelper
     {
         public static void ThrowIfNullOrEmpty<T>(IEnumerable<T> enumerable, string argumentName)
         {

@@ -18,6 +18,8 @@ namespace EntityFramework.Extensions.Tests.Context
             // Parent Configuration
             var parentConfig = modelBuilder.Entity<Parent>();
 
+            parentConfig.ToTable("abc", "Prefix_Parent");
+
             parentConfig.HasKey(p => p.Id);
             parentConfig.Property(p => p.Id)
                 .HasColumnName("P_Id");

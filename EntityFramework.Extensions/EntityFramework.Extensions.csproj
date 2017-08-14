@@ -50,10 +50,12 @@
     <Compile Include="BulkCopy\BulkCopyFactory.cs" />
     <Compile Include="BulkCopy\DataTableFactory.cs" />
     <Compile Include="BulkCopy\IDataTableFactory.cs" />
+    <Compile Include="BulkCopy\SqlBulkCopyProcessor.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="ExpressionHelper.cs" />
     <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />
     <Compile Include="Helpers\ThrowHelper.cs" />
+    <Compile Include="Mappings\TableMapping.cs" />
     <Compile Include="Sql\ISqlContext.cs" />
     <Compile Include="Mappings\ColumnMapping.cs" />
     <Compile Include="Mappings\SqlTypeConverter.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="QueriesHelpers\IQueryableHelpers.cs" />
     <Compile Include="QueryGeneratorExpressionVisitor.cs" />
     <Compile Include="SqlParameterCollection.cs" />
+    <Compile Include="Sql\SqlContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

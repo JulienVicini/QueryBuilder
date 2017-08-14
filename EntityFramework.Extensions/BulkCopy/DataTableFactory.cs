@@ -8,7 +8,9 @@ using System.Reflection;
 
 namespace EntityFramework.Extensions.BulkCopy
 {
-    public class DataTableFactory<T> where T : class
+    public class DataTableFactory<T>
+        : IDataTableFactory<T>
+        where T : class
     {
         public DataTable CreateBulkInsertDataTable( IEnumerable<ColumnMapping> mappings )
         {

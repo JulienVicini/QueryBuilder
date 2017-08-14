@@ -1,4 +1,8 @@
-﻿using System;
+﻿using EntityFramework.Extensions.BulkCopy;
+using EntityFramework.Extensions.Mappings;
+using EntityFramework.Extensions.QueriesHelpers;
+using EntityFramework.Extensions.Sql;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
@@ -36,10 +40,53 @@ namespace EntityFramework.Extensions
             return entityType.DeclaredProperties.First(p => p.MetadataProperties.Any(m => m.Name == "PreferredName" && m.Value as string == propertyName));
         }
 
+        // TODO refactor this
+        public static TableMapping GetTableMapping<TEntity>( this ObjectContext objectContext)
+            where TEntity : class
+        {
+            EntityType entityType =  objectContext.MetadataWorkspace.GetItems<EntityType>(DataSpace.SSpace)
+                                                                    .First(e => e.Name == typeof(TEntity).Name);
+
+            var sets = objectContext.MetadataWorkspace.GetEntityContainer(objectContext.DefaultContainerName, DataSpace.CSpace);
+            // Mappings
+            IEnumerable<ColumnMapping> mappings
+                = entityType.DeclaredProperties.Select(edm => ColumnMapping.FromMetaDdata(edm))
+                                               .ToList();
+
+            // Table Name
+            MetadataProperty metaData = entityType.MetadataProperties.FirstOrDefault(m => m.Name == "Configuration");
+
+            string tableName = typeof(TEntity).Name, schema = "dbo";
+
+            if(metaData != null)
+            {
+                //entityType.Entity.GetTableName();
+                //var config = (System.Data.Entity.ModelConfiguration.Configuration.Mapping.EntityMappingConfiguration)metaData.Value;
+                //tableName = config
+            }
+
+            return new TableMapping(
+                tableName: tableName,
+                schema   : schema,
+                columns  : mappings
+            );
+        }
+
         public static void BulkInsert<T>(this DbSet<T> dbSet, IEnumerable<T> data)
             where T : class
         {
-            throw new NotImplementedException();
+            ObjectContext context = IQueryableHelpers.GetObjectContext(dbSet);
+
+            ISqlContext sqlContext = new SqlContext(context);
+            IDataTableFactory<T> dataTableFactory = new DataTableFactory<T>();
+
+            var bulkCopy = new SqlBulkCopyProcessor<T>(
+                dataTableFactory: dataTableFactory,
+                sqlContext      : sqlContext,
+                tableMapping    : context.GetTableMapping<T>()
+            );
+
+            bulkCopy.Execute(data);
         }
 
         //public static GlobalItem GetEntityMetadata<T>( this DbContext dbContext )

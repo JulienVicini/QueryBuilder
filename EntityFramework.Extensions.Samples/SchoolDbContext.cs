@@ -13,6 +13,11 @@ namespace EntityFramework.Extensions.Samples
 
         public DbSet<Person> Persons { get; set; }
 
+        static SchoolDbContext()
+        {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SchoolDbContext>());
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             ConfigureAddressEntity(modelBuilder.Entity<Address>());
@@ -50,7 +55,8 @@ namespace EntityFramework.Extensions.Samples
 
             courseEntity.HasRequired(c => c.Teacher)
                 .WithMany(person => person.GivenClasses)
-                .HasForeignKey(c => c.TeacherId);
+                .HasForeignKey(c => c.TeacherId)
+                .WillCascadeOnDelete(false);
 
             courseEntity.HasMany(c => c.Students)
                 .WithMany(person => person.AttendedCourses)
@@ -64,6 +70,7 @@ namespace EntityFramework.Extensions.Samples
 
         private void ConfigurePersonEntity(EntityTypeConfiguration<Person> personEntity)
         {
+            personEntity.ToTable("user", "table");
             personEntity.HasKey(p => p.Id);
             personEntity.Property(p => p.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity)

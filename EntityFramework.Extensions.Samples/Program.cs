@@ -9,7 +9,7 @@ namespace EntityFramework.Extensions.Samples
         static void Main(string[] args)
         {
             IEnumerable<Person> persons
-                = Enumerable.Range(0, 1000)
+                = Enumerable.Range(0, 100000)
                             .Select(index => new Person()
                             {
                                 Age       = index,
