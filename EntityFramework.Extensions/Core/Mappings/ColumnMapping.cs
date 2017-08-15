@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Data.Entity.Core.Metadata.Edm;
 
-namespace EntityFramework.Extensions.Mappings
+namespace EntityFramework.Extensions.Core.Mappings
 {
     public class ColumnMapping
     {
@@ -22,17 +21,6 @@ namespace EntityFramework.Extensions.Mappings
             PropertyType = propertyType;
             SqlName      = sqlName;
             //SqlType      = sqlType;
-        }
-
-        public static ColumnMapping FromMetaDdata( EdmProperty metadata )
-        {
-            return new ColumnMapping(
-                isIdentity  : metadata.IsStoreGeneratedIdentity,
-                propertyName: (string)metadata.MetadataProperties["PreferredName"].Value,
-                propertyType: metadata.UnderlyingPrimitiveType.ClrEquivalentType,
-                sqlName     : metadata.Name/*,
-                sqlType     : default(SqlDbType)*/
-            );
         }
     }
 }

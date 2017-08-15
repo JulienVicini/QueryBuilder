@@ -47,28 +47,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BulkCopy\BulkCopyFactory.cs" />
-    <Compile Include="BulkCopy\DataTableFactory.cs" />
-    <Compile Include="BulkCopy\IDataTableFactory.cs" />
-    <Compile Include="BulkCopy\SqlBulkCopyProcessor.cs" />
+    <Compile Include="Core\BulkCopy\BulkCopy.cs" />
+    <Compile Include="Core\BulkCopy\IBulkCopyExecutor.cs" />
+    <Compile Include="Core\BulkCopy\IDataTransformer.cs" />
+    <Compile Include="Core\Mappings\IMappingAdapter.cs" />
+    <Compile Include="Core\Mappings\EntityTypeMappingAdapter.cs" />
+    <Compile Include="Core\Queries\IDatabaseContext.cs" />
+    <Compile Include="Core\Queries\ObjectContextDatabaseContextAdapter.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="ExpressionHelper.cs" />
     <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />
     <Compile Include="Helpers\ThrowHelper.cs" />
-    <Compile Include="Mappings\TableMapping.cs" />
-    <Compile Include="Sql\ISqlContext.cs" />
-    <Compile Include="Mappings\ColumnMapping.cs" />
-    <Compile Include="Mappings\SqlTypeConverter.cs" />
+    <Compile Include="SqlServer\DataTableDataTransformer.cs" />
+    <Compile Include="SqlServer\SqlBulkCopyExecutor.cs" />
+    <Compile Include="Core\Mappings\ColumnMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueriesHelpers\ExpressionSQLTranslatorHelpers.cs" />
     <Compile Include="QueriesHelpers\IQueryableHelpers.cs" />
     <Compile Include="QueryGeneratorExpressionVisitor.cs" />
     <Compile Include="SqlParameterCollection.cs" />
-    <Compile Include="Sql\SqlContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

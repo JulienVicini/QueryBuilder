@@ -1,21 +1,40 @@
-﻿using EntityFramework.Extensions.Helpers;
-using EntityFramework.Extensions.Mappings;
+﻿using EntityFramework.Extensions.Core.BulkCopy;
+using EntityFramework.Extensions.Core.Mappings;
+using EntityFramework.Extensions.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
 
-namespace EntityFramework.Extensions.BulkCopy
+namespace EntityFramework.Extensions.SqlServer
 {
-    public class DataTableFactory<T>
-        : IDataTableFactory<T>
-        where T : class
+    public class DataTableDataTransformer<TEntity>
+        : IDataTransformer<IEnumerable<TEntity>, DataTable>
+        where TEntity : class
     {
-        public DataTable CreateBulkInsertDataTable( IEnumerable<ColumnMapping> mappings )
+        private readonly IMappingAdapter<TEntity> _mappingAdapter;
+
+        public DataTableDataTransformer(IMappingAdapter<TEntity> mappingAdapter)
         {
-            if (mappings == null || !mappings.Any())
-                throw new ArgumentException($"The parameter \"{nameof(mappings)}\" must contains at least one element");
+            _mappingAdapter = mappingAdapter ?? throw new ArgumentNullException(nameof(mappingAdapter));
+        }
+
+        public DataTable Transform(IEnumerable<TEntity> sourceData)
+        {
+            ThrowHelper.ThrowIfNullOrEmpty(sourceData, nameof(sourceData));
+
+            DataTable dataTable = CreateDataTable();
+
+            foreach (DataRow row in CreateDataRows(dataTable, sourceData))
+                dataTable.Rows.Add(row);
+
+            return dataTable;
+        }
+
+        public DataTable CreateDataTable()
+        {
+            IEnumerable<ColumnMapping> mappings = GetMappedColumns();
 
             DataTable dataTable = new DataTable();
 
@@ -32,7 +51,16 @@ namespace EntityFramework.Extensions.BulkCopy
             return dataTable;
         }
 
-        public DataRow CreateDataRow(DataTable dataTable, T record, IDictionary<string, PropertyInfo> mappedProperties)
+        public IEnumerable<ColumnMapping> GetMappedColumns()
+        {
+            IEnumerable<ColumnMapping> mappings = _mappingAdapter.GetColumns();
+
+            if (mappings == null || !mappings.Any())
+                throw new InvalidOperationException($"The entity \"{typeof(TEntity)}\" must have at least one mapped property");
+            return mappings;
+        }
+
+        public DataRow CreateDataRow(DataTable dataTable, TEntity record, IDictionary<string, PropertyInfo> mappedProperties)
         {
             if (dataTable == null) throw new ArgumentNullException( nameof(dataTable) );
             if (record    == null) throw new ArgumentNullException( nameof(record)    );
@@ -47,17 +75,20 @@ namespace EntityFramework.Extensions.BulkCopy
             return row;
         }
 
-        public IEnumerable<DataRow> CreateDataRows(DataTable dataTable, IEnumerable<T> records, IEnumerable<ColumnMapping> mappedColumns)
+        public IEnumerable<DataRow> CreateDataRows(DataTable dataTable, IEnumerable<TEntity> records)
         {
             // Validate Input
             if (dataTable == null) throw new ArgumentNullException(nameof(dataTable));
 
             ThrowHelper.ThrowIfNullOrEmpty(records      , nameof(records)      );
-            ThrowHelper.ThrowIfNullOrEmpty(mappedColumns, nameof(mappedColumns));
+
+            IEnumerable<ColumnMapping> mappedColumns = GetMappedColumns();
+
 
             // Create Properties Accessor
-            Type recordType = typeof(T);
+            Type recordType = typeof(TEntity);
 
+            // Todo Refactor this
             Dictionary<string, PropertyInfo> mappedProperties
                 = mappedColumns.Where(mc => !mc.IsIdentity)
                                .ToDictionary(
