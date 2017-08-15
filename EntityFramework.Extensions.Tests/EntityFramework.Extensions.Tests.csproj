@@ -67,10 +67,8 @@
     <Compile Include="Context\Children.cs" />
     <Compile Include="Context\Parent.cs" />
     <Compile Include="Context\TestDbContext.cs" />
-    <Compile Include="DbContextExtensionsTests.cs" />
     <Compile Include="ExpressionHelperTests.cs" />
     <Compile Include="ExpressionVisitors\SearchMethodCallExpressionVisitorTests.cs" />
-    <Compile Include="Mappings\ColumnMappingTests.cs" />
     <Compile Include="QueriesHelpers\ExpressionSQLTranslatorHelpersTests.cs" />
     <Compile Include="QueriesHelpers\IQueryableHelpersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
