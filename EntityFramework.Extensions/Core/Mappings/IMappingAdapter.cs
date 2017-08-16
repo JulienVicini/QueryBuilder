@@ -10,6 +10,6 @@ namespace EntityFramework.Extensions.Core.Mappings
 
         string GetTableName();
 
-        IEnumerable<ColumnMapping> GetColumns();
+        IEnumerable<ColumnMapping<TEntity>> GetColumns();
     }
 }

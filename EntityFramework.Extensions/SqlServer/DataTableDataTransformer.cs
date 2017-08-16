@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Reflection;
 
 namespace EntityFramework.Extensions.SqlServer
 {
@@ -34,14 +33,14 @@ namespace EntityFramework.Extensions.SqlServer
 
         public DataTable CreateDataTable()
         {
-            IEnumerable<ColumnMapping> mappings = GetMappedColumns();
+            IEnumerable<ColumnMapping<TEntity>> mappings = GetMappedColumns();
 
             DataTable dataTable = new DataTable();
 
             try
             {
-                foreach (ColumnMapping mapping in mappings.Where(r => !r.IsIdentity))
-                    dataTable.Columns.Add(mapping.SqlName, mapping.PropertyType);
+                foreach (ColumnMapping<TEntity> mapping in mappings.Where(r => !r.IsIdentity))
+                    dataTable.Columns.Add(mapping.DbColumnName, mapping.PropertyInfo.PropertyType);
             }
             catch (DuplicateNameException ex)
             {
@@ -51,16 +50,16 @@ namespace EntityFramework.Extensions.SqlServer
             return dataTable;
         }
 
-        public IEnumerable<ColumnMapping> GetMappedColumns()
+        public IEnumerable<ColumnMapping<TEntity>> GetMappedColumns()
         {
-            IEnumerable<ColumnMapping> mappings = _mappingAdapter.GetColumns();
+            IEnumerable<ColumnMapping<TEntity>> mappings = _mappingAdapter.GetColumns();
 
             if (mappings == null || !mappings.Any())
                 throw new InvalidOperationException($"The entity \"{typeof(TEntity)}\" must have at least one mapped property");
             return mappings;
         }
 
-        public DataRow CreateDataRow(DataTable dataTable, TEntity record, IDictionary<string, PropertyInfo> mappedProperties)
+        public DataRow CreateDataRow(DataTable dataTable, TEntity record, IEnumerable<ColumnMapping<TEntity>> mappedProperties)
         {
             if (dataTable == null) throw new ArgumentNullException( nameof(dataTable) );
             if (record    == null) throw new ArgumentNullException( nameof(record)    );
@@ -69,8 +68,8 @@ namespace EntityFramework.Extensions.SqlServer
 
             DataRow row = dataTable.NewRow();
 
-            foreach(KeyValuePair<string, PropertyInfo> property in mappedProperties)
-                row[property.Key] = property.Value.GetValue( record );
+            foreach(ColumnMapping<TEntity> mappedProperty in mappedProperties)
+                row[mappedProperty.DbColumnName] = mappedProperty.PropertyInfo.GetValue( record );
 
             return row;
         }
@@ -82,22 +81,10 @@ namespace EntityFramework.Extensions.SqlServer
 
             ThrowHelper.ThrowIfNullOrEmpty(records      , nameof(records)      );
 
-            IEnumerable<ColumnMapping> mappedColumns = GetMappedColumns();
-
-
-            // Create Properties Accessor
-            Type recordType = typeof(TEntity);
-
-            // Todo Refactor this
-            Dictionary<string, PropertyInfo> mappedProperties
-                = mappedColumns.Where(mc => !mc.IsIdentity)
-                               .ToDictionary(
-                                    c => c.SqlName,
-                                    c => recordType.GetProperty(c.PropertyName)
-                                );
+            IEnumerable<ColumnMapping<TEntity>> mappedColumns = GetMappedColumns().Where(r => !r.IsIdentity);
 
             return records.Select(r =>
-                CreateDataRow(dataTable, r, mappedProperties)
+                CreateDataRow(dataTable, r, mappedColumns)
             );
         }
     }

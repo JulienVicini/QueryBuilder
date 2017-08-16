@@ -1,26 +1,22 @@
 ﻿using System;
+using System.Reflection;
 
 namespace EntityFramework.Extensions.Core.Mappings
 {
-    public class ColumnMapping
+    public class ColumnMapping<TEntity>
+        where TEntity : class
     {
+        public string DbColumnName { get; private set; }
+
         public bool IsIdentity { get; private set; }
 
-        public string PropertyName { get; private set; }
+        public PropertyInfo PropertyInfo { get; private set; }
 
-        public Type PropertyType { get; private set; }
-
-        public string SqlName { get; private set; }
-
-        //public SqlDbType SqlType { get; private set; } // TODO
-
-        public ColumnMapping(bool isIdentity, string propertyName, Type propertyType, string sqlName/*, SqlDbType sqlType*/)
+        public ColumnMapping(string dbColumnName, bool isIdentity, PropertyInfo propertyInfo)
         {
+            DbColumnName = dbColumnName ?? throw new ArgumentNullException(nameof(dbColumnName));
             IsIdentity   = isIdentity;
-            PropertyName = propertyName;
-            PropertyType = propertyType;
-            SqlName      = sqlName;
-            //SqlType      = sqlType;
+            PropertyInfo = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
         }
     }
 }

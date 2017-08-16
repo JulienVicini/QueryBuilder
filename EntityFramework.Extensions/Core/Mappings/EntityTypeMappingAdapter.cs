@@ -29,20 +29,20 @@ namespace EntityFramework.Extensions.Core.Mappings
                 return $"[dbo].[{EntityType.Name}]";
         }
 
-        public IEnumerable<ColumnMapping> GetColumns()
+        public IEnumerable<ColumnMapping<TEntity>> GetColumns()
         {
             foreach (EdmProperty edmProperty in _entityType.DeclaredProperties)
                 yield return Map(edmProperty);
         }
 
-        public ColumnMapping Map(EdmProperty edmProperty)
+        public ColumnMapping<TEntity> Map(EdmProperty edmProperty)
         {
-            return new ColumnMapping(
+            string propertyName = (string)edmProperty.MetadataProperties["PreferredName"].Value;
+
+            return new ColumnMapping<TEntity>(
+                dbColumnName      : edmProperty.Name,
                 isIdentity  : edmProperty.IsStoreGeneratedIdentity,
-                propertyName: (string)edmProperty.MetadataProperties["PreferredName"].Value,
-                propertyType: edmProperty.UnderlyingPrimitiveType.ClrEquivalentType,
-                sqlName     : edmProperty.Name/*,
-                sqlType     : default(SqlDbType)*/
+                propertyInfo: typeof(TEntity).GetProperty(propertyName)
             );
         }
     }
