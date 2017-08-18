@@ -63,13 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BulkCopy\DataTableFactoryTests.cs" />
     <Compile Include="Context\Children.cs" />
     <Compile Include="Context\Parent.cs" />
     <Compile Include="Context\TestDbContext.cs" />
-    <Compile Include="ExpressionHelperTests.cs" />
+    <Compile Include="Core\BulkCopy\BulkCopyTest.cs" />
     <Compile Include="ExpressionVisitors\SearchMethodCallExpressionVisitorTests.cs" />
-    <Compile Include="Mappings\ColumnMappingTests.cs" />
+    <Compile Include="Helpers\ThrowHelperTests.cs" />
     <Compile Include="QueriesHelpers\ExpressionSQLTranslatorHelpersTests.cs" />
     <Compile Include="QueriesHelpers\IQueryableHelpersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,7 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\" />
+    <Folder Include="Core\Mappings\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

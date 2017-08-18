@@ -3,12 +3,14 @@ using EntityFramework.Extensions.Core.Mappings;
 using EntityFramework.Extensions.Core.Queries;
 using EntityFramework.Extensions.QueriesHelpers;
 using EntityFramework.Extensions.SqlServer;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace EntityFramework.Extensions
 {
@@ -42,5 +44,11 @@ namespace EntityFramework.Extensions
 
             bulkCopy.WriteToServer(data);
         }
+
+        public static void Delete<T>(this IQueryable<T> query)
+            where T : class => throw new NotImplementedException();
+
+        public static void Update<T>(this IQueryable<T> query, params Expression<Action<T>>[] setters)
+            where T : class => throw new NotImplementedException();
     }
 }

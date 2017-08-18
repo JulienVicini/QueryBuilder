@@ -55,7 +55,6 @@
     <Compile Include="Core\Queries\IDatabaseContext.cs" />
     <Compile Include="Core\Queries\ObjectContextDatabaseContextAdapter.cs" />
     <Compile Include="DbContextExtensions.cs" />
-    <Compile Include="ExpressionHelper.cs" />
     <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />
     <Compile Include="Helpers\ThrowHelper.cs" />
     <Compile Include="SqlServer\DataTableDataTransformer.cs" />
