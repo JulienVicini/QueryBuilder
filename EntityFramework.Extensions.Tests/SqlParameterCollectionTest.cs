@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using EntityFramework.Extensions.SqlServer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 
 namespace EntityFramework.Extensions.Tests
@@ -44,10 +44,11 @@ namespace EntityFramework.Extensions.Tests
             Assert.AreEqual( "@p3", param4Name );
 
             // Assert If parameters exist
-            SqlParameter parameter1 = parameterCollection.Parameters.FirstOrDefault(p => p.ParameterName == param1Name ),
-                         parameter2 = parameterCollection.Parameters.FirstOrDefault(p => p.ParameterName == param2Name ),
-                         parameter3 = parameterCollection.Parameters.FirstOrDefault(p => p.ParameterName == param3Name ),
-                         parameter4 = parameterCollection.Parameters.FirstOrDefault(p => p.ParameterName == param4Name );
+            System.Data.SqlClient.SqlParameter 
+                parameter1 = parameterCollection.Parameters.FirstOrDefault(p => p.ParameterName == param1Name ),
+                parameter2 = parameterCollection.Parameters.FirstOrDefault(p => p.ParameterName == param2Name ),
+                parameter3 = parameterCollection.Parameters.FirstOrDefault(p => p.ParameterName == param3Name ),
+                parameter4 = parameterCollection.Parameters.FirstOrDefault(p => p.ParameterName == param4Name );
 
             // Assert Parameters exists
             Assert.IsNotNull(parameter1);

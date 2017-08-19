@@ -20,7 +20,12 @@ namespace EntityFramework.Extensions.Samples
 
             using(var context = new SchoolDbContext())
             {
-                context.Persons.BulkInsert(persons);
+                //context.Persons.BulkInsert(persons);
+
+                context.Persons.Where(c => c.Id > 10000)
+                               .Delete();
+
+                context.Persons.BulkMerge(persons, d => new { d.Age, d.FirstName, d.LastName });
             }
         }
     }

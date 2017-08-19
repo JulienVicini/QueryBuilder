@@ -52,8 +52,25 @@
     <Compile Include="Core\BulkCopy\IDataTransformer.cs" />
     <Compile Include="Core\Mappings\IMappingAdapter.cs" />
     <Compile Include="Core\Mappings\EntityTypeMappingAdapter.cs" />
-    <Compile Include="Core\Queries\IDatabaseContext.cs" />
-    <Compile Include="Core\Queries\ObjectContextDatabaseContextAdapter.cs" />
+    <Compile Include="Core\Database\IDatabaseContext.cs" />
+    <Compile Include="Core\Database\ICommandProcessing.cs" />
+    <Compile Include="Core\Queries\Statements\DeleteStatement.cs" />
+    <Compile Include="Core\Queries\Statements\IValueStatement.cs" />
+    <Compile Include="Core\Queries\Statements\Operators\ArithmeticOperator.cs" />
+    <Compile Include="Core\Queries\Statements\Operators\ArithmeticStatement.cs" />
+    <Compile Include="Core\Queries\Statements\Operators\ComparisonOperator.cs" />
+    <Compile Include="Core\Queries\Statements\Operators\ComparisonStatement.cs" />
+    <Compile Include="Core\Queries\Statements\Operators\ConditionalOperator.cs" />
+    <Compile Include="Core\Queries\Statements\Operators\ConditionalStatement.cs" />
+    <Compile Include="Core\Queries\Statements\UpdateStatement.cs" />
+    <Compile Include="Core\Queries\Statements\Values\ColumnValueStatement.cs" />
+    <Compile Include="Core\Queries\Statements\Values\ConstantStatement.cs" />
+    <Compile Include="Core\Queries\Statements\Values\RangeConstantStatement.cs" />
+    <Compile Include="Core\Queries\Statements\IFilterStatement.cs" />
+    <Compile Include="Core\Queries\ParameterCollection.cs" />
+    <Compile Include="Core\Queries\IStatementFactory.cs" />
+    <Compile Include="Core\Database\ObjectContextDatabaseContextAdapter.cs" />
+    <Compile Include="Core\Queries\QueryProcessor.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />
     <Compile Include="Helpers\ThrowHelper.cs" />
@@ -61,10 +78,10 @@
     <Compile Include="SqlServer\SqlBulkCopyExecutor.cs" />
     <Compile Include="Core\Mappings\ColumnMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueriesHelpers\ExpressionSQLTranslatorHelpers.cs" />
-    <Compile Include="QueriesHelpers\IQueryableHelpers.cs" />
+    <Compile Include="SqlServer\ExpressionSQLTranslatorHelpers.cs" />
+    <Compile Include="Helpers\IQueryableHelpers.cs" />
     <Compile Include="QueryGeneratorExpressionVisitor.cs" />
-    <Compile Include="SqlParameterCollection.cs" />
+    <Compile Include="SqlServer\SqlParameterCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -2,10 +2,10 @@
 using System.Data.Common;
 using System.Data.Entity.Core.Objects;
 
-namespace EntityFramework.Extensions.Core.Queries
+namespace EntityFramework.Extensions.Core.Database
 {
     public class ObjectContextDatabaseContextAdapter
-        : IDatabaseContext
+        : IDatabaseContext/*, ICommandProcessing*/
     {
         private readonly ObjectContext _objectContext;
 
@@ -18,5 +18,15 @@ namespace EntityFramework.Extensions.Core.Queries
         {
             return _objectContext.Connection;
         }
+
+        //public int Execute(Query query)
+        //{
+        //    if (query == null) throw new ArgumentNullException(nameof(query));
+
+        //    return _objectContext.ExecuteStoreCommand(
+        //        commandText: query.QueryString,
+        //        parameters : query.Parameters
+        //    );
+        //} 
     }
 }

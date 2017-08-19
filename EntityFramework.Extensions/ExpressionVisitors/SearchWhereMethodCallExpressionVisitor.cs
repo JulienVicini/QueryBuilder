@@ -33,7 +33,7 @@ namespace EntityFramework.Extensions.ExpressionVisitors
             if (node.Method.DeclaringType == typeof(Queryable) && node.Method.Name == node.Method.Name)
             {
                 if (_expressionCall != null)
-                    throw new ArgumentException($"Multiple call of \"{nameof(Queryable)}.{nameof(Queryable.Where)}\" where found.");
+                    throw new InvalidOperationException($"Multiple call of \"{nameof(Queryable)}.{nameof(Queryable.Where)}\" where found.");
                 _expressionCall = node;
             }
 

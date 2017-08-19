@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions.QueriesHelpers
+namespace EntityFramework.Extensions.SqlServer
 {
     public static class ExpressionSQLTranslatorHelpers
     {

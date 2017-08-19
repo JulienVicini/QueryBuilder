@@ -1,5 +1,5 @@
 ﻿using EntityFramework.Extensions.Core.BulkCopy;
-using EntityFramework.Extensions.Core.Queries;
+using EntityFramework.Extensions.Core.Database;
 using System;
 using System.Data;
 using System.Data.Entity.Core.EntityClient;

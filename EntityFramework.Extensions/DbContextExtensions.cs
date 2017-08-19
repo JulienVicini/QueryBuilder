@@ -1,7 +1,7 @@
 ﻿using EntityFramework.Extensions.Core.BulkCopy;
+using EntityFramework.Extensions.Core.Database;
 using EntityFramework.Extensions.Core.Mappings;
-using EntityFramework.Extensions.Core.Queries;
-using EntityFramework.Extensions.QueriesHelpers;
+using EntityFramework.Extensions.Helpers;
 using EntityFramework.Extensions.SqlServer;
 using System;
 using System.Collections.Generic;
@@ -45,10 +45,37 @@ namespace EntityFramework.Extensions
             bulkCopy.WriteToServer(data);
         }
 
-        public static void Delete<T>(this IQueryable<T> query)
-            where T : class => throw new NotImplementedException();
+        public static void BulkMerge<TEntity, TColumns>( this DbSet<TEntity> dbSet, IEnumerable<TEntity> data, Expression<Func<TEntity, TColumns>> mergeColumns, bool updateOnly = false)
+            where TEntity : class
+        {
+            throw new NotImplementedException();
+        }
+
+        public static int Delete<T>(this IQueryable<T> query)
+            where T : class
+        {
+            throw new NotImplementedException();
+            //// Get info from IQueryable
+            //ObjectContext objectContext = IQueryableHelpers.GetObjectContext(query);
+            //Expression<Func<T, bool>> predicate = IQueryableHelpers.GetQueryPredicate(query);
+
+            //// Create Query
+            //IQueryFactory<T> queryFactory = null;
+            //Query command = queryFactory.CreateDeleteQuery(predicate);
+
+            //return ProcessQuery(command, objectContext);
+        }
 
         public static void Update<T>(this IQueryable<T> query, params Expression<Action<T>>[] setters)
             where T : class => throw new NotImplementedException();
+
+        //public static int ProcessQuery(Query command, ObjectContext objectContext)
+        //{
+        //    // Execute
+        //    ICommandProcessing queryProcessor = new ObjectContextDatabaseContextAdapter(objectContext);
+        //    var processor = new QueryProcessor(queryProcessor);
+
+        //    return processor.ExecuteQuery(command);
+        //}
     }
 }

@@ -1,6 +1,5 @@
-﻿using EntityFramework.Extensions.QueriesHelpers;
+﻿using EntityFramework.Extensions.SqlServer;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -24,7 +23,7 @@ namespace EntityFramework.Extensions
             return _queryBuilder.ToString();
         }
 
-        public IEnumerable<SqlParameter> GetSqlParameter()
+        public IEnumerable<System.Data.SqlClient.SqlParameter> GetSqlParameter()
         {
             return _sqlParameterCollection.Parameters;
         }

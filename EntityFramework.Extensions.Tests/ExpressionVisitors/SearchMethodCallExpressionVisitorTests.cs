@@ -39,7 +39,7 @@ namespace EntityFramework.Extensions.Tests.ExpressionVisitors
                                                            .Where(s => s.Length > 10);
 
             // Multiple Where Call
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<InvalidOperationException>(() =>
             {
                 _visitor.GetMethodCall(multipleFilterQuery);
             });

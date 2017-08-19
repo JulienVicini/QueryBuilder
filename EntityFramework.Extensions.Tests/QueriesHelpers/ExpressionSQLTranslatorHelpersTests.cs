@@ -1,4 +1,4 @@
-﻿using EntityFramework.Extensions.QueriesHelpers;
+﻿using EntityFramework.Extensions.SqlServer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq.Expressions;
