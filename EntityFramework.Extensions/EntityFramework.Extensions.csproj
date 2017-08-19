@@ -47,14 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\BulkCopy\BulkCopy.cs" />
-    <Compile Include="Core\BulkCopy\IBulkCopyExecutor.cs" />
-    <Compile Include="Core\BulkCopy\IDataTransformer.cs" />
+    <Compile Include="Core\Bulk\BulkOrchestrator.cs" />
+    <Compile Include="Core\Bulk\IBulkExecutor.cs" />
+    <Compile Include="Core\Bulk\IDataTransformer.cs" />
     <Compile Include="Core\Mappings\IMappingAdapter.cs" />
     <Compile Include="Core\Mappings\EntityTypeMappingAdapter.cs" />
     <Compile Include="Core\Database\IDatabaseContext.cs" />
     <Compile Include="Core\Database\ICommandProcessing.cs" />
     <Compile Include="Core\Queries\DeleteQuery.cs" />
+    <Compile Include="Core\Queries\IQueryTranslator.cs" />
     <Compile Include="Core\Queries\Statements\DeleteStatement.cs" />
     <Compile Include="Core\Queries\Statements\IValueStatement.cs" />
     <Compile Include="Core\Queries\Statements\Operators\ArithmeticOperator.cs" />
@@ -69,9 +70,7 @@
     <Compile Include="Core\Queries\Statements\Values\RangeConstantStatement.cs" />
     <Compile Include="Core\Queries\Statements\IFilterStatement.cs" />
     <Compile Include="Core\Queries\ParameterCollection.cs" />
-    <Compile Include="Core\Queries\IStatementFactory.cs" />
     <Compile Include="Core\Database\ObjectContextDatabaseContextAdapter.cs" />
-    <Compile Include="Core\Queries\QueryProcessor.cs" />
     <Compile Include="Core\Queries\UpdateQuery.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />

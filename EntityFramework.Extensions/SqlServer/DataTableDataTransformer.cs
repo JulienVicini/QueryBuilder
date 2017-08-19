@@ -1,4 +1,4 @@
-﻿using EntityFramework.Extensions.Core.BulkCopy;
+﻿using EntityFramework.Extensions.Core.Bulk;
 using EntityFramework.Extensions.Core.Mappings;
 using EntityFramework.Extensions.Helpers;
 using System;

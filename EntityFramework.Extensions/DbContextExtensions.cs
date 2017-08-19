@@ -1,4 +1,4 @@
-﻿using EntityFramework.Extensions.Core.BulkCopy;
+﻿using EntityFramework.Extensions.Core.Bulk;
 using EntityFramework.Extensions.Core.Database;
 using EntityFramework.Extensions.Core.Mappings;
 using EntityFramework.Extensions.Helpers;
@@ -36,10 +36,10 @@ namespace EntityFramework.Extensions
             );
 
             // TODO put in factory
-            var bulkCopy = new BulkCopy<T, DataTable>(
-                bulkCopyExecutor: new SqlBulkCopyExecutor(databaseContext),
-                dataTransformer : new DataTableDataTransformer<T>(mappingAdapter),
-                mappingAdapter  : mappingAdapter
+            var bulkCopy = new BulkOrchestrator<T, DataTable>(
+                bulkExecutor   : new SqlBulkCopyExecutor(databaseContext),
+                dataTransformer: new DataTableDataTransformer<T>(mappingAdapter),
+                mappingAdapter : mappingAdapter
             );
 
             bulkCopy.WriteToServer(data);

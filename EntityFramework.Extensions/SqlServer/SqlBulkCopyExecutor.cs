@@ -1,4 +1,4 @@
-﻿using EntityFramework.Extensions.Core.BulkCopy;
+﻿using EntityFramework.Extensions.Core.Bulk;
 using EntityFramework.Extensions.Core.Database;
 using System;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 namespace EntityFramework.Extensions.SqlServer
 {
     public class SqlBulkCopyExecutor
-        : IBulkCopyExecutor<DataTable>
+        : IBulkExecutor<DataTable>
     {
         private readonly IDatabaseContext _sqlContext;
 

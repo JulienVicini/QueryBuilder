@@ -3,21 +3,21 @@ using EntityFramework.Extensions.Helpers;
 using System;
 using System.Collections.Generic;
 
-namespace EntityFramework.Extensions.Core.BulkCopy
+namespace EntityFramework.Extensions.Core.Bulk
 {
-    public class BulkCopy<TData, TBulkData>
+    public class BulkOrchestrator<TData, TBulkData>
         where TData : class
         where TBulkData : class
     {
-        private readonly IBulkCopyExecutor<TBulkData> _bulkCopyExcecutor;
+        private readonly IBulkExecutor<TBulkData> _bulkExcecutor;
         private readonly IDataTransformer<IEnumerable<TData>, TBulkData> _dataTransformer;
         private readonly IMappingAdapter<TData> _mappingAdapter;
 
-        public BulkCopy(IBulkCopyExecutor<TBulkData> bulkCopyExecutor, IDataTransformer<IEnumerable<TData>, TBulkData> dataTransformer, IMappingAdapter<TData> mappingAdapter)
+        public BulkOrchestrator(IBulkExecutor<TBulkData> bulkExecutor, IDataTransformer<IEnumerable<TData>, TBulkData> dataTransformer, IMappingAdapter<TData> mappingAdapter)
         {
-            _bulkCopyExcecutor = bulkCopyExecutor ?? throw new ArgumentNullException(nameof(bulkCopyExecutor));
-            _dataTransformer   = dataTransformer  ?? throw new ArgumentNullException(nameof(dataTransformer));
-            _mappingAdapter    = mappingAdapter   ?? throw new ArgumentNullException(nameof(mappingAdapter));
+            _bulkExcecutor   = bulkExecutor    ?? throw new ArgumentNullException(nameof(bulkExecutor));
+            _dataTransformer = dataTransformer ?? throw new ArgumentNullException(nameof(dataTransformer));
+            _mappingAdapter  = mappingAdapter  ?? throw new ArgumentNullException(nameof(mappingAdapter));
         }
 
         public void WriteToServer(IEnumerable<TData> records)
@@ -28,7 +28,7 @@ namespace EntityFramework.Extensions.Core.BulkCopy
             TBulkData bulkData = _dataTransformer.Transform(records);
 
             // Insert Data
-            _bulkCopyExcecutor.Write(
+            _bulkExcecutor.Write(
                 tableName: _mappingAdapter.GetTableName(),
                 records  : bulkData
             );

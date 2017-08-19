@@ -1,4 +1,4 @@
-﻿using EntityFramework.Extensions.Core.BulkCopy;
+﻿using EntityFramework.Extensions.Core.Bulk;
 using EntityFramework.Extensions.Core.Mappings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -13,7 +13,7 @@ namespace EntityFramework.Extensions.Tests.Core.BulkCopy
         private object _modelObject;
         private object _transformedObject;
 
-        private Mock<IBulkCopyExecutor<IEnumerable<object>>> _bulkCopyExecutorMock;
+        private Mock<IBulkExecutor<IEnumerable<object>>> _bulkCopyExecutorMock;
         private Mock<IDataTransformer<IEnumerable<object>, IEnumerable<object>>> _dataTransformerMock;
         private Mock<IMappingAdapter<object>> _mappingAdapter;
 
@@ -23,7 +23,7 @@ namespace EntityFramework.Extensions.Tests.Core.BulkCopy
             _modelObject       = new object();
             _transformedObject = new object();
 
-            _bulkCopyExecutorMock = new Mock<IBulkCopyExecutor<IEnumerable<object>>>();
+            _bulkCopyExecutorMock = new Mock<IBulkExecutor<IEnumerable<object>>>();
             _dataTransformerMock  = new Mock<IDataTransformer<IEnumerable<object>, IEnumerable<object>>>();
             _mappingAdapter       = new Mock<IMappingAdapter<object>>();
         }
@@ -31,25 +31,25 @@ namespace EntityFramework.Extensions.Tests.Core.BulkCopy
         [TestMethod]
         public void ConstructorThrowsArgumentNullExceptionWhenBulkCopyIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new BulkCopy<object, IEnumerable<object>>(null, _dataTransformerMock.Object, _mappingAdapter.Object));
+            Assert.ThrowsException<ArgumentNullException>(() => new BulkOrchestrator<object, IEnumerable<object>>(null, _dataTransformerMock.Object, _mappingAdapter.Object));
         }
 
         [TestMethod]
         public void ConstructorThrowsArgumentNullExceptionWhenDataTransformerIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new BulkCopy<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, null, _mappingAdapter.Object));
+            Assert.ThrowsException<ArgumentNullException>(() => new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, null, _mappingAdapter.Object));
         }
 
         [TestMethod]
         public void ConstructorThrowsArgumentNullExceptionWhenMappingAdapterIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new BulkCopy<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, null));
+            Assert.ThrowsException<ArgumentNullException>(() => new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, null));
         }
 
         [TestMethod]
         public void WriteToServerThrowArgumentExceptionWhenRecordsIsNullOrEmpty()
         {
-            var bulkCopy = new BulkCopy<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
+            var bulkCopy = new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
 
             Assert.ThrowsException<ArgumentException>(
                 () => bulkCopy.WriteToServer(null)
@@ -67,7 +67,7 @@ namespace EntityFramework.Extensions.Tests.Core.BulkCopy
 
             _dataTransformerMock.Setup(d => d.Transform(It.IsAny<IEnumerable<object>>()));
 
-            var bulkCopy = new BulkCopy<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
+            var bulkCopy = new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
 
             bulkCopy.WriteToServer(objects);
 
@@ -88,7 +88,7 @@ namespace EntityFramework.Extensions.Tests.Core.BulkCopy
                            .Returns("RandomTable");
 
             // act
-            var bulkCopy = new BulkCopy<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
+            var bulkCopy = new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
             bulkCopy.WriteToServer(objects);
 
             _bulkCopyExecutorMock.Verify(
