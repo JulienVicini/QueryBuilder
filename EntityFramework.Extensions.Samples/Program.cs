@@ -9,7 +9,7 @@ namespace EntityFramework.Extensions.Samples
         static void Main(string[] args)
         {
             IEnumerable<Person> persons
-                = Enumerable.Range(0, 100000)
+                = Enumerable.Range(0, 100)
                             .Select(index => new Person()
                             {
                                 Age       = index,
@@ -20,12 +20,12 @@ namespace EntityFramework.Extensions.Samples
 
             using(var context = new SchoolDbContext())
             {
-                //context.Persons.BulkInsert(persons);
+                context.Persons.BulkInsert(persons);
 
-                context.Persons.Where(c => c.Id > 10000)
-                               .Delete();
+                //context.Persons.Where(c => c.Id > 10000)
+                //               .Delete();
 
-                context.Persons.BulkMerge(persons, d => new { d.Age, d.FirstName, d.LastName });
+                //context.Persons.BulkMerge(persons, d => new { d.Age, d.FirstName, d.LastName });
             }
         }
     }

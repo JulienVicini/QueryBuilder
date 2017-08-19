@@ -54,15 +54,16 @@
     <Compile Include="Core\Mappings\EntityTypeMappingAdapter.cs" />
     <Compile Include="Core\Database\IDatabaseContext.cs" />
     <Compile Include="Core\Database\ICommandProcessing.cs" />
+    <Compile Include="Core\Queries\DeleteQuery.cs" />
     <Compile Include="Core\Queries\Statements\DeleteStatement.cs" />
     <Compile Include="Core\Queries\Statements\IValueStatement.cs" />
     <Compile Include="Core\Queries\Statements\Operators\ArithmeticOperator.cs" />
     <Compile Include="Core\Queries\Statements\Operators\ArithmeticStatement.cs" />
+    <Compile Include="Core\Queries\Statements\Operators\AssignStatement.cs" />
     <Compile Include="Core\Queries\Statements\Operators\ComparisonOperator.cs" />
     <Compile Include="Core\Queries\Statements\Operators\ComparisonStatement.cs" />
     <Compile Include="Core\Queries\Statements\Operators\ConditionalOperator.cs" />
     <Compile Include="Core\Queries\Statements\Operators\ConditionalStatement.cs" />
-    <Compile Include="Core\Queries\Statements\UpdateStatement.cs" />
     <Compile Include="Core\Queries\Statements\Values\ColumnValueStatement.cs" />
     <Compile Include="Core\Queries\Statements\Values\ConstantStatement.cs" />
     <Compile Include="Core\Queries\Statements\Values\RangeConstantStatement.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Core\Queries\IStatementFactory.cs" />
     <Compile Include="Core\Database\ObjectContextDatabaseContextAdapter.cs" />
     <Compile Include="Core\Queries\QueryProcessor.cs" />
+    <Compile Include="Core\Queries\UpdateQuery.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />
     <Compile Include="Helpers\ThrowHelper.cs" />
