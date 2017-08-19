@@ -9,5 +9,10 @@
         {
             Value = value;
         }
+
+        public void Visit(IStatementTranslator queryTranslator)
+        {
+            queryTranslator.TranslateConstantStatement(this);
+        }
     }
 }

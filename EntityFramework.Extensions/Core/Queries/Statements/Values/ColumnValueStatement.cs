@@ -12,5 +12,10 @@ namespace EntityFramework.Extensions.Core.Queries.Statements.Values
         {
             ColumnMapping = mapping;
         }
+
+        public void Visit(IStatementTranslator queryTranslator)
+        {
+            queryTranslator.TranslateColumnExpressionStatement(this);
+        }
     }
 }

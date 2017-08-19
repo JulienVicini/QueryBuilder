@@ -16,5 +16,10 @@
             Operator = @operator;
             Right    = right;
         }
+
+        public void Visit(IStatementTranslator queryTranslator)
+        {
+            queryTranslator.TranslateArithmeticStatement(this);
+        }
     }
 }

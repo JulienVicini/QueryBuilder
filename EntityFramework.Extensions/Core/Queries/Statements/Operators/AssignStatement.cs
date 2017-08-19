@@ -1,15 +1,15 @@
-﻿using EntityFramework.Extensions.Core.Mappings;
+﻿using EntityFramework.Extensions.Core.Queries.Statements.Values;
 
 namespace EntityFramework.Extensions.Core.Queries.Statements.Operators
 {
     public class AssignStatement<TEntity>
         where TEntity : class
     {
-        public ColumnMapping<TEntity> Column { get; private set; }
+        public ColumnValueStatement<TEntity> Column { get; private set; }
 
         public IValueStatement Value { get; private set; }
 
-        public AssignStatement(ColumnMapping<TEntity> column, IValueStatement value)
+        public AssignStatement(ColumnValueStatement<TEntity> column, IValueStatement value)
         {
             Column = column;
             Value  = value;

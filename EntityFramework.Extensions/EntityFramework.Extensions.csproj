@@ -39,6 +39,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,7 +58,7 @@
     <Compile Include="Core\Database\IDatabaseContext.cs" />
     <Compile Include="Core\Database\ICommandProcessing.cs" />
     <Compile Include="Core\Queries\DeleteQuery.cs" />
-    <Compile Include="Core\Queries\IQueryTranslator.cs" />
+    <Compile Include="Core\Queries\Statements\IStatementTranslator.cs" />
     <Compile Include="Core\Queries\Statements\DeleteStatement.cs" />
     <Compile Include="Core\Queries\Statements\IValueStatement.cs" />
     <Compile Include="Core\Queries\Statements\Operators\ArithmeticOperator.cs" />
@@ -67,6 +70,7 @@
     <Compile Include="Core\Queries\Statements\Operators\ConditionalStatement.cs" />
     <Compile Include="Core\Queries\Statements\Values\ColumnValueStatement.cs" />
     <Compile Include="Core\Queries\Statements\Values\ConstantStatement.cs" />
+    <Compile Include="Core\Queries\Statements\IVisitableStatement.cs" />
     <Compile Include="Core\Queries\Statements\Values\RangeConstantStatement.cs" />
     <Compile Include="Core\Queries\Statements\IFilterStatement.cs" />
     <Compile Include="Core\Queries\ParameterCollection.cs" />
@@ -76,6 +80,8 @@
     <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />
     <Compile Include="Helpers\ThrowHelper.cs" />
     <Compile Include="SqlServer\DataTableDataTransformer.cs" />
+    <Compile Include="SqlServer\Queries\SQLOperatorConverter.cs" />
+    <Compile Include="SqlServer\Queries\SQLStatementTranslator.cs" />
     <Compile Include="SqlServer\SqlBulkCopyExecutor.cs" />
     <Compile Include="Core\Mappings\ColumnMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

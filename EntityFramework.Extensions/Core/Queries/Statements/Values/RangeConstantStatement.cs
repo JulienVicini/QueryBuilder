@@ -11,5 +11,10 @@ namespace EntityFramework.Extensions.Core.Queries.Statements.Values
         {
             Values = values;
         }
+
+        public void Visit(IStatementTranslator queryTranslator)
+        {
+            queryTranslator.TranslateRangeStatement(this);
+        }
     }
 }
