@@ -20,15 +20,25 @@ namespace EntityFramework.Extensions.Samples
 
             using(var context = new SchoolDbContext())
             {
+                var dbPersons = context.Persons.AsNoTracking()
+                                               .Take(1000)
+                                               .ToList();
+
+                dbPersons.ForEach(p => {
+                    p.Age += 10;
+                });
+
+                context.Persons.BulkMerge(dbPersons, p => new { p.FirstName, p.LastName });
+
                 //context.Persons.BulkInsert(persons);
 
                 //context.Persons.Where(p => p.Id > 1000)
                 //               .Delete();
 
-                context.Persons.Where(p => p.Id < 100)
-                               .SetValue(p => p.Age      , 100                        )
-                               .SetValue(p => p.FirstName, p => p.FirstName + "suffix")
-                               .Update();
+                //context.Persons.Where(p => p.Id < 100)
+                //               .SetValue(p => p.Age      , 100                        )
+                //               .SetValue(p => p.FirstName, p => p.FirstName + "suffix")
+                //               .Update();
 
 
                 //context.Persons.SetValue(p => p.Id  , 3            )

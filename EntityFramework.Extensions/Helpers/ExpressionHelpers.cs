@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace EntityFramework.Extensions.Helpers
@@ -31,6 +33,15 @@ namespace EntityFramework.Extensions.Helpers
                 MakeMemberExpression(memberAssignment),
                 memberAssignment.Expression
             );
+        }
+
+        public static IEnumerable<MemberExpression> GetSelectedMemberInAnonymousType<TEntity, TColumns>(Expression<Func<TEntity, TColumns>> expression)
+        {
+            var newExpression = expression.Body as NewExpression;
+
+            return newExpression.Arguments.Select(arg => (MemberExpression)arg)
+                                          .ToList();
+             //expression.Body;
         }
     }
 }

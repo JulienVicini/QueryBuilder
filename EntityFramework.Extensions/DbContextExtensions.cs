@@ -3,7 +3,7 @@ using EntityFramework.Extensions.Core.Database;
 using EntityFramework.Extensions.Core.Mappings;
 using EntityFramework.Extensions.Core.Queries;
 using EntityFramework.Extensions.Helpers;
-using EntityFramework.Extensions.SqlServer;
+using EntityFramework.Extensions.SqlServer.Bulk;
 using EntityFramework.Extensions.SqlServer.Queries;
 using System;
 using System.Collections.Generic;
@@ -47,10 +47,36 @@ namespace EntityFramework.Extensions
             bulkCopy.WriteToServer(data);
         }
 
-        public static void BulkMerge<TEntity, TColumns>( this DbSet<TEntity> dbSet, IEnumerable<TEntity> data, Expression<Func<TEntity, TColumns>> mergeColumns, bool updateOnly = false)
+        public static void BulkMerge<TEntity, TColumns>( this DbSet<TEntity> dbSet, IEnumerable<TEntity> data, Expression<Func<TEntity, TColumns>> mergeOnColumns, bool updateOnly = false)
             where TEntity : class
         {
-            throw new NotImplementedException();
+            ObjectContext context = IQueryableHelpers.GetObjectContext(dbSet);
+
+            var databaseContext = new ObjectContextDatabaseContextAdapter(context);
+
+            IMappingAdapter<TEntity> mappingAdapter = new EntityTypeMappingAdapter<TEntity>(
+                context.GetEntityMetaData<TEntity>()
+            );
+
+            IEnumerable<MemberExpression> mergeKeys = ExpressionHelpers.GetSelectedMemberInAnonymousType(mergeOnColumns);
+
+            string temporaryTable = "#tmp_bulk";
+
+            // TODO change update or insert selection
+            var mergeQuery = new MergeQuery<TEntity>(mergeKeys, temporaryTable, updateOnly ? MergeQuery<TEntity>.MergeType.UpdateOnly : MergeQuery<TEntity>.MergeType.InsertOrUpdate);
+            var queryOrchestrator = new QueryOrchestrator<TEntity>(
+                new SqlQueryTranslator<TEntity>(mappingAdapter),
+                databaseContext
+            ); 
+
+            // TODO put in factory
+            var bulkCopy = new BulkOrchestrator<TEntity, DataTable>(
+                bulkExecutor   : new SqlBulkMergeExecutor<TEntity>(databaseContext, queryOrchestrator, mergeQuery),
+                dataTransformer: new DataTableDataTransformer<TEntity>(mappingAdapter),
+                mappingAdapter : mappingAdapter
+            );
+
+            bulkCopy.WriteToServer(data);
         }
 
         public static int Delete<T>(this IQueryable<T> queryable)

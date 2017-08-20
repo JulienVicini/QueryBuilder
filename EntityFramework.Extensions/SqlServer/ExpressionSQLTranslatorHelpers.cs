@@ -5,9 +5,9 @@ namespace EntityFramework.Extensions.SqlServer
 {
     public static class ExpressionSQLTranslatorHelpers
     {
-        public static string GetOpertor(BinaryExpression binaryExpression)
+        public static string GetOpertor(ExpressionType expressionType)
         {
-            switch (binaryExpression.NodeType)
+            switch (expressionType)
             {
                 case ExpressionType.Assign:
                 case ExpressionType.Equal: return "=";
@@ -29,7 +29,7 @@ namespace EntityFramework.Extensions.SqlServer
                 case ExpressionType.Modulo  : return "%";
 
                 default:
-                    throw new NotSupportedException($"Cannot convert {binaryExpression.NodeType} to SQL Operator.");
+                    throw new NotSupportedException($"Cannot convert {expressionType} to SQL Operator.");
             }
         }
     }

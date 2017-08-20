@@ -53,7 +53,7 @@ namespace EntityFramework.Extensions.SqlServer.Queries
             base.Visit(node.Left);
 
             _queryBuilder.Append(" ")
-                         .Append(ExpressionSQLTranslatorHelpers.GetOpertor(node))
+                         .Append(ExpressionSQLTranslatorHelpers.GetOpertor(node.NodeType))
                          .Append(" ");
 
             base.Visit(node.Right);

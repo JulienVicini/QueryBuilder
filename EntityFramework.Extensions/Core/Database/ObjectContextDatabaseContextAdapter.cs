@@ -16,6 +16,11 @@ namespace EntityFramework.Extensions.Core.Database
             _objectContext = objectContext ?? throw new ArgumentNullException(nameof(objectContext));
         }
 
+        public DbTransaction BeginTransaction()
+        {
+            return _objectContext.Connection.BeginTransaction();
+        }
+
         public DbConnection GetConnection()
         {
             return _objectContext.Connection;

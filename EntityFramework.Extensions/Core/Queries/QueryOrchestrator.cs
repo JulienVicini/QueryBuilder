@@ -17,6 +17,16 @@ namespace EntityFramework.Extensions.Core.Queries
             _queryProcessor  = queryProcessor  ?? throw new ArgumentNullException(nameof(queryProcessor));
         }
 
+        public int Alter(AlterTableQuery<TEntity> alterQuery)
+        {
+            (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(alterQuery);
+
+            return _queryProcessor.ExecuteCommand(
+                query     : query,
+                parameters: parameters
+            );
+        }
+
         public int Update(UpdateQuery<TEntity> updateQuery)
         {
             (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(updateQuery);
@@ -30,6 +40,16 @@ namespace EntityFramework.Extensions.Core.Queries
         public int Delete(DeleteQuery<TEntity> deleteQuery)
         {
             (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(deleteQuery);
+
+            return _queryProcessor.ExecuteCommand(
+                query     : query,
+                parameters: parameters
+            );
+        }
+
+        public int Merge(MergeQuery<TEntity> mergeQuery)
+        {
+            (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(mergeQuery);
 
             return _queryProcessor.ExecuteCommand(
                 query     : query,

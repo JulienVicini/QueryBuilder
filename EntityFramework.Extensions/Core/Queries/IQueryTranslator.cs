@@ -8,5 +8,9 @@ namespace EntityFramework.Extensions.Core.Queries
         (string, IEnumerable<object>) TranslateQuery(DeleteQuery<TEntity> query);
 
         (string, IEnumerable<object>) TranslateQuery(UpdateQuery<TEntity> query);
+
+        (string, IEnumerable<object>) TranslateQuery(AlterTableQuery<TEntity> query);
+
+        (string, IEnumerable<object>) TranslateQuery(MergeQuery<TEntity> query);
     }
 }

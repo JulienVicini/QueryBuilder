@@ -26,7 +26,7 @@ namespace EntityFramework.Extensions.Tests.QueriesHelpers
 
             Assert.AreEqual(
                 expectedOperator,
-                ExpressionSQLTranslatorHelpers.GetOpertor(binaryExpr)
+                ExpressionSQLTranslatorHelpers.GetOpertor(binaryExpr.NodeType)
             );
         }
 
