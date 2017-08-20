@@ -1,7 +1,6 @@
 ﻿using EntityFramework.Extensions.Core.Mappings;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace EntityFramework.Extensions.SqlServer.Queries
 {
@@ -9,9 +8,7 @@ namespace EntityFramework.Extensions.SqlServer.Queries
         : ExpressionVisitor
         where TEntity : class
     {
-        private SqlParameterCollection _parameters;
-
-        private StringBuilder _stringBuilder;
+        private SqlQueryBuilder _queryBuilder;
 
         private IMappingAdapter<TEntity> _mappingAdapter;
 
@@ -20,19 +17,20 @@ namespace EntityFramework.Extensions.SqlServer.Queries
             _mappingAdapter = mappingAdapter;
         }
 
-        private void Init()
+        public SqlQueryBuilder Generate( Expression expression )
         {
-            _parameters = new SqlParameterCollection();
-            _stringBuilder = new StringBuilder();
-        }
+            _queryBuilder = new SqlQueryBuilder();
 
-        public (string query, SqlParameterCollection paramters) Generate( Expression expression )
+            AppendPart(_queryBuilder, expression);
+
+            return _queryBuilder;
+        } 
+
+        public void AppendPart( SqlQueryBuilder queryBuilder, Expression expression )
         {
-            Init();
+            _queryBuilder = queryBuilder;
 
             Visit(expression);
-
-            return (_stringBuilder.ToString(), _parameters);
         }
 
         protected override Expression VisitMember(MemberExpression node)
@@ -43,35 +41,38 @@ namespace EntityFramework.Extensions.SqlServer.Queries
                 = _mappingAdapter.GetColumns()
                                  .First(c => c.PropertyInfo.Name == memberName);
 
-            _stringBuilder.Append(column.DbColumnName);
+            _queryBuilder.Query.Append(column.DbColumnName);
 
             return node;
         }
 
         protected override Expression VisitBinary(BinaryExpression node)
         {
-            _stringBuilder.Append("(");
+            //_queryBuilder.Query.Append("(");
 
             base.Visit(node.Left);
 
-            _stringBuilder.Append(" ")
-                          .Append(ExpressionSQLTranslatorHelpers.GetOpertor(node))
-                          .Append(" ");
+            _queryBuilder.Query.Append(" ")
+                               .Append(ExpressionSQLTranslatorHelpers.GetOpertor(node))
+                               .Append(" ");
 
             base.Visit(node.Right);
 
-            _stringBuilder.Append(")");
+            //_queryBuilder.Query.Append(")");
 
             return node;
         }
 
         protected override Expression VisitConstant(ConstantExpression node)
         {
-            _stringBuilder.Append(
-                _parameters.AddParameter(node.Value)
-            );
+            _queryBuilder.AppendValue(node.Value);
 
             return base.VisitConstant(node);
+        }
+
+        protected override Expression VisitUnary(UnaryExpression node)
+        {
+            return base.VisitUnary(node);
         }
     }
 }

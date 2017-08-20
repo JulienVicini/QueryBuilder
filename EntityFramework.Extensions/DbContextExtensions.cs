@@ -75,8 +75,43 @@ namespace EntityFramework.Extensions
             return orchestrator.Delete(query);
         }
 
-        public static void Update<T>(this IQueryable<T> query, params Expression<Action<T>>[] setters)
-            where T : class => throw new NotImplementedException();
+        public static UpdateQueryBuilder<T> SetValue<T, TValue>( this IQueryable<T> queryable, Expression<Func<T, TValue>> memberExpression, Expression<Func<T, TValue>> valueExpression )
+        {
+            return new UpdateQueryBuilder<T>(queryable)
+                        .SetValue(memberExpression, valueExpression);
+        }
+
+        public static UpdateQueryBuilder<T> SetValue<T, TValue>(this IQueryable<T> queryable, Expression<Func<T, TValue>> memberExpression, TValue value)
+        {
+            return new UpdateQueryBuilder<T>(queryable)
+                        .SetValue(memberExpression, value);
+        }
+
+        public static int Update<T>(this UpdateQueryBuilder<T> updateBuilder) where T : class
+        {
+            IQueryable<T> queryable = updateBuilder.Queryable;
+
+            // Create Query
+            var query = new UpdateQuery<T>(
+                updateBuilder.Assignements,
+                IQueryableHelpers.GetQueryPredicate(queryable)
+            );
+
+            // Get info from IQueryable
+            ObjectContext objectContext = IQueryableHelpers.GetObjectContext(queryable);
+
+            var objectContextAdapter = new ObjectContextDatabaseContextAdapter(objectContext);
+
+            var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
+
+            // Create Query
+            var orchestrator = new QueryOrchestrator<T>(
+                new SqlQueryTranslator<T>(mappingAdapter),
+                objectContextAdapter
+            );
+
+            return orchestrator.Update(query);
+        }
 
         //public static int ProcessQuery(Query command, ObjectContext objectContext)
         //{

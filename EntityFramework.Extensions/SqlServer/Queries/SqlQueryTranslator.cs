@@ -1,10 +1,9 @@
 ﻿using EntityFramework.Extensions.Core.Mappings;
 using EntityFramework.Extensions.Core.Queries;
+using EntityFramework.Extensions.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace EntityFramework.Extensions.SqlServer.Queries
 {
@@ -21,38 +20,71 @@ namespace EntityFramework.Extensions.SqlServer.Queries
             _statementGeneration = new SQLStatementGenerator<TEntity>(mappingAdapter);
         }
 
+        #region Delete
+
         public (string, IEnumerable<object>) TranslateQuery(DeleteQuery<TEntity> query)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var queryBuilder = new SqlQueryBuilder();
 
-            AppendOperation(stringBuilder, "DELETE");
+            AppendOperation(queryBuilder, "DELETE");
+            AppendPredicate( queryBuilder, query.Predicate );
 
-            SqlParameterCollection queryParameters = null;
-
-            if (query.Predicate != null)
-                queryParameters = AppendPredicate( stringBuilder, query.Predicate );
-
-            return (
-                stringBuilder.ToString(),
-                queryParameters?.Parameters.ToArray()
-            );
+            return queryBuilder.Build();
         }
 
-        protected void AppendOperation(StringBuilder builder, string operation)
+        #endregion
+
+        #region Update
+
+        public (string, IEnumerable<object>) TranslateQuery(UpdateQuery<TEntity> query)
         {
-            builder.Append(operation)
-                   .Append(" ")
-                   .Append(_mappingAdapter.GetTableName());
+            var queryBuilder = new SqlQueryBuilder();
+
+            AppendOperation(queryBuilder, "UPDATE");
+            AppendUpdateStatements(queryBuilder, query.Assignments);
+            AppendPredicate(queryBuilder, query.Predicate);
+
+            return queryBuilder.Build();
         }
 
-        protected SqlParameterCollection AppendPredicate( StringBuilder stringBuilder, Expression<Func<TEntity, bool>> predicate )
+        #endregion
+
+        #region Commons
+
+        protected void AppendOperation(SqlQueryBuilder builder, string operation)
         {
-            (string query, SqlParameterCollection parameters) = _statementGeneration.Generate(predicate);
-
-            stringBuilder.Append(" WHERE ")
-                         .Append(query);
-
-            return parameters;
+            builder.Query.Append(operation)
+                         .Append(" ")
+                         .Append(_mappingAdapter.GetTableName());
         }
+
+        protected void AppendPredicate( SqlQueryBuilder queryBuilder, Expression<Func<TEntity, bool>> predicate )
+        {
+            if (predicate == null)
+                return;
+
+            queryBuilder.Query.Append(" WHERE ");
+
+            _statementGeneration.AppendPart(queryBuilder, predicate);
+        }
+
+        protected void AppendUpdateStatements( SqlQueryBuilder queryBuilder, IEnumerable<MemberAssignment> assignments )
+        {
+            queryBuilder.Query.Append(" SET ");
+
+            bool first = true;
+            
+            foreach(MemberAssignment assignment in assignments)
+            {
+                if (first) first = false;
+                else queryBuilder.Query.Append(", ");
+
+                Expression asssignExpression = ExpressionHelpers.MakeAssign(assignment);
+
+                _statementGeneration.AppendPart(queryBuilder, asssignExpression);
+            }
+        }
+
+        #endregion
     }
 }

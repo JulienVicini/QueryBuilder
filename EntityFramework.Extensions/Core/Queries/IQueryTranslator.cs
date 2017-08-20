@@ -6,5 +6,7 @@ namespace EntityFramework.Extensions.Core.Queries
         where TEntity : class
     {
         (string, IEnumerable<object>) TranslateQuery(DeleteQuery<TEntity> query);
+
+        (string, IEnumerable<object>) TranslateQuery(UpdateQuery<TEntity> query);
     }
 }

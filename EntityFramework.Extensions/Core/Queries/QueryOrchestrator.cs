@@ -17,6 +17,16 @@ namespace EntityFramework.Extensions.Core.Queries
             _queryProcessor  = queryProcessor  ?? throw new ArgumentNullException(nameof(queryProcessor));
         }
 
+        public int Update(UpdateQuery<TEntity> updateQuery)
+        {
+            (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(updateQuery);
+
+            return _queryProcessor.ExecuteCommand(
+                query     : query,
+                parameters: parameters
+            );
+        }
+
         public int Delete(DeleteQuery<TEntity> deleteQuery)
         {
             (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(deleteQuery);

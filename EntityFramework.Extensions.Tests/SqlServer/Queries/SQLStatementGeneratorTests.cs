@@ -16,7 +16,7 @@ namespace EntityFramework.Extensions.Tests.SqlServer.Queries
     {
         private SQLStatementGenerator<Parent> _generator;
         private string _query;
-        private Extensions.SqlServer.SqlParameterCollection _parameters;
+        private IEnumerable<SqlParameter> _parameters;
 
         [TestInitialize]
         public void Init()
@@ -42,8 +42,8 @@ namespace EntityFramework.Extensions.Tests.SqlServer.Queries
 
             (_query, _parameters) = _generator.Generate(constanteExpr);
             Assert.AreEqual(_query, "@p0");
-            Assert.AreEqual(1, _parameters.Parameters.Count());
-            Assert.AreEqual(3, _parameters.Parameters.First().Value);
+            Assert.AreEqual(1, _parameters.Count()      );
+            Assert.AreEqual(3, _parameters.First().Value);
         }
 
         [TestMethod]
@@ -56,10 +56,10 @@ namespace EntityFramework.Extensions.Tests.SqlServer.Queries
 
             (_query, _parameters)  = _generator.Generate(additionExpr);
             Assert.AreEqual(_query, "(@p0 + @p1)");
-            Assert.AreEqual(2, _parameters.Parameters.Count());
+            Assert.AreEqual(2, _parameters.Count());
 
-            SqlParameter leftParameter  = _parameters.Parameters.First();
-            SqlParameter rightParameter = _parameters.Parameters.Last();
+            SqlParameter leftParameter  = _parameters.First();
+            SqlParameter rightParameter = _parameters.Last();
 
             Assert.AreEqual(3    , leftParameter.Value);
             Assert.AreEqual("@p0", leftParameter.ParameterName);
@@ -75,7 +75,7 @@ namespace EntityFramework.Extensions.Tests.SqlServer.Queries
 
             (_query, _parameters) = _generator.Generate(memberExpression);
 
-            Assert.AreEqual(0, _parameters.Parameters.Count());
+            Assert.AreEqual(0, _parameters.Count());
             Assert.AreEqual("P_First", _query);
         }
 
@@ -86,10 +86,10 @@ namespace EntityFramework.Extensions.Tests.SqlServer.Queries
 
             (_query, _parameters) = _generator.Generate(predicate);
 
-            Assert.AreEqual(2, _parameters.Parameters.Count());
+            Assert.AreEqual(2, _parameters.Count());
 
-            SqlParameter firstParameter  = _parameters.Parameters.First();
-            SqlParameter secondParameter = _parameters.Parameters.Last();
+            SqlParameter firstParameter  = _parameters.First();
+            SqlParameter secondParameter = _parameters.Last();
 
             Assert.AreEqual("@p0", firstParameter.ParameterName);
             Assert.AreEqual("@p1", secondParameter.ParameterName);

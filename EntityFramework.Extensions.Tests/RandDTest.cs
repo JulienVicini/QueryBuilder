@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using EntityFramework.Extensions.Tests.Context;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Linq.Expressions;
 
 namespace EntityFramework.Extensions.Tests
 {
@@ -8,23 +11,10 @@ namespace EntityFramework.Extensions.Tests
         [TestMethod]
         public void Dummy()
         {
-            //using(var context = new Context.TestDbContext())
-            //{
-            //    IQueryable<Parent> unflitered = context.Parents;
+            Expression<Func<Parent, int>> parent1 = p => p.Id,
+                                          parent2 = p => p.Id;
 
-            //    IQueryable<Parent> fileted = context.Parents.Where(d => d.Id == 3);
-
-            //    var type = unflitered.Provider.GetType();
-
-            //    MethodCallExpression expr1 = unflitered.Expression as MethodCallExpression;
-            //    MethodCallExpression expr2 = fileted.Expression as MethodCallExpression;
-
-            //    //MethodCallExpression objectContextCall = expr1.Arguments.First() as MethodCallExpression;
-            //    ObjectQuery objectQuery = (ObjectQuery)((ConstantExpression )expr1.Object).Value;
-
-            //    // Execute Command
-            //    objectQuery.Context.ExecuteStoreCommand("DA COMMAND");
-            //}
+            bool areEquals = parent1 == parent2;
         }
     }
 }

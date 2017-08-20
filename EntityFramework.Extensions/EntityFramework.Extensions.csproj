@@ -60,7 +60,6 @@
     <Compile Include="Core\Queries\DeleteQuery.cs" />
     <Compile Include="Core\Queries\IQueryTranslator.cs" />
     <Compile Include="Core\Queries\QueryOrchestrator.cs" />
-    <Compile Include="Core\Queries\Statements\Builder\ExpressionStatementBuilder.cs" />
     <Compile Include="Core\Queries\Statements\Builder\IStatementFactory.cs" />
     <Compile Include="Core\Queries\Statements\Builder\StatementFactory.cs" />
     <Compile Include="Core\Queries\Statements\IStatementTranslator.cs" />
@@ -81,10 +80,13 @@
     <Compile Include="Core\Queries\ParameterCollection.cs" />
     <Compile Include="Core\Database\ObjectContextDatabaseContextAdapter.cs" />
     <Compile Include="Core\Queries\UpdateQuery.cs" />
+    <Compile Include="Core\Queries\UpdateQueryBuilder.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />
+    <Compile Include="Helpers\ExpressionHelpers.cs" />
     <Compile Include="Helpers\ThrowHelper.cs" />
     <Compile Include="SqlServer\DataTableDataTransformer.cs" />
+    <Compile Include="SqlServer\Queries\SqlQueryBuilder.cs" />
     <Compile Include="SqlServer\Queries\SqlQueryTranslator.cs" />
     <Compile Include="SqlServer\Queries\SQLStatementGenerator.cs" />
     <Compile Include="SqlServer\SqlBulkCopyExecutor.cs" />

@@ -20,10 +20,15 @@ namespace EntityFramework.Extensions.Samples
 
             using(var context = new SchoolDbContext())
             {
-                context.Persons.BulkInsert(persons);
+                //context.Persons.BulkInsert(persons);
 
-                context.Persons.Where(p => p.Id > 1000)
-                               .Delete();
+                //context.Persons.Where(p => p.Id > 1000)
+                //               .Delete();
+
+                context.Persons.Where(p => p.Id < 100)
+                               .SetValue(p => p.Age      , 100                     )
+                               .SetValue(p => p.FirstName, p => p.FirstName + p.Age)
+                               .Update();
 
 
                 //context.Persons.SetValue(p => p.Id  , 3            )

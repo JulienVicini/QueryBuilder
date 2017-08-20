@@ -9,6 +9,7 @@ namespace EntityFramework.Extensions.SqlServer
         {
             switch (binaryExpression.NodeType)
             {
+                case ExpressionType.Assign:
                 case ExpressionType.Equal: return "=";
                 //case ExpressionType.And:
                 case ExpressionType.AndAlso: return "AND";
