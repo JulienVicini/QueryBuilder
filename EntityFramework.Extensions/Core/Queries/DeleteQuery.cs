@@ -1,21 +1,15 @@
-﻿using EntityFramework.Extensions.Core.Queries.Statements;
-using System;
+﻿using System;
+using System.Linq.Expressions;
 
 namespace EntityFramework.Extensions.Core.Queries
 {
-    public class DeleteQuery
+    public class DeleteQuery<TEntity>
     {
-        public string TableName { get; private set; }
+        public Expression<Func<TEntity, bool>> Predicate { get; private set; }
 
-        public IFilterStatement Filter { get; private set; }
-
-        public DeleteQuery(string tableName, IFilterStatement filter)
+        public DeleteQuery(Expression<Func<TEntity, bool>> predicate)
         {
-            if (string.IsNullOrWhiteSpace(tableName))
-                throw new ArgumentException(nameof(tableName));
-
-            TableName = tableName;
-            Filter    = filter;
+            Predicate = predicate;
         }
     }
 }

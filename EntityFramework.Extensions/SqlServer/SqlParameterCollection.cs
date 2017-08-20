@@ -6,7 +6,7 @@ namespace EntityFramework.Extensions.SqlServer
 {
     public class SqlParameterCollection : ParameterCollection<SqlParameter>
     {
-        public override string AddParameter<T>(T value)
+        public override string AddParameter(object value)
         {
             string parameterName = "@p" + _parameters.Count();
 

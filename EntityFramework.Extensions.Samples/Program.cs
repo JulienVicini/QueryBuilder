@@ -22,6 +22,13 @@ namespace EntityFramework.Extensions.Samples
             {
                 context.Persons.BulkInsert(persons);
 
+                context.Persons.Where(p => p.Id > 1000)
+                               .Delete();
+
+
+                //context.Persons.SetValue(p => p.Id  , 3            )
+                //               .SetValue(p => p.Name, p => p.Id + 3)
+                //               .Update();
                 //context.Persons.Where(c => c.Id > 10000)
                 //               .Delete();
 

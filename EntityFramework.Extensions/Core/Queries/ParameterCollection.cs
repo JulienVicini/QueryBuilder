@@ -13,6 +13,17 @@ namespace EntityFramework.Extensions.Core.Queries
             _parameters = new List<TQueryParameter>();
         }
 
-        public abstract string AddParameter<T>(T value);
+        public abstract string AddParameter(object value);
+
+        //public string AddParameter(object value)
+        //{
+        //    Type valueType = value.GetType();
+
+        //    MethodInfo method = GetType().GetMethods()
+        //                                 .First(m => m.IsGenericMethod && m.Name == nameof(AddParameter));
+
+        //    return (string)method.MakeGenericMethod(valueType)
+        //                         .Invoke(this, new object[] { value });
+        //}
     }
 }

@@ -1,7 +1,9 @@
-﻿//namespace EntityFramework.Extensions.Core.Database
-//{
-//    public interface ICommandProcessing
-//    {
-//        int Execute(Query query);
-//    }
-//}
+﻿using System.Collections.Generic;
+
+namespace EntityFramework.Extensions.Core.Database
+{
+    public interface ICommandProcessing
+    {
+        int ExecuteCommand(string query, IEnumerable<object> parameters);
+    }
+}

@@ -1,8 +1,10 @@
 ﻿using EntityFramework.Extensions.Core.Bulk;
 using EntityFramework.Extensions.Core.Database;
 using EntityFramework.Extensions.Core.Mappings;
+using EntityFramework.Extensions.Core.Queries;
 using EntityFramework.Extensions.Helpers;
 using EntityFramework.Extensions.SqlServer;
+using EntityFramework.Extensions.SqlServer.Queries;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -51,19 +53,26 @@ namespace EntityFramework.Extensions
             throw new NotImplementedException();
         }
 
-        public static int Delete<T>(this IQueryable<T> query)
+        public static int Delete<T>(this IQueryable<T> queryable)
             where T : class
         {
-            throw new NotImplementedException();
-            //// Get info from IQueryable
-            //ObjectContext objectContext = IQueryableHelpers.GetObjectContext(query);
-            //Expression<Func<T, bool>> predicate = IQueryableHelpers.GetQueryPredicate(query);
+            // BuilderQuery
+            var query = new DeleteQuery<T>(IQueryableHelpers.GetQueryPredicate(queryable));
 
-            //// Create Query
-            //IQueryFactory<T> queryFactory = null;
-            //Query command = queryFactory.CreateDeleteQuery(predicate);
+            // Get info from IQueryable
+            ObjectContext objectContext = IQueryableHelpers.GetObjectContext(queryable);
 
-            //return ProcessQuery(command, objectContext);
+            var objectContextAdapter = new ObjectContextDatabaseContextAdapter(objectContext);
+
+            var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
+
+            // Create Query
+            var orchestrator = new QueryOrchestrator<T>(
+                new SqlQueryTranslator<T>(mappingAdapter),
+                objectContextAdapter
+            );
+
+            return orchestrator.Delete(query);
         }
 
         public static void Update<T>(this IQueryable<T> query, params Expression<Action<T>>[] setters)

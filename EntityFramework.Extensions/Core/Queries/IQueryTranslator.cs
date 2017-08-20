@@ -1,0 +1,10 @@
+﻿using System.Collections.Generic;
+
+namespace EntityFramework.Extensions.Core.Queries
+{
+    public interface IQueryTranslator<TEntity>
+        where TEntity : class
+    {
+        (string, IEnumerable<object>) TranslateQuery(DeleteQuery<TEntity> query);
+    }
+}
