@@ -41,7 +41,7 @@ namespace EntityFramework.Extensions.SqlServer.Queries
                 = _mappingAdapter.GetColumns()
                                  .First(c => c.PropertyInfo.Name == memberName);
 
-            _queryBuilder.Query.Append(column.DbColumnName);
+            _queryBuilder.Append(column.DbColumnName);
 
             return node;
         }
@@ -52,9 +52,9 @@ namespace EntityFramework.Extensions.SqlServer.Queries
 
             base.Visit(node.Left);
 
-            _queryBuilder.Query.Append(" ")
-                               .Append(ExpressionSQLTranslatorHelpers.GetOpertor(node))
-                               .Append(" ");
+            _queryBuilder.Append(" ")
+                         .Append(ExpressionSQLTranslatorHelpers.GetOpertor(node))
+                         .Append(" ");
 
             base.Visit(node.Right);
 
@@ -65,7 +65,7 @@ namespace EntityFramework.Extensions.SqlServer.Queries
 
         protected override Expression VisitConstant(ConstantExpression node)
         {
-            _queryBuilder.AppendValue(node.Value);
+            _queryBuilder.AppendParameterValue(node.Value);
 
             return base.VisitConstant(node);
         }

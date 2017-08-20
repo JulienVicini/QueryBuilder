@@ -6,36 +6,46 @@ namespace EntityFramework.Extensions.SqlServer.Queries
 {
     public class SqlQueryBuilder
     {
-        public StringBuilder Query { get; private set; }
+        private readonly StringBuilder _query;
 
-        public SqlParameterCollection ParameterCollection { get; private set; }
+        private List<SqlParameter> _parameters;
 
         public SqlQueryBuilder()
         {
-            Query               = new StringBuilder();
-            ParameterCollection = new SqlParameterCollection();
+            _query      = new StringBuilder();
+            _parameters = new List<SqlParameter>();
         }
 
-        public void AppendValue(object value)
+        public SqlQueryBuilder AppendParameterValue(object paremeterValue)
         {
-            string parameterName = ParameterCollection.AddParameter(value);
+            string parameterName = "@p" + _parameters.Count;
 
-            Query.Append(parameterName);
+            _parameters.Add(
+                new SqlParameter(parameterName, paremeterValue)
+            );
+
+            return Append(parameterName);
+        }
+
+        public SqlQueryBuilder Append(string text)
+        {
+            _query.Append(text);
+            return this;
         }
 
         // TODO suppress that
         public (string query, IEnumerable<object> parameters) Build()
         {
             return (
-                Query.ToString(),
-                ParameterCollection.Parameters
+                _query.ToString(),
+                _parameters
             );
         }
 
         public void Deconstruct(out string query, out IEnumerable<SqlParameter> parameters)
         {
-            query      = Query.ToString();
-            parameters = ParameterCollection.Parameters;
+            query      = _query.ToString();
+            parameters = _parameters;
         }
     }
 }

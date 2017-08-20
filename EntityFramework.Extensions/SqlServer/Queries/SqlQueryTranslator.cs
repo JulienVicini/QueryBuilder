@@ -53,9 +53,9 @@ namespace EntityFramework.Extensions.SqlServer.Queries
 
         protected void AppendOperation(SqlQueryBuilder builder, string operation)
         {
-            builder.Query.Append(operation)
-                         .Append(" ")
-                         .Append(_mappingAdapter.GetTableName());
+            builder.Append(operation)
+                   .Append(" ")
+                   .Append(_mappingAdapter.GetTableName());
         }
 
         protected void AppendPredicate( SqlQueryBuilder queryBuilder, Expression<Func<TEntity, bool>> predicate )
@@ -63,21 +63,21 @@ namespace EntityFramework.Extensions.SqlServer.Queries
             if (predicate == null)
                 return;
 
-            queryBuilder.Query.Append(" WHERE ");
+            queryBuilder.Append(" WHERE ");
 
             _statementGeneration.AppendPart(queryBuilder, predicate);
         }
 
         protected void AppendUpdateStatements( SqlQueryBuilder queryBuilder, IEnumerable<MemberAssignment> assignments )
         {
-            queryBuilder.Query.Append(" SET ");
+            queryBuilder.Append(" SET ");
 
             bool first = true;
             
             foreach(MemberAssignment assignment in assignments)
             {
                 if (first) first = false;
-                else queryBuilder.Query.Append(", ");
+                else queryBuilder.Append(", ");
 
                 Expression asssignExpression = ExpressionHelpers.MakeAssign(assignment);
 
