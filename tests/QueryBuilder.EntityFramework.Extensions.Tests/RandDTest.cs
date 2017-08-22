@@ -1,9 +1,9 @@
-﻿using EntityFramework.Extensions.Tests.Context;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QueryBuilder.EntityFramework.Extensions.Tests.Context;
 using System;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions.Tests
+namespace QueryBuilder.EntityFramework.Extensions.Tests
 {
     [TestClass]
     public class RandDTest

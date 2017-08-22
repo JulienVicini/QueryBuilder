@@ -1,11 +1,11 @@
-﻿using EntityFramework.Extensions.Core.Bulk;
-using EntityFramework.Extensions.Core.Mappings;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using QueryBuilder.EntityFramework.Extensions.Core.Bulk;
+using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
 using System;
 using System.Collections.Generic;
 
-namespace EntityFramework.Extensions.Tests.Core.BulkCopy
+namespace QueryBuilder.EntityFramework.Extensions.Tests.Core.BulkCopy
 {
     [TestClass]
     public class BulkCopyTest

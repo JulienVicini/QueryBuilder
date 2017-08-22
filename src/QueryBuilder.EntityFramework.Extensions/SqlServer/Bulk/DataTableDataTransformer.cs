@@ -1,12 +1,12 @@
-﻿using EntityFramework.Extensions.Core.Bulk;
-using EntityFramework.Extensions.Core.Mappings;
-using EntityFramework.Extensions.Helpers;
+﻿using QueryBuilder.EntityFramework.Extensions.Core.Bulk;
+using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
+using QueryBuilder.EntityFramework.Extensions.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace EntityFramework.Extensions.SqlServer.Bulk
+namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
 {
     public class DataTableDataTransformer<TEntity>
         : IDataTransformer<IEnumerable<TEntity>, DataTable>

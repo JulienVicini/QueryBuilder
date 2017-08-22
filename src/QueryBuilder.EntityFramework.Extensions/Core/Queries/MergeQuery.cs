@@ -1,9 +1,9 @@
-﻿using EntityFramework.Extensions.Helpers;
+﻿using QueryBuilder.EntityFramework.Extensions.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions.Core.Queries
+namespace QueryBuilder.EntityFramework.Extensions.Core.Queries
 {
     public class MergeQuery<TEntity>
         where TEntity : class

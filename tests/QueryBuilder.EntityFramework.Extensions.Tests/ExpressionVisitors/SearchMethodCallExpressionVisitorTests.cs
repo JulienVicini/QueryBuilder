@@ -1,10 +1,10 @@
-﻿using EntityFramework.Extensions.ExpressionVisitors;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QueryBuilder.EntityFramework.Extensions.ExpressionVisitors;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions.Tests.ExpressionVisitors
+namespace QueryBuilder.EntityFramework.Extensions.Tests.ExpressionVisitors
 {
     [TestClass]
     public class SearchMethodCallExpressionVisitorTests

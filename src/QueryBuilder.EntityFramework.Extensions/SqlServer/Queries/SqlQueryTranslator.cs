@@ -1,12 +1,12 @@
-﻿using EntityFramework.Extensions.Core.Mappings;
-using EntityFramework.Extensions.Core.Queries;
-using EntityFramework.Extensions.Helpers;
+﻿using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
+using QueryBuilder.EntityFramework.Extensions.Core.Queries;
+using QueryBuilder.EntityFramework.Extensions.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions.SqlServer.Queries
+namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
 {
     public class SqlQueryTranslator<TEntity>
         : IQueryTranslator<TEntity>

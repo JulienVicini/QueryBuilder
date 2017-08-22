@@ -1,12 +1,12 @@
-﻿using EntityFramework.Extensions.Core.Bulk;
-using EntityFramework.Extensions.Core.Database;
+﻿using QueryBuilder.EntityFramework.Extensions.Core.Bulk;
+using QueryBuilder.EntityFramework.Extensions.Core.Database;
 using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
 
-namespace EntityFramework.Extensions.SqlServer.Bulk
+namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
 {
     public class SqlBulkCopyExecutor
         : IBulkExecutor<DataTable>

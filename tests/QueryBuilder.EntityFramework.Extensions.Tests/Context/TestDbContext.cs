@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-namespace EntityFramework.Extensions.Tests.Context
+namespace QueryBuilder.EntityFramework.Extensions.Tests.Context
 {
     public class TestDbContext : DbContext
     {

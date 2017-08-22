@@ -1,10 +1,10 @@
-﻿using EntityFramework.Extensions.Helpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QueryBuilder.EntityFramework.Extensions.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EntityFramework.Extensions.Tests.Helpers
+namespace QueryBuilder.EntityFramework.Extensions.Tests.Helpers
 {
     [TestClass]
     public class ThrowHelperTests

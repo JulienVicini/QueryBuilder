@@ -1,7 +1,7 @@
-﻿using EntityFramework.Extensions.Core.Mappings;
+﻿using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
 using System;
 
-namespace EntityFramework.Extensions.SqlServer.Queries
+namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
 {
     public static class SqlTypeTranslator
     {

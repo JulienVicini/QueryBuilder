@@ -1,10 +1,10 @@
-﻿using EntityFramework.Extensions.Core.Bulk;
-using EntityFramework.Extensions.Core.Database;
-using EntityFramework.Extensions.Core.Mappings;
-using EntityFramework.Extensions.Core.Queries;
-using EntityFramework.Extensions.Helpers;
-using EntityFramework.Extensions.SqlServer.Bulk;
-using EntityFramework.Extensions.SqlServer.Queries;
+﻿using QueryBuilder.EntityFramework.Extensions.Core.Bulk;
+using QueryBuilder.EntityFramework.Extensions.Core.Database;
+using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
+using QueryBuilder.EntityFramework.Extensions.Core.Queries;
+using QueryBuilder.EntityFramework.Extensions.Helpers;
+using QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk;
+using QueryBuilder.EntityFramework.Extensions.SqlServer.Queries;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,7 +14,7 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions
+namespace QueryBuilder.EntityFramework.Extensions
 {
     public static class DbContextExtensions
     {

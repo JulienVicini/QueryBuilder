@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EntityFramework.Extensions.Helpers
+namespace QueryBuilder.EntityFramework.Extensions.Helpers
 {
     public static class ThrowHelper
     {

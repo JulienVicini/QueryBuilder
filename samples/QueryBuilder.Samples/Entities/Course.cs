@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EntityFramework.Extensions.Samples.Entities
+namespace QueryBuilder.Samples.Entities
 {
     public class Course
     {

@@ -1,8 +1,8 @@
-﻿using EntityFramework.Extensions.Core.Mappings;
+﻿using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions.SqlServer.Queries
+namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
 {
     public class SQLStatementGenerator<TEntity> 
         : ExpressionVisitor

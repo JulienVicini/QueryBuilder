@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EntityFramework.Extensions.Tests.Context
+namespace QueryBuilder.EntityFramework.Extensions.Tests.Context
 {
     public class Parent
     {

@@ -1,10 +1,10 @@
-﻿using EntityFramework.Extensions.Core.Database;
-using EntityFramework.Extensions.Core.Queries;
+﻿using QueryBuilder.EntityFramework.Extensions.Core.Database;
+using QueryBuilder.EntityFramework.Extensions.Core.Queries;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace EntityFramework.Extensions.SqlServer.Bulk
+namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
 {
     public class SqlBulkMergeExecutor<TEntity> : SqlBulkCopyExecutor
         where TEntity : class

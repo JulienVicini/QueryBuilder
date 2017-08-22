@@ -1,4 +1,4 @@
-﻿namespace EntityFramework.Extensions.Core.Queries
+﻿namespace QueryBuilder.EntityFramework.Extensions.Core.Queries
 {
     public class AlterTableQuery<TEntity>
         where TEntity : class

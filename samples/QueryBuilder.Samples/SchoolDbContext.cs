@@ -1,9 +1,9 @@
-﻿using EntityFramework.Extensions.Samples.Entities;
+﻿using QueryBuilder.Samples.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 
-namespace EntityFramework.Extensions.Samples
+namespace QueryBuilder.Samples
 {
     public class SchoolDbContext : DbContext
     {

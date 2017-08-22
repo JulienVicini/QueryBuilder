@@ -1,4 +1,4 @@
-﻿namespace EntityFramework.Extensions.Core.Bulk
+﻿namespace QueryBuilder.EntityFramework.Extensions.Core.Bulk
 {
     public interface IDataTransformer<TSource, TResult>
     {

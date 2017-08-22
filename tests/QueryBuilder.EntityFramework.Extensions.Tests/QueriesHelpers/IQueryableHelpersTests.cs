@@ -1,6 +1,6 @@
-﻿using EntityFramework.Extensions.Helpers;
-using EntityFramework.Extensions.Tests.Context;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QueryBuilder.EntityFramework.Extensions.Helpers;
+using QueryBuilder.EntityFramework.Extensions.Tests.Context;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
@@ -8,7 +8,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions.Tests.QueriesHelpers
+namespace QueryBuilder.EntityFramework.Extensions.Tests.QueriesHelpers
 {
     [TestClass]
     public class IQueryableHelpersTests

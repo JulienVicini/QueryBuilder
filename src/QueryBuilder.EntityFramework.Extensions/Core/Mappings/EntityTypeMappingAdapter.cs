@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core.Metadata.Edm;
 
-namespace EntityFramework.Extensions.Core.Mappings
+namespace QueryBuilder.EntityFramework.Extensions.Core.Mappings
 {
     public class EntityTypeMappingAdapter<TEntity>
         : IMappingAdapter<TEntity>

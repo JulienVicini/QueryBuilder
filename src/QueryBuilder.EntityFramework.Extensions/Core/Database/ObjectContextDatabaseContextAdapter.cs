@@ -4,7 +4,7 @@ using System.Data.Common;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 
-namespace EntityFramework.Extensions.Core.Database
+namespace QueryBuilder.EntityFramework.Extensions.Core.Database
 {
     public class ObjectContextDatabaseContextAdapter
         : IDatabaseContext, ICommandProcessing

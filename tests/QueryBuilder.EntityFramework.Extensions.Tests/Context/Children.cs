@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EntityFramework.Extensions.Tests.Context
+namespace QueryBuilder.EntityFramework.Extensions.Tests.Context
 {
     public class Children
     {

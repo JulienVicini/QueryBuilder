@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions.Helpers
+namespace QueryBuilder.EntityFramework.Extensions.Helpers
 {
     public static class ExpressionHelpers
     {

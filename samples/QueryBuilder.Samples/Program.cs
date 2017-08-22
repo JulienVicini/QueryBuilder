@@ -1,8 +1,9 @@
-﻿using EntityFramework.Extensions.Samples.Entities;
+﻿using QueryBuilder.EntityFramework.Extensions;
+using QueryBuilder.Samples.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EntityFramework.Extensions.Samples
+namespace QueryBuilder.Samples
 {
     class Program
     {

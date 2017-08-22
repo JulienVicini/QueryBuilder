@@ -1,8 +1,8 @@
-﻿using EntityFramework.Extensions.Core.Database;
+﻿using QueryBuilder.EntityFramework.Extensions.Core.Database;
 using System;
 using System.Collections.Generic;
 
-namespace EntityFramework.Extensions.Core.Queries
+namespace QueryBuilder.EntityFramework.Extensions.Core.Queries
 {
     public class QueryOrchestrator<TEntity>
         where TEntity : class

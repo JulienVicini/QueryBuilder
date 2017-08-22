@@ -2,7 +2,7 @@
 using System.Data;
 using System.Reflection;
 
-namespace EntityFramework.Extensions.Core.Mappings
+namespace QueryBuilder.EntityFramework.Extensions.Core.Mappings
 {
     public class ColumnMapping<TEntity>
         where TEntity : class

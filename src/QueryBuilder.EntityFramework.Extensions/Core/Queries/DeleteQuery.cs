@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace EntityFramework.Extensions.Core.Queries
+namespace QueryBuilder.EntityFramework.Extensions.Core.Queries
 {
     public class DeleteQuery<TEntity>
     {
