@@ -1,6 +1,6 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Core.Bulk;
-using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
-using QueryBuilder.EntityFramework.Extensions.Helpers;
+﻿using QueryBuilder.Core.Bulk;
+using QueryBuilder.Core.Mappings;
+using QueryBuilder.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;

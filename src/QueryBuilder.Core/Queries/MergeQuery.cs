@@ -1,9 +1,8 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Helpers;
-using System;
+﻿using QueryBuilder.Helpers;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions.Core.Queries
+namespace QueryBuilder.Core.Queries
 {
     public class MergeQuery<TEntity>
         where TEntity : class
@@ -24,7 +23,7 @@ namespace QueryBuilder.EntityFramework.Extensions.Core.Queries
         public MergeQuery(IEnumerable<MemberExpression> keys, string temporaryTableName, MergeType mergeType)
         {
             ThrowHelper.ThrowIfNullOrEmpty(keys, nameof(keys));
-            if (string.IsNullOrWhiteSpace(temporaryTableName)) throw new ArgumentException(nameof(temporaryTableName));
+            ThrowHelper.ThrowIfNullOrWhiteSpace(temporaryTableName, nameof(temporaryTableName));
 
             Keys               = keys;
             TemporaryTableName = temporaryTableName;

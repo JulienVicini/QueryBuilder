@@ -1,6 +1,6 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
-using QueryBuilder.EntityFramework.Extensions.Core.Queries;
-using QueryBuilder.EntityFramework.Extensions.Helpers;
+﻿using QueryBuilder.Core.Mappings;
+using QueryBuilder.Core.Queries;
+using QueryBuilder.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -250,7 +250,7 @@ namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
                 if (first) first = false;
                 else queryBuilder.Append(", ");
 
-                Expression asssignExpression = ExpressionHelpers.MakeAssign(assignment);
+                Expression asssignExpression = ExpressionHelper.MakeAssign(assignment);
 
                 _statementGeneration.AppendPart(queryBuilder, asssignExpression);
             }

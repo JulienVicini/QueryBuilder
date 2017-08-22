@@ -1,5 +1,5 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Core.Database;
-using QueryBuilder.EntityFramework.Extensions.Core.Queries;
+﻿using QueryBuilder.Core.Database;
+using QueryBuilder.Core.Queries;
 using System;
 using System.Data;
 using System.Data.SqlClient;

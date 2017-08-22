@@ -1,10 +1,13 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Core.Bulk;
+﻿using QueryBuilder.Core.Bulk;
+using QueryBuilder.Core.Database;
+using QueryBuilder.Core.Mappings;
+using QueryBuilder.Core.Queries;
 using QueryBuilder.EntityFramework.Extensions.Core.Database;
 using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
-using QueryBuilder.EntityFramework.Extensions.Core.Queries;
 using QueryBuilder.EntityFramework.Extensions.Helpers;
 using QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk;
 using QueryBuilder.EntityFramework.Extensions.SqlServer.Queries;
+using QueryBuilder.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -58,7 +61,7 @@ namespace QueryBuilder.EntityFramework.Extensions
                 context.GetEntityMetaData<TEntity>()
             );
 
-            IEnumerable<MemberExpression> mergeKeys = ExpressionHelpers.GetSelectedMemberInAnonymousType(mergeOnColumns);
+            IEnumerable<MemberExpression> mergeKeys = ExpressionHelper.GetSelectedMemberInAnonymousType(mergeOnColumns);
 
             string temporaryTable = "#tmp_bulk";
 

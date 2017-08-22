@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QueryBuilder.EntityFramework.Extensions.Helpers;
+using QueryBuilder.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QueryBuilder.EntityFramework.Extensions.Core.Database
+namespace QueryBuilder.Core.Database
 {
     public interface ICommandProcessing
     {

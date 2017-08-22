@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace QueryBuilder.EntityFramework.Extensions.Core.Database
+namespace QueryBuilder.Core.Database
 {
     public interface IDatabaseContext
     {

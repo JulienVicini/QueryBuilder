@@ -1,4 +1,4 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
+﻿using QueryBuilder.Core.Mappings;
 using System.Linq;
 using System.Linq.Expressions;
 

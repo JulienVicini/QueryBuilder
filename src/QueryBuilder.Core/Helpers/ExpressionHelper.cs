@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions.Helpers
+namespace QueryBuilder.Helpers
 {
-    public static class ExpressionHelpers
+    public static class ExpressionHelper
     {
         public static MemberExpression GetMemberExpression<T, TValue>(Expression<Func<T, TValue>> expression)
         {

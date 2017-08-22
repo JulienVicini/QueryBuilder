@@ -1,10 +1,10 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Helpers;
+﻿using QueryBuilder.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions.Core.Queries
+namespace QueryBuilder.Core.Queries
 {
     public class UpdateQueryBuilder<T>
     {
@@ -37,7 +37,7 @@ namespace QueryBuilder.EntityFramework.Extensions.Core.Queries
         // TODO refactor this
         public void AppendMemberAssignment<TValue>(Expression<Func<T, TValue>> memberLambdaExpression, Expression value)
         {
-            MemberExpression memberExpression = ExpressionHelpers.GetMemberExpression(memberLambdaExpression);
+            MemberExpression memberExpression = ExpressionHelper.GetMemberExpression(memberLambdaExpression);
 
             if (_assignements.Any(a => a.Member.Name == memberExpression.Member.Name))
                 throw new Exception("duplicate member assignement");

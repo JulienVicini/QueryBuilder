@@ -1,4 +1,4 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
+﻿using QueryBuilder.Core.Mappings;
 using System;
 
 namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
@@ -13,45 +13,45 @@ namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
             switch (columnMapping.DbType)
             {
                 // Exact Numeric values
-                case System.Data.DbType.Byte   : return "tinyint";
-                case System.Data.DbType.SByte  :
-                case System.Data.DbType.Int16  : return "smallint";
-                case System.Data.DbType.Int32  : return "int";
-                case System.Data.DbType.Int64  : return "bigint";
-                case System.Data.DbType.UInt16 : return "int";
-                case System.Data.DbType.UInt32 : return "bigint";
-                case System.Data.DbType.UInt64 : return "NUMERIC(20)";
-                case System.Data.DbType.Decimal: return $"decimal({columnMapping.Precision}, {columnMapping.Scale})";
-                case System.Data.DbType.Boolean: return "bit";
+                case DbType.Byte   : return "tinyint";
+                case DbType.SByte  :
+                case DbType.Int16  : return "smallint";
+                case DbType.Int32  : return "int";
+                case DbType.Int64  : return "bigint";
+                case DbType.UInt16 : return "int";
+                case DbType.UInt32 : return "bigint";
+                case DbType.UInt64 : return "NUMERIC(20)";
+                case DbType.Decimal: return $"decimal({columnMapping.Precision}, {columnMapping.Scale})";
+                case DbType.Boolean: return "bit";
                 // TODO MONEY
 
                 // Floating
-                case System.Data.DbType.Double: return "float";
-                case System.Data.DbType.Single: return "Real";
+                case DbType.Double: return "float";
+                case DbType.Single: return "Real";
 
                 // Date
-                case System.Data.DbType.Date          : return "date";
-                case System.Data.DbType.DateTime      : return "datetime";
-                case System.Data.DbType.DateTime2     : return "datetime2";
-                case System.Data.DbType.DateTimeOffset: return "datetimeoffset";
-                case System.Data.DbType.Time          : return "time";
+                case DbType.Date          : return "date";
+                case DbType.DateTime      : return "datetime";
+                case DbType.DateTime2     : return "datetime2";
+                case DbType.DateTimeOffset: return "datetimeoffset";
+                case DbType.Time          : return "time";
 
                 // Strings
-                case System.Data.DbType.AnsiString           : return $"varchar({columnMapping.Length?.ToString() ?? "max"})";
-                case System.Data.DbType.AnsiStringFixedLength: return $"char({columnMapping.Length?.ToString() ?? "max"})";
-                case System.Data.DbType.String               : return $"nvarchar({columnMapping.Length?.ToString() ?? "max"})";
-                case System.Data.DbType.StringFixedLength    : return $"nchar({columnMapping.Length?.ToString() ?? "max"})";
+                case DbType.AnsiString           : return $"varchar({columnMapping.Length?.ToString() ?? "max"})";
+                case DbType.AnsiStringFixedLength: return $"char({columnMapping.Length?.ToString() ?? "max"})";
+                case DbType.String               : return $"nvarchar({columnMapping.Length?.ToString() ?? "max"})";
+                case DbType.StringFixedLength    : return $"nchar({columnMapping.Length?.ToString() ?? "max"})";
 
                 // Binary
-                case System.Data.DbType.Binary               : return $"varbinary({columnMapping.Length?.ToString() ?? "max"})";
+                case DbType.Binary               : return $"varbinary({columnMapping.Length?.ToString() ?? "max"})";
 
                 // OTHER
-                case System.Data.DbType.Object: return "sql_variant";
-                case System.Data.DbType.Guid  : return "uniqueidentifier";
-                case System.Data.DbType.Xml   : return "xml";
+                case DbType.Object: return "sql_variant";
+                case DbType.Guid  : return "uniqueidentifier";
+                case DbType.Xml   : return "xml";
                 
-                case System.Data.DbType.Currency  :
-                case System.Data.DbType.VarNumeric:
+                case DbType.Currency  :
+                case DbType.VarNumeric:
                 default:
                     throw new NotImplementedException();
             }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QueryBuilder.EntityFramework.Extensions.Core.Queries
+namespace QueryBuilder.Core.Queries
 {
     public interface IQueryTranslator<TEntity>
         where TEntity : class

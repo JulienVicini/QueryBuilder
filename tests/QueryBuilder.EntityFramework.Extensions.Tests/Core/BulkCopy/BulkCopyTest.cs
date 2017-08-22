@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using QueryBuilder.EntityFramework.Extensions.Core.Bulk;
-using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
+using QueryBuilder.Core.Bulk;
+using QueryBuilder.Core.Mappings;
 using System;
 using System.Collections.Generic;
 

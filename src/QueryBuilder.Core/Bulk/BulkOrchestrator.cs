@@ -1,9 +1,9 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
-using QueryBuilder.EntityFramework.Extensions.Helpers;
+﻿using QueryBuilder.Core.Mappings;
+using QueryBuilder.Helpers;
 using System;
 using System.Collections.Generic;
 
-namespace QueryBuilder.EntityFramework.Extensions.Core.Bulk
+namespace QueryBuilder.Core.Bulk
 {
     public class BulkOrchestrator<TData, TBulkData>
         where TData : class

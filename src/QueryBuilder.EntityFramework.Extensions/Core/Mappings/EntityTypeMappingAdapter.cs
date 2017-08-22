@@ -1,6 +1,6 @@
-﻿using System;
+﻿using QueryBuilder.Core.Mappings;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity.Core.Metadata.Edm;
 
 namespace QueryBuilder.EntityFramework.Extensions.Core.Mappings
@@ -70,13 +70,11 @@ namespace QueryBuilder.EntityFramework.Extensions.Core.Mappings
                 case PrimitiveTypeKind.Int64   : return DbType.Int64;
                 case PrimitiveTypeKind.String:
                     if (isFixedLength.Value)
-                        return isUnicode.Value
-                            ? DbType.StringFixedLength
-                            : DbType.AnsiStringFixedLength;
+                        return isUnicode.Value ? DbType.StringFixedLength
+                                               : DbType.AnsiStringFixedLength;
                     else
-                        return isUnicode.Value
-                            ? DbType.String
-                            : DbType.AnsiString;
+                        return isUnicode.Value ? DbType.String
+                                               : DbType.AnsiString;
                 case PrimitiveTypeKind.Time          : return DbType.Time;
                 case PrimitiveTypeKind.DateTimeOffset: return DbType.DateTimeOffset;
 

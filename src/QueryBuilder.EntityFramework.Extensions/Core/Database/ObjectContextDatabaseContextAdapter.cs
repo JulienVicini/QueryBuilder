@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QueryBuilder.Core.Database;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity.Core.Objects;

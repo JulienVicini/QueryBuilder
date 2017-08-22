@@ -50,32 +50,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Bulk\BulkOrchestrator.cs" />
-    <Compile Include="Core\Bulk\IBulkExecutor.cs" />
-    <Compile Include="Core\Bulk\IDataTransformer.cs" />
-    <Compile Include="Core\Mappings\IMappingAdapter.cs" />
     <Compile Include="Core\Mappings\EntityTypeMappingAdapter.cs" />
-    <Compile Include="Core\Database\IDatabaseContext.cs" />
-    <Compile Include="Core\Database\ICommandProcessing.cs" />
-    <Compile Include="Core\Queries\DeleteQuery.cs" />
-    <Compile Include="Core\Queries\AlterTableQuery.cs" />
-    <Compile Include="Core\Queries\IQueryTranslator.cs" />
-    <Compile Include="Core\Queries\MergeQuery.cs" />
-    <Compile Include="Core\Queries\QueryOrchestrator.cs" />
     <Compile Include="Core\Database\ObjectContextDatabaseContextAdapter.cs" />
-    <Compile Include="Core\Queries\UpdateQuery.cs" />
-    <Compile Include="Core\Queries\UpdateQueryBuilder.cs" />
     <Compile Include="DbContextExtensions.cs" />
     <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />
-    <Compile Include="Helpers\ExpressionHelpers.cs" />
-    <Compile Include="Helpers\ThrowHelper.cs" />
     <Compile Include="SqlServer\Bulk\DataTableDataTransformer.cs" />
     <Compile Include="SqlServer\Bulk\SqlBulkMergeExecutor.cs" />
     <Compile Include="SqlServer\Queries\SqlQueryBuilder.cs" />
     <Compile Include="SqlServer\Queries\SqlQueryTranslator.cs" />
     <Compile Include="SqlServer\Queries\SQLStatementGenerator.cs" />
     <Compile Include="SqlServer\Bulk\SqlBulkCopyExecutor.cs" />
-    <Compile Include="Core\Mappings\ColumnMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServer\ExpressionSQLTranslatorHelpers.cs" />
     <Compile Include="Helpers\IQueryableHelpers.cs" />
@@ -85,6 +69,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\QueryBuilder.Core\QueryBuilder.Core.csproj">
+      <Project>{a1b7c63d-7a16-4288-8d98-24755c1078cd}</Project>
+      <Name>QueryBuilder.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

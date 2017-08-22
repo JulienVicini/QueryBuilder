@@ -1,5 +1,5 @@
-﻿using QueryBuilder.EntityFramework.Extensions.Core.Bulk;
-using QueryBuilder.EntityFramework.Extensions.Core.Database;
+﻿using QueryBuilder.Core.Bulk;
+using QueryBuilder.Core.Database;
 using System;
 using System.Data;
 using System.Data.Common;

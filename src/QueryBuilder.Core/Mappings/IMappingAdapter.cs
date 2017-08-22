@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QueryBuilder.EntityFramework.Extensions.Core.Mappings
+namespace QueryBuilder.Core.Mappings
 {
     public interface IMappingAdapter<TEntity>
         where TEntity : class

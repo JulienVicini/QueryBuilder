@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace QueryBuilder.EntityFramework.Extensions.Helpers
+namespace QueryBuilder.Helpers
 {
     public static class ThrowHelper
     {
@@ -13,6 +13,15 @@ namespace QueryBuilder.EntityFramework.Extensions.Helpers
 
             if (enumerable == null || !enumerable.Any())
                 throw new ArgumentException($"The parameter \"{argumentName}\" must contains at least one item.");
+        }
+
+        public static void ThrowIfNullOrWhiteSpace(string value, string argumentName)
+        {
+            if (string.IsNullOrWhiteSpace(argumentName))
+                throw new ArgumentException(nameof(argumentName));
+
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException($"The parameter \"{argumentName}\" cannot be null or a white space.");
         }
     }
 }
