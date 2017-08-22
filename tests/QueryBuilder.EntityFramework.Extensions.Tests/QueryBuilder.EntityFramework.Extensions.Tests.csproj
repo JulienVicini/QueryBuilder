@@ -7,8 +7,8 @@
     <ProjectGuid>{6FAFAEF1-DF03-4046-B34C-E6B9D25AC494}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityFramework.Extensions.Tests</RootNamespace>
-    <AssemblyName>EntityFramework.Extensions.Tests</AssemblyName>
+    <RootNamespace>QueryBuilder.EntityFramework.Extensions.Tests</RootNamespace>
+    <AssemblyName>QueryBuilder.EntityFramework.Extensions.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -82,9 +82,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\EntityFramework.Extensions\EntityFramework.Extensions.csproj">
+    <ProjectReference Include="..\..\src\QueryBuilder.EntityFramework.Extensions\QueryBuilder.EntityFramework.Extensions.csproj">
       <Project>{ba649122-3f38-4f19-92e9-92c66d6fb4b5}</Project>
-      <Name>EntityFramework.Extensions</Name>
+      <Name>QueryBuilder.EntityFramework.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

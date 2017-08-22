@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework.Extensions", "src\EntityFramework.Extensions\EntityFramework.Extensions.csproj", "{BA649122-3F38-4F19-92E9-92C66D6FB4B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramework.Extensions", "src\QueryBuilder.EntityFramework.Extensions\QueryBuilder.EntityFramework.Extensions.csproj", "{BA649122-3F38-4F19-92E9-92C66D6FB4B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework.Extensions.Tests", "tests\EntityFramework.Extensions.Tests\EntityFramework.Extensions.Tests.csproj", "{6FAFAEF1-DF03-4046-B34C-E6B9D25AC494}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramework.Extensions.Tests", "tests\QueryBuilder.EntityFramework.Extensions.Tests\QueryBuilder.EntityFramework.Extensions.Tests.csproj", "{6FAFAEF1-DF03-4046-B34C-E6B9D25AC494}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{34B950DE-1F2D-4CBB-B630-DDC8124BA79E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework.Extensions.Samples", "samples\EntityFramework.Extensions.Samples\EntityFramework.Extensions.Samples.csproj", "{D71CC04A-6A9D-4A94-AD5B-62A351F75167}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.Samples", "samples\QueryBuilder.Samples\QueryBuilder.Samples.csproj", "{D71CC04A-6A9D-4A94-AD5B-62A351F75167}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{89E369EF-D066-4184-AB84-48675AA2BE79}"
 EndProject
