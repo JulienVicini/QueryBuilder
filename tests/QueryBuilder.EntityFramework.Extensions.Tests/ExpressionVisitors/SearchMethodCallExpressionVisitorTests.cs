@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QueryBuilder.EntityFramework.Extensions.ExpressionVisitors;
+using QueryBuilder.EntityFramework.IQueryable;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

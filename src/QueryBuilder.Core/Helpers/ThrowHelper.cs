@@ -16,7 +16,8 @@ namespace QueryBuilder.Helpers
 
         public static void ThrowIfNullOrWhiteSpace(string value, string argumentName)
         {
-            ThrowIfNullOrWhiteSpace(argumentName, nameof(argumentName));
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException($"The parameter \"{nameof(argumentName)}\" cannot be null or a white space.");
 
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException($"The parameter \"{argumentName}\" cannot be null or a white space.");

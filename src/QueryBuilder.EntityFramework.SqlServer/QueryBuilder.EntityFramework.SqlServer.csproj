@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BA649122-3F38-4F19-92E9-92C66D6FB4B5}</ProjectGuid>
+    <ProjectGuid>{D7062133-C8EA-4838-92BA-7C686335DD8B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QueryBuilder.EntityFramework.Extensions</RootNamespace>
-    <AssemblyName>QueryBuilder.EntityFramework.Extensions</AssemblyName>
+    <RootNamespace>QueryBuilder.EntityFramework.SqlServer</RootNamespace>
+    <AssemblyName>QueryBuilder.EntityFramework.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,9 +39,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,30 +47,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Mappings\EntityTypeMappingAdapter.cs" />
-    <Compile Include="Core\Database\ObjectContextDatabaseContextAdapter.cs" />
     <Compile Include="DbContextExtensions.cs" />
-    <Compile Include="ExpressionVisitors\SearchWhereMethodCallExpressionVisitor.cs" />
-    <Compile Include="SqlServer\Bulk\DataTableDataTransformer.cs" />
-    <Compile Include="SqlServer\Bulk\SqlBulkMergeExecutor.cs" />
-    <Compile Include="SqlServer\Queries\SqlQueryBuilder.cs" />
-    <Compile Include="SqlServer\Queries\SqlQueryTranslator.cs" />
-    <Compile Include="SqlServer\Queries\SQLStatementGenerator.cs" />
-    <Compile Include="SqlServer\Bulk\SqlBulkCopyExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlServer\ExpressionSQLTranslatorHelpers.cs" />
-    <Compile Include="Helpers\IQueryableHelpers.cs" />
-    <Compile Include="SqlServer\Queries\SqlTypeTranslator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QueryBuilder.Core\QueryBuilder.Core.csproj">
+      <Project>{A1B7C63D-7A16-4288-8D98-24755C1078CD}</Project>
+      <Name>QueryBuilder.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.EntityFramework\QueryBuilder.EntityFramework.csproj">
+      <Project>{08D8F66C-40CB-4B9A-B559-490E27D2290F}</Project>
+      <Name>QueryBuilder.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj">
+      <Project>{58A211A9-A2DD-42EF-B931-81E24224B454}</Project>
+      <Name>QueryBuilder.SqlServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\QueryBuilder.Core\QueryBuilder.Core.csproj">
-      <Project>{a1b7c63d-7a16-4288-8d98-24755c1078cd}</Project>
-      <Name>QueryBuilder.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

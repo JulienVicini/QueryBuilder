@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
+namespace QueryBuilder.SqlServer.Queries
 {
     public class SQLStatementGenerator<TEntity> 
         : ExpressionVisitor
@@ -53,7 +53,7 @@ namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
             base.Visit(node.Left);
 
             _queryBuilder.Append(" ")
-                         .Append(ExpressionSQLTranslatorHelpers.GetOpertor(node.NodeType))
+                         .Append(SqlOperatorTranslator.GetOpertor(node.NodeType))
                          .Append(" ");
 
             base.Visit(node.Right);

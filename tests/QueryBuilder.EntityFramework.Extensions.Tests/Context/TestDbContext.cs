@@ -10,7 +10,7 @@ namespace QueryBuilder.EntityFramework.Extensions.Tests.Context
 
         static TestDbContext()
         {
-            Database.SetInitializer<TestDbContext>(null);
+            System.Data.Entity.Database.SetInitializer<TestDbContext>(null);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

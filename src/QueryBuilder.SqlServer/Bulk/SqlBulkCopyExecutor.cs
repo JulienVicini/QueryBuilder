@@ -4,7 +4,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
+namespace QueryBuilder.SqlServer.Bulk
 {
     public class SqlBulkCopyExecutor
         : IBulkExecutor<DataTable>

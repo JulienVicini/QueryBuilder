@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QueryBuilder.EntityFramework.Extensions")]
+[assembly: AssemblyTitle("QueryBuilder.SqlServer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("QueryBuilder.EntityFramework.Extensions")]
+[assembly: AssemblyProduct("QueryBuilder.SqlServer")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ba649122-3f38-4f19-92e9-92c66d6fb4b5")]
+[assembly: Guid("58a211a9-a2dd-42ef-b931-81e24224b454")]
 
 // Version information for an assembly consists of the following four values:
 //

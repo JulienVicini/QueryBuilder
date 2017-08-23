@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
+namespace QueryBuilder.SqlServer.Bulk
 {
     public class DataTableDataTransformer<TEntity>
         : IDataTransformer<IEnumerable<TEntity>, DataTable>

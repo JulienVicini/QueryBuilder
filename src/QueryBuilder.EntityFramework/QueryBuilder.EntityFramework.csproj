@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D71CC04A-6A9D-4A94-AD5B-62A351F75167}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>QueryBuilder.Samples</RootNamespace>
-    <AssemblyName>QueryBuilder.Samples</AssemblyName>
+    <ProjectGuid>{08D8F66C-40CB-4B9A-B559-490E27D2290F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QueryBuilder.EntityFramework</RootNamespace>
+    <AssemblyName>QueryBuilder.EntityFramework</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -44,26 +42,27 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Address.cs" />
-    <Compile Include="Entities\Course.cs" />
-    <Compile Include="Entities\Person.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Database\ObjectContextDatabaseAdapter.cs" />
+    <Compile Include="IQueryable\IQueryableHelpers.cs" />
+    <Compile Include="IQueryable\SearchWhereMethodCallExpressionVisitor.cs" />
+    <Compile Include="Mappings\EntityTypeMappingAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SchoolDbContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QueryBuilder.Core\QueryBuilder.Core.csproj">
+      <Project>{A1B7C63D-7A16-4288-8D98-24755C1078CD}</Project>
+      <Name>QueryBuilder.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\QueryBuilder.EntityFramework.SqlServer\QueryBuilder.EntityFramework.SqlServer.csproj">
-      <Project>{d7062133-c8ea-4838-92ba-7c686335dd8b}</Project>
-      <Name>QueryBuilder.EntityFramework.SqlServer</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

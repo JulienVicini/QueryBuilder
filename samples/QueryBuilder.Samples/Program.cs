@@ -1,4 +1,4 @@
-﻿using QueryBuilder.EntityFramework.Extensions;
+﻿using QueryBuilder.EntityFramework.SqlServer;
 using QueryBuilder.Samples.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +21,8 @@ namespace QueryBuilder.Samples
 
             using(var context = new SchoolDbContext())
             {
+                context.Persons.BulkInsert(persons);
+
                 var dbPersons = context.Persons.AsNoTracking()
                                                .Take(1000)
                                                .ToList();
@@ -31,7 +33,6 @@ namespace QueryBuilder.Samples
 
                 context.Persons.BulkMerge(dbPersons, p => new { p.FirstName, p.LastName });
 
-                //context.Persons.BulkInsert(persons);
 
                 //context.Persons.Where(p => p.Id > 1000)
                 //               .Delete();

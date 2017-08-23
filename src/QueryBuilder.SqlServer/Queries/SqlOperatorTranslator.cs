@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions.SqlServer
+namespace QueryBuilder.SqlServer.Queries
 {
-    public static class ExpressionSQLTranslatorHelpers
+    public static class SqlOperatorTranslator
     {
         public static string GetOpertor(ExpressionType expressionType)
         {

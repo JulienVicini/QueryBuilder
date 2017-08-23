@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D71CC04A-6A9D-4A94-AD5B-62A351F75167}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>QueryBuilder.Samples</RootNamespace>
-    <AssemblyName>QueryBuilder.Samples</AssemblyName>
+    <ProjectGuid>{58A211A9-A2DD-42EF-B931-81E24224B454}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QueryBuilder.SqlServer</RootNamespace>
+    <AssemblyName>QueryBuilder.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,38 +30,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Address.cs" />
-    <Compile Include="Entities\Course.cs" />
-    <Compile Include="Entities\Person.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Bulk\DataTableDataTransformer.cs" />
+    <Compile Include="Bulk\SqlBulkCopyExecutor.cs" />
+    <Compile Include="Bulk\SqlBulkMergeExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SchoolDbContext.cs" />
+    <Compile Include="Queries\SqlOperatorTranslator.cs" />
+    <Compile Include="Queries\SqlQueryBuilder.cs" />
+    <Compile Include="Queries\SqlQueryTranslator.cs" />
+    <Compile Include="Queries\SqlStatementGenerator.cs" />
+    <Compile Include="Queries\SqlTypeTranslator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\QueryBuilder.EntityFramework.SqlServer\QueryBuilder.EntityFramework.SqlServer.csproj">
-      <Project>{d7062133-c8ea-4838-92ba-7c686335dd8b}</Project>
-      <Name>QueryBuilder.EntityFramework.SqlServer</Name>
+    <ProjectReference Include="..\QueryBuilder.Core\QueryBuilder.Core.csproj">
+      <Project>{A1B7C63D-7A16-4288-8D98-24755C1078CD}</Project>
+      <Name>QueryBuilder.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

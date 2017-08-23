@@ -1,10 +1,9 @@
-﻿using QueryBuilder.EntityFramework.Extensions.ExpressionVisitors;
-using System;
+﻿using System;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions.Helpers
+namespace QueryBuilder.EntityFramework.IQueryable
 {
     public static class IQueryableHelpers
     {

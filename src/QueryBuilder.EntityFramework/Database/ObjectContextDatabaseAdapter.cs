@@ -6,16 +6,16 @@ using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 
-namespace QueryBuilder.EntityFramework.Extensions.Core.Database
+namespace QueryBuilder.EntityFramework.Database
 {
-    public class ObjectContextDatabaseContextAdapter<TConnection, TTransaction>
+    public class ObjectContextDatabaseAdapter<TConnection, TTransaction>
         : IDatabaseContext<TConnection, TTransaction>, ICommandProcessing
         where TConnection  : DbConnection
         where TTransaction : DbTransaction
     {
         private readonly ObjectContext _objectContext;
 
-        public ObjectContextDatabaseContextAdapter(ObjectContext objectContext)
+        public ObjectContextDatabaseAdapter(ObjectContext objectContext)
         {
             _objectContext = objectContext ?? throw new ArgumentNullException(nameof(objectContext));
         }

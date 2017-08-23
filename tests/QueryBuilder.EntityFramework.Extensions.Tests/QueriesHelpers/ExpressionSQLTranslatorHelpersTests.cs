@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QueryBuilder.EntityFramework.Extensions.SqlServer;
+using QueryBuilder.SqlServer.Queries;
 using System;
 using System.Linq.Expressions;
 
@@ -26,7 +26,7 @@ namespace QueryBuilder.EntityFramework.Extensions.Tests.QueriesHelpers
 
             Assert.AreEqual(
                 expectedOperator,
-                ExpressionSQLTranslatorHelpers.GetOpertor(binaryExpr.NodeType)
+                SqlOperatorTranslator.GetOpertor(binaryExpr.NodeType)
             );
         }
 

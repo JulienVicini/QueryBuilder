@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramework.Extensions", "src\QueryBuilder.EntityFramework.Extensions\QueryBuilder.EntityFramework.Extensions.csproj", "{BA649122-3F38-4F19-92E9-92C66D6FB4B5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramework.Extensions.Tests", "tests\QueryBuilder.EntityFramework.Extensions.Tests\QueryBuilder.EntityFramework.Extensions.Tests.csproj", "{6FAFAEF1-DF03-4046-B34C-E6B9D25AC494}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{34B950DE-1F2D-4CBB-B630-DDC8124BA79E}"
@@ -15,9 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{89E369EF-D06
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{43CD3D61-DCEA-4E82-AFE1-72409639FDAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.Core", "src\QueryBuilder.Core\QueryBuilder.Core.csproj", "{A1B7C63D-7A16-4288-8D98-24755C1078CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryBuilder.Core", "src\QueryBuilder.Core\QueryBuilder.Core.csproj", "{A1B7C63D-7A16-4288-8D98-24755C1078CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.Core.Tests", "tests\QueryBuilder.Core.Tests\QueryBuilder.Core.Tests.csproj", "{C1BB8A58-46A7-44EA-9E8A-559FBFE41BD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.SqlServer", "src\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj", "{58A211A9-A2DD-42EF-B931-81E24224B454}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramework", "src\QueryBuilder.EntityFramework\QueryBuilder.EntityFramework.csproj", "{08D8F66C-40CB-4B9A-B559-490E27D2290F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramework.SqlServer", "src\QueryBuilder.EntityFramework.SqlServer\QueryBuilder.EntityFramework.SqlServer.csproj", "{D7062133-C8EA-4838-92BA-7C686335DD8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BA649122-3F38-4F19-92E9-92C66D6FB4B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA649122-3F38-4F19-92E9-92C66D6FB4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA649122-3F38-4F19-92E9-92C66D6FB4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA649122-3F38-4F19-92E9-92C66D6FB4B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FAFAEF1-DF03-4046-B34C-E6B9D25AC494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FAFAEF1-DF03-4046-B34C-E6B9D25AC494}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FAFAEF1-DF03-4046-B34C-E6B9D25AC494}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,16 +45,30 @@ Global
 		{C1BB8A58-46A7-44EA-9E8A-559FBFE41BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1BB8A58-46A7-44EA-9E8A-559FBFE41BD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1BB8A58-46A7-44EA-9E8A-559FBFE41BD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58A211A9-A2DD-42EF-B931-81E24224B454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58A211A9-A2DD-42EF-B931-81E24224B454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58A211A9-A2DD-42EF-B931-81E24224B454}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58A211A9-A2DD-42EF-B931-81E24224B454}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08D8F66C-40CB-4B9A-B559-490E27D2290F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08D8F66C-40CB-4B9A-B559-490E27D2290F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08D8F66C-40CB-4B9A-B559-490E27D2290F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08D8F66C-40CB-4B9A-B559-490E27D2290F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7062133-C8EA-4838-92BA-7C686335DD8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7062133-C8EA-4838-92BA-7C686335DD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7062133-C8EA-4838-92BA-7C686335DD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7062133-C8EA-4838-92BA-7C686335DD8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{BA649122-3F38-4F19-92E9-92C66D6FB4B5} = {89E369EF-D066-4184-AB84-48675AA2BE79}
 		{6FAFAEF1-DF03-4046-B34C-E6B9D25AC494} = {43CD3D61-DCEA-4E82-AFE1-72409639FDAC}
 		{D71CC04A-6A9D-4A94-AD5B-62A351F75167} = {34B950DE-1F2D-4CBB-B630-DDC8124BA79E}
 		{A1B7C63D-7A16-4288-8D98-24755C1078CD} = {89E369EF-D066-4184-AB84-48675AA2BE79}
 		{C1BB8A58-46A7-44EA-9E8A-559FBFE41BD2} = {43CD3D61-DCEA-4E82-AFE1-72409639FDAC}
+		{58A211A9-A2DD-42EF-B931-81E24224B454} = {89E369EF-D066-4184-AB84-48675AA2BE79}
+		{08D8F66C-40CB-4B9A-B559-490E27D2290F} = {89E369EF-D066-4184-AB84-48675AA2BE79}
+		{D7062133-C8EA-4838-92BA-7C686335DD8B} = {89E369EF-D066-4184-AB84-48675AA2BE79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2FDA7E24-10AC-4C9F-8A94-4B35740A9E70}

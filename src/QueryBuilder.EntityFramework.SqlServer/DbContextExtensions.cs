@@ -2,12 +2,12 @@
 using QueryBuilder.Core.Database;
 using QueryBuilder.Core.Mappings;
 using QueryBuilder.Core.Queries;
-using QueryBuilder.EntityFramework.Extensions.Core.Database;
-using QueryBuilder.EntityFramework.Extensions.Core.Mappings;
-using QueryBuilder.EntityFramework.Extensions.Helpers;
-using QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk;
-using QueryBuilder.EntityFramework.Extensions.SqlServer.Queries;
+using QueryBuilder.EntityFramework.Database;
+using QueryBuilder.EntityFramework.IQueryable;
+using QueryBuilder.EntityFramework.Mappings;
 using QueryBuilder.Helpers;
+using QueryBuilder.Queries;
+using QueryBuilder.SqlServer.Bulk;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,7 +18,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions
+namespace QueryBuilder.EntityFramework.SqlServer
 {
     public static class DbContextExtensions
     {
@@ -35,7 +35,7 @@ namespace QueryBuilder.EntityFramework.Extensions
         {
             ObjectContext context = IQueryableHelpers.GetObjectContext(dbSet);
 
-            IDatabaseContext<SqlConnection, SqlTransaction> databaseContext = new ObjectContextDatabaseContextAdapter<SqlConnection, SqlTransaction>(context);
+            IDatabaseContext<SqlConnection, SqlTransaction> databaseContext = new ObjectContextDatabaseAdapter<SqlConnection, SqlTransaction>(context);
 
             IMappingAdapter<T> mappingAdapter = new EntityTypeMappingAdapter<T>(
                 context.GetEntityMetaData<T>()
@@ -56,7 +56,7 @@ namespace QueryBuilder.EntityFramework.Extensions
         {
             ObjectContext context = IQueryableHelpers.GetObjectContext(dbSet);
 
-            var databaseContext = new ObjectContextDatabaseContextAdapter<SqlConnection, SqlTransaction>(context);
+            var databaseContext = new ObjectContextDatabaseAdapter<SqlConnection, SqlTransaction>(context);
 
             IMappingAdapter<TEntity> mappingAdapter = new EntityTypeMappingAdapter<TEntity>(
                 context.GetEntityMetaData<TEntity>()
@@ -92,7 +92,7 @@ namespace QueryBuilder.EntityFramework.Extensions
             // Get info from IQueryable
             ObjectContext objectContext = IQueryableHelpers.GetObjectContext(queryable);
 
-            var objectContextAdapter = new ObjectContextDatabaseContextAdapter<SqlConnection, SqlTransaction>(objectContext);
+            var objectContextAdapter = new ObjectContextDatabaseAdapter<SqlConnection, SqlTransaction>(objectContext);
 
             var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
 
@@ -130,7 +130,7 @@ namespace QueryBuilder.EntityFramework.Extensions
             // Get info from IQueryable
             ObjectContext objectContext = IQueryableHelpers.GetObjectContext(queryable);
 
-            var objectContextAdapter = new ObjectContextDatabaseContextAdapter<SqlConnection, SqlTransaction>(objectContext);
+            var objectContextAdapter = new ObjectContextDatabaseAdapter<SqlConnection, SqlTransaction>(objectContext);
 
             var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
 

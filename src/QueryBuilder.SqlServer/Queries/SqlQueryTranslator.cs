@@ -1,12 +1,13 @@
 ﻿using QueryBuilder.Core.Mappings;
 using QueryBuilder.Core.Queries;
 using QueryBuilder.Helpers;
+using QueryBuilder.SqlServer.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
+namespace QueryBuilder.Queries
 {
     public class SqlQueryTranslator<TEntity>
         : IQueryTranslator<TEntity>
@@ -160,7 +161,7 @@ namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Queries
 
             // Operator
             queryBuilder.Append(" ")
-                        .Append(ExpressionSQLTranslatorHelpers.GetOpertor(@operator))
+                        .Append(SqlOperatorTranslator.GetOpertor(@operator))
                         .Append(" ");
 
             // Destination

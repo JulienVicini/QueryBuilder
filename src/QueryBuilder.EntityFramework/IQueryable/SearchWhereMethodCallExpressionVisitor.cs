@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions.ExpressionVisitors
+namespace QueryBuilder.EntityFramework.IQueryable
 {
     public class SearchWhereMethodCallExpressionVisitor
         : ExpressionVisitor
@@ -15,7 +15,7 @@ namespace QueryBuilder.EntityFramework.Extensions.ExpressionVisitors
 
         #region Public Methods
 
-        public MethodCallExpression GetMethodCall(IQueryable queryable)
+        public MethodCallExpression GetMethodCall<T>(IQueryable<T> queryable)
         {
             _expressionCall = null;
 
