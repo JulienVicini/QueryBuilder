@@ -2,8 +2,6 @@
 using QueryBuilder.Core.Database;
 using System;
 using System.Data;
-using System.Data.Common;
-using System.Data.Entity.Core.EntityClient;
 using System.Data.SqlClient;
 
 namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
@@ -11,9 +9,9 @@ namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
     public class SqlBulkCopyExecutor
         : IBulkExecutor<DataTable>
     {
-        protected readonly IDatabaseContext _sqlContext;
+        protected readonly IDatabaseContext<SqlConnection, SqlTransaction> _sqlContext;
 
-        public SqlBulkCopyExecutor(IDatabaseContext sqlContext)
+        public SqlBulkCopyExecutor(IDatabaseContext<SqlConnection, SqlTransaction> sqlContext)
         {
             _sqlContext = sqlContext ?? throw new ArgumentNullException(nameof(sqlContext));
         }
@@ -21,31 +19,17 @@ namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
         public void Write(string tableName, DataTable records)
         {
             // Perform Bulk Copy
-            SqlConnection sqlConn = ((EntityConnection)_sqlContext.GetConnection()).StoreConnection as SqlConnection; // Todo put this logic elsewhere
+            SqlConnection sqlConn = _sqlContext.GetConnection();
 
             if(sqlConn.State != ConnectionState.Open)
                 sqlConn.Open();
 
-            DbTransaction dbTransaction = null;
 
-            try
+            using (SqlTransaction sqlTransaction = _sqlContext.BeginTransaction())
             {
-                dbTransaction = _sqlContext.BeginTransaction();
-                SqlTransaction sqlTransaction = ((EntityTransaction)dbTransaction).StoreTransaction as SqlTransaction;
-
-
                 Write(tableName, records, sqlConn, sqlTransaction);
 
-                dbTransaction.Commit();
-            }
-            catch (Exception)
-            {
-                dbTransaction?.Rollback();
-                throw;
-            }
-            finally
-            {
-                dbTransaction?.Dispose();
+                sqlTransaction.Commit();
             }
         }
 

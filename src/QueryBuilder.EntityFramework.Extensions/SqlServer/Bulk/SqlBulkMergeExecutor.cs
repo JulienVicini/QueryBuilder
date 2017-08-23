@@ -13,7 +13,7 @@ namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
 
         private readonly MergeQuery<TEntity> _mergeQuery;
 
-        public SqlBulkMergeExecutor(IDatabaseContext sqlContext, QueryCoordinator<TEntity> queryOrchestrator, MergeQuery<TEntity> mergeQuery)
+        public SqlBulkMergeExecutor(IDatabaseContext<SqlConnection, SqlTransaction> sqlContext, QueryCoordinator<TEntity> queryOrchestrator, MergeQuery<TEntity> mergeQuery)
             : base(sqlContext)
         {
             _queryOrchestrator = queryOrchestrator ?? throw new ArgumentNullException(nameof(queryOrchestrator));

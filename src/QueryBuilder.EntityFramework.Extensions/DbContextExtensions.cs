@@ -14,6 +14,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -34,7 +35,7 @@ namespace QueryBuilder.EntityFramework.Extensions
         {
             ObjectContext context = IQueryableHelpers.GetObjectContext(dbSet);
 
-            IDatabaseContext databaseContext = new ObjectContextDatabaseContextAdapter(context);
+            IDatabaseContext<SqlConnection, SqlTransaction> databaseContext = new ObjectContextDatabaseContextAdapter<SqlConnection, SqlTransaction>(context);
 
             IMappingAdapter<T> mappingAdapter = new EntityTypeMappingAdapter<T>(
                 context.GetEntityMetaData<T>()
@@ -55,7 +56,7 @@ namespace QueryBuilder.EntityFramework.Extensions
         {
             ObjectContext context = IQueryableHelpers.GetObjectContext(dbSet);
 
-            var databaseContext = new ObjectContextDatabaseContextAdapter(context);
+            var databaseContext = new ObjectContextDatabaseContextAdapter<SqlConnection, SqlTransaction>(context);
 
             IMappingAdapter<TEntity> mappingAdapter = new EntityTypeMappingAdapter<TEntity>(
                 context.GetEntityMetaData<TEntity>()
@@ -91,7 +92,7 @@ namespace QueryBuilder.EntityFramework.Extensions
             // Get info from IQueryable
             ObjectContext objectContext = IQueryableHelpers.GetObjectContext(queryable);
 
-            var objectContextAdapter = new ObjectContextDatabaseContextAdapter(objectContext);
+            var objectContextAdapter = new ObjectContextDatabaseContextAdapter<SqlConnection, SqlTransaction>(objectContext);
 
             var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
 
@@ -129,7 +130,7 @@ namespace QueryBuilder.EntityFramework.Extensions
             // Get info from IQueryable
             ObjectContext objectContext = IQueryableHelpers.GetObjectContext(queryable);
 
-            var objectContextAdapter = new ObjectContextDatabaseContextAdapter(objectContext);
+            var objectContextAdapter = new ObjectContextDatabaseContextAdapter<SqlConnection, SqlTransaction>(objectContext);
 
             var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
 

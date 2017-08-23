@@ -1,12 +1,12 @@
-﻿using System.Data.Common;
-
-namespace QueryBuilder.Core.Database
+﻿namespace QueryBuilder.Core.Database
 {
-    public interface IDatabaseContext
+    public interface IDatabaseContext<TConnection, TTransaction>
+        where TConnection  : class
+        where TTransaction : class
     {
+        // TODO move it elsewhere
+        TTransaction BeginTransaction();
 
-        DbTransaction BeginTransaction();
-
-        DbConnection GetConnection();
+        TConnection GetConnection();
     }
 }

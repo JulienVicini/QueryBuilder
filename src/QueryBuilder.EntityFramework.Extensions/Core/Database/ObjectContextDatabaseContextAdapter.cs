@@ -2,13 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 namespace QueryBuilder.EntityFramework.Extensions.Core.Database
 {
-    public class ObjectContextDatabaseContextAdapter
-        : IDatabaseContext, ICommandProcessing
+    public class ObjectContextDatabaseContextAdapter<TConnection, TTransaction>
+        : IDatabaseContext<TConnection, TTransaction>, ICommandProcessing
+        where TConnection  : DbConnection
+        where TTransaction : DbTransaction
     {
         private readonly ObjectContext _objectContext;
 
@@ -17,14 +20,14 @@ namespace QueryBuilder.EntityFramework.Extensions.Core.Database
             _objectContext = objectContext ?? throw new ArgumentNullException(nameof(objectContext));
         }
 
-        public DbTransaction BeginTransaction()
+        public TTransaction BeginTransaction()
         {
-            return _objectContext.Connection.BeginTransaction();
+            return ((EntityTransaction)_objectContext.Connection.BeginTransaction()).StoreTransaction as TTransaction;
         }
 
-        public DbConnection GetConnection()
+        public TConnection GetConnection()
         {
-            return _objectContext.Connection;
+            return ((EntityConnection)_objectContext.Connection).StoreConnection as TConnection;
         }
 
         public int ExecuteCommand(string query, IEnumerable<object> parameters)
