@@ -5,10 +5,10 @@ using QueryBuilder.Core.Mappings;
 using System;
 using System.Collections.Generic;
 
-namespace QueryBuilder.EntityFramework.Extensions.Tests.Core.BulkCopy
+namespace QueryBuilder.Core.Tests.Bulk
 {
     [TestClass]
-    public class BulkCopyTest
+    public class BulkCoordinatorTests
     {
         private object _modelObject;
         private object _transformedObject;
@@ -20,36 +20,42 @@ namespace QueryBuilder.EntityFramework.Extensions.Tests.Core.BulkCopy
         [TestInitialize]
         public void Init()
         {
-            _modelObject       = new object();
+            _modelObject = new object();
             _transformedObject = new object();
 
             _bulkCopyExecutorMock = new Mock<IBulkExecutor<IEnumerable<object>>>();
-            _dataTransformerMock  = new Mock<IDataTransformer<IEnumerable<object>, IEnumerable<object>>>();
-            _mappingAdapter       = new Mock<IMappingAdapter<object>>();
+            _dataTransformerMock = new Mock<IDataTransformer<IEnumerable<object>, IEnumerable<object>>>();
+            _mappingAdapter = new Mock<IMappingAdapter<object>>();
         }
+
+        #region Constructor Tests
 
         [TestMethod]
         public void ConstructorThrowsArgumentNullExceptionWhenBulkCopyIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new BulkOrchestrator<object, IEnumerable<object>>(null, _dataTransformerMock.Object, _mappingAdapter.Object));
+            Assert.ThrowsException<ArgumentNullException>(() => new BulkCoordinator<object, IEnumerable<object>>(null, _dataTransformerMock.Object, _mappingAdapter.Object));
         }
 
         [TestMethod]
         public void ConstructorThrowsArgumentNullExceptionWhenDataTransformerIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, null, _mappingAdapter.Object));
+            Assert.ThrowsException<ArgumentNullException>(() => new BulkCoordinator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, null, _mappingAdapter.Object));
         }
 
         [TestMethod]
         public void ConstructorThrowsArgumentNullExceptionWhenMappingAdapterIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, null));
+            Assert.ThrowsException<ArgumentNullException>(() => new BulkCoordinator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, null));
         }
+
+        #endregion
+
+        #region WriteToServer
 
         [TestMethod]
         public void WriteToServerThrowArgumentExceptionWhenRecordsIsNullOrEmpty()
         {
-            var bulkCopy = new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
+            var bulkCopy = new BulkCoordinator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
 
             Assert.ThrowsException<ArgumentException>(
                 () => bulkCopy.WriteToServer(null)
@@ -67,7 +73,7 @@ namespace QueryBuilder.EntityFramework.Extensions.Tests.Core.BulkCopy
 
             _dataTransformerMock.Setup(d => d.Transform(It.IsAny<IEnumerable<object>>()));
 
-            var bulkCopy = new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
+            var bulkCopy = new BulkCoordinator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
 
             bulkCopy.WriteToServer(objects);
 
@@ -88,7 +94,7 @@ namespace QueryBuilder.EntityFramework.Extensions.Tests.Core.BulkCopy
                            .Returns("RandomTable");
 
             // act
-            var bulkCopy = new BulkOrchestrator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
+            var bulkCopy = new BulkCoordinator<object, IEnumerable<object>>(_bulkCopyExecutorMock.Object, _dataTransformerMock.Object, _mappingAdapter.Object);
             bulkCopy.WriteToServer(objects);
 
             _bulkCopyExecutorMock.Verify(
@@ -96,5 +102,7 @@ namespace QueryBuilder.EntityFramework.Extensions.Tests.Core.BulkCopy
                 Times.Once()
             );
         }
+
+        #endregion
     }
 }

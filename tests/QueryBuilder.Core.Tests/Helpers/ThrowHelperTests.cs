@@ -9,6 +9,51 @@ namespace QueryBuilder.Core.Tests.Helpers
     [TestClass]
     public class ThrowHelperTests
     {
+        #region ThrowIfNull
+
+        [TestMethod]
+        public void ThrowIfNullThrowsArgumentExceptionWhenValueIsNull()
+        {
+            string value = null;
+
+            Assert.ThrowsException<ArgumentException>(() =>
+                ThrowHelper.ThrowIfNull(value, "parameter")
+            );
+        }
+
+        [TestMethod]
+        public void ThrowIfNullThrowsArgumentExceptionWhenParameterNameIsNull()
+        {
+            string paramterName = null;
+            var data = "NotEmpty";
+
+            Assert.ThrowsException<ArgumentException>(() =>
+                ThrowHelper.ThrowIfNull(data, paramterName)
+            );
+        }
+
+        [TestMethod]
+        public void ThrowIfNullThrowsArgumentExceptionWhenParameterNameIsWhiteSpace()
+        {
+            var paramterName = "   ";
+            var data = "NotEmpty";
+
+            Assert.ThrowsException<ArgumentException>(() =>
+                ThrowHelper.ThrowIfNull(data, paramterName)
+            );
+        }
+
+        [TestMethod]
+        public void ThrowIfNullShouldNotThrowException()
+        {
+            var paramterName = "parameter";
+            var data = "NotEmpty";
+
+            ThrowHelper.ThrowIfNull(data, paramterName);
+        }
+
+        #endregion
+
         #region ThrowIfNullOrWhiteSpace
 
         [TestMethod]

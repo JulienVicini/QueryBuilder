@@ -41,7 +41,7 @@ namespace QueryBuilder.EntityFramework.Extensions
             );
 
             // TODO put in factory
-            var bulkCopy = new BulkOrchestrator<T, DataTable>(
+            var bulkCopy = new BulkCoordinator<T, DataTable>(
                 bulkExecutor   : new SqlBulkCopyExecutor(databaseContext),
                 dataTransformer: new DataTableDataTransformer<T>(mappingAdapter),
                 mappingAdapter : mappingAdapter
@@ -67,13 +67,13 @@ namespace QueryBuilder.EntityFramework.Extensions
 
             // TODO change update or insert selection
             var mergeQuery = new MergeQuery<TEntity>(mergeKeys, temporaryTable, updateOnly ? MergeQuery<TEntity>.MergeType.UpdateOnly : MergeQuery<TEntity>.MergeType.InsertOrUpdate);
-            var queryOrchestrator = new QueryOrchestrator<TEntity>(
+            var queryOrchestrator = new QueryCoordinator<TEntity>(
                 new SqlQueryTranslator<TEntity>(mappingAdapter),
                 databaseContext
             ); 
 
             // TODO put in factory
-            var bulkCopy = new BulkOrchestrator<TEntity, DataTable>(
+            var bulkCopy = new BulkCoordinator<TEntity, DataTable>(
                 bulkExecutor   : new SqlBulkMergeExecutor<TEntity>(databaseContext, queryOrchestrator, mergeQuery),
                 dataTransformer: new DataTableDataTransformer<TEntity>(mappingAdapter),
                 mappingAdapter : mappingAdapter
@@ -96,7 +96,7 @@ namespace QueryBuilder.EntityFramework.Extensions
             var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
 
             // Create Query
-            var orchestrator = new QueryOrchestrator<T>(
+            var orchestrator = new QueryCoordinator<T>(
                 new SqlQueryTranslator<T>(mappingAdapter),
                 objectContextAdapter
             );
@@ -134,7 +134,7 @@ namespace QueryBuilder.EntityFramework.Extensions
             var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
 
             // Create Query
-            var orchestrator = new QueryOrchestrator<T>(
+            var orchestrator = new QueryCoordinator<T>(
                 new SqlQueryTranslator<T>(mappingAdapter),
                 objectContextAdapter
             );

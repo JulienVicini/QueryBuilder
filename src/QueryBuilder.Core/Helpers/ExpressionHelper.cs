@@ -9,7 +9,7 @@ namespace QueryBuilder.Helpers
     {
         public static MemberExpression GetMemberExpression<T, TValue>(Expression<Func<T, TValue>> expression)
         {
-            if (expression == null) throw new ArgumentNullException(nameof(expression));
+            ThrowHelper.ThrowIfNull(expression, nameof(expression));
 
             MemberExpression memberExpression = expression.Body as MemberExpression;
 
@@ -21,6 +21,8 @@ namespace QueryBuilder.Helpers
 
         public static MemberExpression MakeMemberExpression(MemberAssignment memberAssignement)
         {
+            ThrowHelper.ThrowIfNull(memberAssignement, nameof(memberAssignement));
+
             return Expression.MakeMemberAccess(
                 Expression.Parameter(memberAssignement.Member.DeclaringType),
                 memberAssignement.Member
@@ -29,6 +31,8 @@ namespace QueryBuilder.Helpers
 
         public static BinaryExpression MakeAssign(MemberAssignment memberAssignment)
         {
+            ThrowHelper.ThrowIfNull(memberAssignment, nameof(memberAssignment));
+
             return Expression.Assign(
                 MakeMemberExpression(memberAssignment),
                 memberAssignment.Expression

@@ -9,11 +9,11 @@ namespace QueryBuilder.EntityFramework.Extensions.SqlServer.Bulk
     public class SqlBulkMergeExecutor<TEntity> : SqlBulkCopyExecutor
         where TEntity : class
     {
-        private readonly QueryOrchestrator<TEntity> _queryOrchestrator;
+        private readonly QueryCoordinator<TEntity> _queryOrchestrator;
 
         private readonly MergeQuery<TEntity> _mergeQuery;
 
-        public SqlBulkMergeExecutor(IDatabaseContext sqlContext, QueryOrchestrator<TEntity> queryOrchestrator, MergeQuery<TEntity> mergeQuery)
+        public SqlBulkMergeExecutor(IDatabaseContext sqlContext, QueryCoordinator<TEntity> queryOrchestrator, MergeQuery<TEntity> mergeQuery)
             : base(sqlContext)
         {
             _queryOrchestrator = queryOrchestrator ?? throw new ArgumentNullException(nameof(queryOrchestrator));

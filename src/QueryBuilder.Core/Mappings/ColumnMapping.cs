@@ -1,5 +1,5 @@
-﻿using System;
-using System.Data;
+﻿using QueryBuilder.Helpers;
+using System;
 using System.Reflection;
 
 namespace QueryBuilder.Core.Mappings
@@ -25,7 +25,9 @@ namespace QueryBuilder.Core.Mappings
 
         public ColumnMapping(string dbColumnName, DbType dbType, bool isIdentity, int? length, int? precision, int? scale, bool isRequired, PropertyInfo propertyInfo)
         {
-            DbColumnName = dbColumnName ?? throw new ArgumentNullException(nameof(dbColumnName));
+            ThrowHelper.ThrowIfNullOrWhiteSpace(dbColumnName, nameof(dbColumnName));
+
+            DbColumnName = dbColumnName;
             DbType       = dbType;
             IsIdentity   = isIdentity;
             Length       = length;
@@ -33,6 +35,9 @@ namespace QueryBuilder.Core.Mappings
             Scale        = scale;
             IsRequired   = isRequired;
             PropertyInfo = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
+
+            if (propertyInfo.DeclaringType != typeof(TEntity))
+                throw new InvalidOperationException($"The property info \"{nameof(propertyInfo)}\" declarating type must be \"{typeof(TEntity)}\".");
         }
     }
 }

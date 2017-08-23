@@ -6,6 +6,14 @@ namespace QueryBuilder.Helpers
 {
     public static class ThrowHelper
     {
+        public static void ThrowIfNull<T>(T value, string argumentName)
+        {
+            ThrowIfNullOrWhiteSpace(argumentName, nameof(argumentName));
+
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+        }
+
         public static void ThrowIfNullOrWhiteSpace(string value, string argumentName)
         {
             ThrowIfNullOrWhiteSpace(argumentName, nameof(argumentName));
