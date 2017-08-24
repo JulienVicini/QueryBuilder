@@ -21,8 +21,13 @@ namespace QueryBuilder.Samples
 
             using(var context = new SchoolDbContext())
             {
+                // Delete
+                context.Persons.Delete();
+
+                // Bulk Insert
                 context.Persons.BulkInsert(persons);
 
+                // Bulk Merge
                 var dbPersons = context.Persons.AsNoTracking()
                                                .Take(1000)
                                                .ToList();
@@ -33,23 +38,10 @@ namespace QueryBuilder.Samples
 
                 context.Persons.BulkMerge(dbPersons, p => new { p.FirstName, p.LastName });
 
-
-                //context.Persons.Where(p => p.Id > 1000)
-                //               .Delete();
-
-                //context.Persons.Where(p => p.Id < 100)
-                //               .SetValue(p => p.Age      , 100                        )
-                //               .SetValue(p => p.FirstName, p => p.FirstName + "suffix")
-                //               .Update();
-
-
-                //context.Persons.SetValue(p => p.Id  , 3            )
-                //               .SetValue(p => p.Name, p => p.Id + 3)
-                //               .Update();
-                //context.Persons.Where(c => c.Id > 10000)
-                //               .Delete();
-
-                //context.Persons.BulkMerge(persons, d => new { d.Age, d.FirstName, d.LastName });
+                // Or Update
+                context.Persons.Where(p => p.Id%2 == 0)
+                               .SetValue(p => p.Age, 0)
+                               .Update();
             }
         }
     }
