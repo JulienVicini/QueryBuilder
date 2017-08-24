@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbContextExtensions.cs" />
+    <Compile Include="DbContextBulkInsertExtensions.cs" />
+    <Compile Include="IQueryableDeleteExtensions.cs" />
+    <Compile Include="IQueryableUpdateExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
