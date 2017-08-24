@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbContextBulkInsertExtensions.cs" />
+    <Compile Include="FluentSyntax\UpdateStatementBuilder.cs" />
     <Compile Include="IQueryableDeleteExtensions.cs" />
     <Compile Include="IQueryableUpdateExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

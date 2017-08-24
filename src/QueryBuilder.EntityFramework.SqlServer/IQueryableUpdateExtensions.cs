@@ -2,6 +2,7 @@
 using QueryBuilder.EntityFramework.Database;
 using QueryBuilder.EntityFramework.IQueryable;
 using QueryBuilder.EntityFramework.Mappings;
+using QueryBuilder.EntityFramework.SqlServer.FluentSyntax;
 using QueryBuilder.SqlServer.Statements;
 using System;
 using System.Data.Entity.Core.Objects;

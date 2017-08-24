@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.Core.Statements
+namespace QueryBuilder.EntityFramework.SqlServer.FluentSyntax
 {
     public class UpdateStatementBuilder<T>
     {
@@ -39,7 +39,7 @@ namespace QueryBuilder.Core.Statements
         {
             MemberExpression memberExpression = ExpressionHelper.GetMemberExpression(memberLambdaExpression);
 
-            if (_assignements.Any(a => a.Member.Name == memberExpression.Member.Name))
+            if (_assignements.Any(a => a.Member == memberExpression.Member))
                 throw new Exception("duplicate member assignement");
 
             var memberAssignment = Expression.Bind(
