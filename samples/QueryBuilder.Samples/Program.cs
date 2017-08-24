@@ -9,6 +9,8 @@ namespace QueryBuilder.Samples
     {
         static void Main(string[] args)
         {
+            var stopWatch = System.Diagnostics.Stopwatch.StartNew();
+
             IEnumerable<Person> persons
                 = Enumerable.Range(0, 100)
                             .Select(index => new Person()
@@ -43,6 +45,10 @@ namespace QueryBuilder.Samples
                                .SetValue(p => p.Age, 0)
                                .Update();
             }
+
+            stopWatch.Stop();
+
+            System.Console.WriteLine($"The program un in {stopWatch.ElapsedMilliseconds}ms.");
         }
     }
 }

@@ -32,6 +32,9 @@ namespace QueryBuilder.Core.Bulk
                 tableName: _mappingAdapter.GetTableName(),
                 records  : bulkData
             );
+
+            // Dipose bulkData if needed
+            (bulkData as IDisposable)?.Dispose();
         }
     }
 }
