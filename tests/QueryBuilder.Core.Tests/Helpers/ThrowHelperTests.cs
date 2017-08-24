@@ -16,7 +16,7 @@ namespace QueryBuilder.Core.Tests.Helpers
         {
             string value = null;
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<ArgumentNullException>(() =>
                 ThrowHelper.ThrowIfNull(value, "parameter")
             );
         }
