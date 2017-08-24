@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace QueryBuilder.Core.Bulk
 {
-    public class BulkCoordinator<TData, TBulkData>
+    public class BulkFacade<TData, TBulkData>
         where TData : class
         where TBulkData : class
     {
@@ -13,7 +13,7 @@ namespace QueryBuilder.Core.Bulk
         private readonly IDataTransformer<IEnumerable<TData>, TBulkData> _dataTransformer;
         private readonly IMappingAdapter<TData> _mappingAdapter;
 
-        public BulkCoordinator(IBulkExecutor<TBulkData> bulkExecutor, IDataTransformer<IEnumerable<TData>, TBulkData> dataTransformer, IMappingAdapter<TData> mappingAdapter)
+        public BulkFacade(IBulkExecutor<TBulkData> bulkExecutor, IDataTransformer<IEnumerable<TData>, TBulkData> dataTransformer, IMappingAdapter<TData> mappingAdapter)
         {
             _bulkExcecutor   = bulkExecutor    ?? throw new ArgumentNullException(nameof(bulkExecutor));
             _dataTransformer = dataTransformer ?? throw new ArgumentNullException(nameof(dataTransformer));

@@ -1,13 +1,13 @@
 ﻿using QueryBuilder.Core.Bulk;
 using QueryBuilder.Core.Database;
 using QueryBuilder.Core.Mappings;
-using QueryBuilder.Core.Queries;
+using QueryBuilder.Core.Statements;
 using QueryBuilder.EntityFramework.Database;
 using QueryBuilder.EntityFramework.IQueryable;
 using QueryBuilder.EntityFramework.Mappings;
 using QueryBuilder.Helpers;
-using QueryBuilder.Queries;
 using QueryBuilder.SqlServer.Bulk;
+using QueryBuilder.SqlServer.Statements;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -42,7 +42,7 @@ namespace QueryBuilder.EntityFramework.SqlServer
             );
 
             // TODO put in factory
-            var bulkCopy = new BulkCoordinator<T, DataTable>(
+            var bulkCopy = new BulkFacade<T, DataTable>(
                 bulkExecutor   : new SqlBulkCopyExecutor(databaseContext),
                 dataTransformer: new DataTableDataTransformer<T>(mappingAdapter),
                 mappingAdapter : mappingAdapter
@@ -67,14 +67,14 @@ namespace QueryBuilder.EntityFramework.SqlServer
             string temporaryTable = "#tmp_bulk";
 
             // TODO change update or insert selection
-            var mergeQuery = new MergeQuery<TEntity>(mergeKeys, temporaryTable, updateOnly ? MergeQuery<TEntity>.MergeType.UpdateOnly : MergeQuery<TEntity>.MergeType.InsertOrUpdate);
-            var queryOrchestrator = new QueryCoordinator<TEntity>(
+            var mergeQuery = new MergeStatement<TEntity>(mergeKeys, temporaryTable, updateOnly ? MergeStatement<TEntity>.MergeType.UpdateOnly : MergeStatement<TEntity>.MergeType.InsertOrUpdate);
+            var queryOrchestrator = new StatementFacade<TEntity>(
                 new SqlQueryTranslator<TEntity>(mappingAdapter),
                 databaseContext
             ); 
 
             // TODO put in factory
-            var bulkCopy = new BulkCoordinator<TEntity, DataTable>(
+            var bulkCopy = new BulkFacade<TEntity, DataTable>(
                 bulkExecutor   : new SqlBulkMergeExecutor<TEntity>(databaseContext, queryOrchestrator, mergeQuery),
                 dataTransformer: new DataTableDataTransformer<TEntity>(mappingAdapter),
                 mappingAdapter : mappingAdapter

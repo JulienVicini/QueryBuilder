@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.SqlServer.Queries
+namespace QueryBuilder.SqlServer.Statements
 {
     public class SQLStatementGenerator<TEntity> 
         : ExpressionVisitor

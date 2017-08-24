@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.Core.Queries
+namespace QueryBuilder.Core.Statements
 {
-    public class MergeQuery<TEntity>
+    public class MergeStatement<TEntity>
         where TEntity : class
     {
         public enum MergeType
@@ -20,7 +20,7 @@ namespace QueryBuilder.Core.Queries
 
         public MergeType Type { get; private set; }
 
-        public MergeQuery(IEnumerable<MemberExpression> keys, string temporaryTableName, MergeType mergeType)
+        public MergeStatement(IEnumerable<MemberExpression> keys, string temporaryTableName, MergeType mergeType)
         {
             ThrowHelper.ThrowIfNullOrEmpty(keys, nameof(keys));
             ThrowHelper.ThrowIfNullOrWhiteSpace(temporaryTableName, nameof(temporaryTableName));

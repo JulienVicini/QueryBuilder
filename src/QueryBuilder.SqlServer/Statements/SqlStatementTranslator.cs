@@ -1,16 +1,15 @@
 ﻿using QueryBuilder.Core.Mappings;
-using QueryBuilder.Core.Queries;
+using QueryBuilder.Core.Statements;
 using QueryBuilder.Helpers;
-using QueryBuilder.SqlServer.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.Queries
+namespace QueryBuilder.SqlServer.Statements
 {
     public class SqlQueryTranslator<TEntity>
-        : IQueryTranslator<TEntity>
+        : IStatementTranslator<TEntity>
         where TEntity : class
     {
         private readonly IMappingAdapter<TEntity> _mappingAdapter;
@@ -24,7 +23,7 @@ namespace QueryBuilder.Queries
 
         #region Delete
 
-        public (string, IEnumerable<object>) TranslateQuery(DeleteQuery<TEntity> query)
+        public (string, IEnumerable<object>) TranslateQuery(DeleteStatement<TEntity> query)
         {
             var queryBuilder = new SqlQueryBuilder();
 
@@ -38,7 +37,7 @@ namespace QueryBuilder.Queries
 
         #region Update
 
-        public (string, IEnumerable<object>) TranslateQuery(UpdateQuery<TEntity> query)
+        public (string, IEnumerable<object>) TranslateQuery(UpdateStatement<TEntity> query)
         {
             var queryBuilder = new SqlQueryBuilder();
 
@@ -53,14 +52,14 @@ namespace QueryBuilder.Queries
 
         #region Create / Drop Table
 
-        public (string, IEnumerable<object>) TranslateQuery(AlterTableQuery<TEntity> query)
+        public (string, IEnumerable<object>) TranslateQuery(AlterTableStatement<TEntity> query)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
 
             switch (query.Type)
             {
-                case AlterTableQuery<TEntity>.AlterType.Create: return GenerateCreateQuery(query.TableName).Build();
-                case AlterTableQuery<TEntity>.AlterType.Drop  : return GenerateDropQuery(query.TableName).Build();
+                case AlterTableStatement<TEntity>.AlterType.Create: return GenerateCreateQuery(query.TableName).Build();
+                case AlterTableStatement<TEntity>.AlterType.Drop  : return GenerateDropQuery(query.TableName).Build();
                 default:
                     throw new InvalidOperationException($"The alter operation\"{query.Type}\" is not supported.");
             }
@@ -116,7 +115,7 @@ namespace QueryBuilder.Queries
         const string SOURCE_TABLE_ALIAS = "Source";
         const string TARGET_TABLE_ALIAS = "Target";
 
-        public (string, IEnumerable<object>) TranslateQuery(MergeQuery<TEntity> mergeQuery)
+        public (string, IEnumerable<object>) TranslateQuery(MergeStatement<TEntity> mergeQuery)
         {
             var queryBuilder = new SqlQueryBuilder();
 
@@ -129,11 +128,11 @@ namespace QueryBuilder.Queries
             AppendMergeJoinKeys(queryBuilder, mergeQuery.Keys);
 
             // Update Into
-            if( mergeQuery.Type == MergeQuery<TEntity>.MergeType.UpdateOnly || mergeQuery.Type == MergeQuery<TEntity>.MergeType.InsertOrUpdate )
+            if( mergeQuery.Type == MergeStatement<TEntity>.MergeType.UpdateOnly || mergeQuery.Type == MergeStatement<TEntity>.MergeType.InsertOrUpdate )
                 AppendMergeStatement(queryBuilder);
 
             // Insert Statement
-            if (mergeQuery.Type == MergeQuery<TEntity>.MergeType.InsertOnly || mergeQuery.Type == MergeQuery<TEntity>.MergeType.InsertOrUpdate)
+            if (mergeQuery.Type == MergeStatement<TEntity>.MergeType.InsertOnly || mergeQuery.Type == MergeStatement<TEntity>.MergeType.InsertOrUpdate)
                 AppendInsertMergeStatement(queryBuilder);
 
             queryBuilder.Append(";");

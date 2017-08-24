@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Text;
 
-namespace QueryBuilder.SqlServer.Queries
+namespace QueryBuilder.SqlServer.Statements
 {
     public class SqlQueryBuilder
     {

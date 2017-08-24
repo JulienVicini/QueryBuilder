@@ -1,7 +1,7 @@
 ﻿using QueryBuilder.Core.Mappings;
 using System;
 
-namespace QueryBuilder.SqlServer.Queries
+namespace QueryBuilder.SqlServer.Statements
 {
     public static class SqlTypeTranslator
     {

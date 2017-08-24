@@ -1,8 +1,8 @@
-﻿using QueryBuilder.Core.Queries;
+﻿using QueryBuilder.Core.Statements;
 using QueryBuilder.EntityFramework.Database;
 using QueryBuilder.EntityFramework.IQueryable;
 using QueryBuilder.EntityFramework.Mappings;
-using QueryBuilder.Queries;
+using QueryBuilder.SqlServer.Statements;
 using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace QueryBuilder.EntityFramework.SqlServer
             where T : class
         {
             // BuilderQuery
-            var query = new DeleteQuery<T>(IQueryableHelpers.GetQueryPredicate(queryable));
+            var query = new DeleteStatement<T>(IQueryableHelpers.GetQueryPredicate(queryable));
 
             // Get info from IQueryable
             ObjectContext objectContext = IQueryableHelpers.GetObjectContext(queryable);
@@ -25,7 +25,7 @@ namespace QueryBuilder.EntityFramework.SqlServer
             var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
 
             // Create Query
-            var orchestrator = new QueryCoordinator<T>(
+            var orchestrator = new StatementFacade<T>(
                 new SqlQueryTranslator<T>(mappingAdapter),
                 objectContextAdapter
             );

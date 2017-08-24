@@ -1,5 +1,5 @@
 ﻿using QueryBuilder.Core.Database;
-using QueryBuilder.Core.Queries;
+using QueryBuilder.Core.Statements;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,11 +9,11 @@ namespace QueryBuilder.SqlServer.Bulk
     public class SqlBulkMergeExecutor<TEntity> : SqlBulkCopyExecutor
         where TEntity : class
     {
-        private readonly QueryCoordinator<TEntity> _queryOrchestrator;
+        private readonly StatementFacade<TEntity> _queryOrchestrator;
 
-        private readonly MergeQuery<TEntity> _mergeQuery;
+        private readonly MergeStatement<TEntity> _mergeQuery;
 
-        public SqlBulkMergeExecutor(IDatabaseContext<SqlConnection, SqlTransaction> sqlContext, QueryCoordinator<TEntity> queryOrchestrator, MergeQuery<TEntity> mergeQuery)
+        public SqlBulkMergeExecutor(IDatabaseContext<SqlConnection, SqlTransaction> sqlContext, StatementFacade<TEntity> queryOrchestrator, MergeStatement<TEntity> mergeQuery)
             : base(sqlContext)
         {
             _queryOrchestrator = queryOrchestrator ?? throw new ArgumentNullException(nameof(queryOrchestrator));
@@ -23,7 +23,7 @@ namespace QueryBuilder.SqlServer.Bulk
         public override void Write(string tableName, DataTable records, SqlConnection sqlConn, SqlTransaction transaction)
         {
             // Create Temporary Table
-            DropCreateTemporaryTable(AlterTableQuery<TEntity>.AlterType.Create);
+            DropCreateTemporaryTable(AlterTableStatement<TEntity>.AlterType.Create);
 
             // Insert Data
             base.Write(_mergeQuery.TemporaryTableName, records, sqlConn, transaction);
@@ -32,13 +32,13 @@ namespace QueryBuilder.SqlServer.Bulk
             _queryOrchestrator.Merge(_mergeQuery);
 
             // Drop #bulkTmp
-            DropCreateTemporaryTable(AlterTableQuery<TEntity>.AlterType.Drop);
+            DropCreateTemporaryTable(AlterTableStatement<TEntity>.AlterType.Drop);
         }
 
-        public void DropCreateTemporaryTable(AlterTableQuery<TEntity>.AlterType alterType)
+        public void DropCreateTemporaryTable(AlterTableStatement<TEntity>.AlterType alterType)
         {
             _queryOrchestrator.Alter(
-                new AlterTableQuery<TEntity>(_mergeQuery.TemporaryTableName, alterType)
+                new AlterTableStatement<TEntity>(_mergeQuery.TemporaryTableName, alterType)
             );
         }
     }

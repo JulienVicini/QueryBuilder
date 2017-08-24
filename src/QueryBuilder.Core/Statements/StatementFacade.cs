@@ -2,22 +2,22 @@
 using System;
 using System.Collections.Generic;
 
-namespace QueryBuilder.Core.Queries
+namespace QueryBuilder.Core.Statements
 {
-    public class QueryCoordinator<TEntity>
+    public class StatementFacade<TEntity>
         where TEntity : class
     {
-        private readonly IQueryTranslator<TEntity> _queryTranslator;
+        private readonly IStatementTranslator<TEntity> _queryTranslator;
 
         private readonly ICommandProcessing _queryProcessor;
 
-        public QueryCoordinator(IQueryTranslator<TEntity> queryTranslator, ICommandProcessing queryProcessor)
+        public StatementFacade(IStatementTranslator<TEntity> queryTranslator, ICommandProcessing queryProcessor)
         {
             _queryTranslator = queryTranslator ?? throw new ArgumentNullException(nameof(queryTranslator));
             _queryProcessor  = queryProcessor  ?? throw new ArgumentNullException(nameof(queryProcessor));
         }
 
-        public int Alter(AlterTableQuery<TEntity> alterQuery)
+        public int Alter(AlterTableStatement<TEntity> alterQuery)
         {
             (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(alterQuery);
 
@@ -27,7 +27,7 @@ namespace QueryBuilder.Core.Queries
             );
         }
 
-        public int Update(UpdateQuery<TEntity> updateQuery)
+        public int Update(UpdateStatement<TEntity> updateQuery)
         {
             (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(updateQuery);
 
@@ -37,7 +37,7 @@ namespace QueryBuilder.Core.Queries
             );
         }
 
-        public int Delete(DeleteQuery<TEntity> deleteQuery)
+        public int Delete(DeleteStatement<TEntity> deleteQuery)
         {
             (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(deleteQuery);
 
@@ -47,7 +47,7 @@ namespace QueryBuilder.Core.Queries
             );
         }
 
-        public int Merge(MergeQuery<TEntity> mergeQuery)
+        public int Merge(MergeStatement<TEntity> mergeQuery)
         {
             (string query, IEnumerable<object> parameters) = _queryTranslator.TranslateQuery(mergeQuery);
 

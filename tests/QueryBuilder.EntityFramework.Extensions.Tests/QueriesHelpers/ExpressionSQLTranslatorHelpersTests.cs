@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QueryBuilder.SqlServer.Queries;
+using QueryBuilder.SqlServer.Statements;
 using System;
 using System.Linq.Expressions;
 

@@ -4,22 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.Core.Queries
+namespace QueryBuilder.Core.Statements
 {
-    public class UpdateQueryBuilder<T>
+    public class UpdateStatementBuilder<T>
     {
         public IQueryable<T> Queryable { get; private set; }
 
         public IEnumerable<MemberAssignment> Assignements => _assignements.AsReadOnly();
         private readonly List<MemberAssignment> _assignements;
 
-        public UpdateQueryBuilder(IQueryable<T> queryable)
+        public UpdateStatementBuilder(IQueryable<T> queryable)
         {
             _assignements = new List<MemberAssignment>();
             Queryable     = queryable ?? throw new ArgumentNullException(nameof(queryable));
         }
 
-        public UpdateQueryBuilder<T> SetValue<TValue>(Expression<Func<T, TValue>> memberExpression, TValue value)
+        public UpdateStatementBuilder<T> SetValue<TValue>(Expression<Func<T, TValue>> memberExpression, TValue value)
         {
             var constantExpression = Expression.Constant(value);
 
@@ -28,7 +28,7 @@ namespace QueryBuilder.Core.Queries
             return this;
         }
 
-        public UpdateQueryBuilder<T> SetValue<TValue>(Expression<Func<T, TValue>> memberExpression, Expression<Func<T, TValue>> valueExpression)
+        public UpdateStatementBuilder<T> SetValue<TValue>(Expression<Func<T, TValue>> memberExpression, Expression<Func<T, TValue>> valueExpression)
         {
             AppendMemberAssignment(memberExpression, valueExpression.Body);
             return this;

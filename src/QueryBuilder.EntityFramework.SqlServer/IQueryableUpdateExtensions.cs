@@ -1,8 +1,8 @@
-﻿using QueryBuilder.Core.Queries;
+﻿using QueryBuilder.Core.Statements;
 using QueryBuilder.EntityFramework.Database;
 using QueryBuilder.EntityFramework.IQueryable;
 using QueryBuilder.EntityFramework.Mappings;
-using QueryBuilder.Queries;
+using QueryBuilder.SqlServer.Statements;
 using System;
 using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
@@ -13,24 +13,24 @@ namespace QueryBuilder.EntityFramework.SqlServer
 {
     public static class IQueryableUpdateExtensions
     {
-        public static UpdateQueryBuilder<T> SetValue<T, TValue>(this IQueryable<T> queryable, Expression<Func<T, TValue>> memberExpression, Expression<Func<T, TValue>> valueExpression)
+        public static UpdateStatementBuilder<T> SetValue<T, TValue>(this IQueryable<T> queryable, Expression<Func<T, TValue>> memberExpression, Expression<Func<T, TValue>> valueExpression)
         {
-            return new UpdateQueryBuilder<T>(queryable)
+            return new UpdateStatementBuilder<T>(queryable)
                         .SetValue(memberExpression, valueExpression);
         }
 
-        public static UpdateQueryBuilder<T> SetValue<T, TValue>(this IQueryable<T> queryable, Expression<Func<T, TValue>> memberExpression, TValue value)
+        public static UpdateStatementBuilder<T> SetValue<T, TValue>(this IQueryable<T> queryable, Expression<Func<T, TValue>> memberExpression, TValue value)
         {
-            return new UpdateQueryBuilder<T>(queryable)
+            return new UpdateStatementBuilder<T>(queryable)
                         .SetValue(memberExpression, value);
         }
 
-        public static int Update<T>(this UpdateQueryBuilder<T> updateBuilder) where T : class
+        public static int Update<T>(this UpdateStatementBuilder<T> updateBuilder) where T : class
         {
             IQueryable<T> queryable = updateBuilder.Queryable;
 
             // Create Query
-            var query = new UpdateQuery<T>(
+            var query = new UpdateStatement<T>(
                 updateBuilder.Assignements,
                 IQueryableHelpers.GetQueryPredicate(queryable)
             );
@@ -43,7 +43,7 @@ namespace QueryBuilder.EntityFramework.SqlServer
             var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
 
             // Create Query
-            var orchestrator = new QueryCoordinator<T>(
+            var orchestrator = new StatementFacade<T>(
                 new SqlQueryTranslator<T>(mappingAdapter),
                 objectContextAdapter
             );

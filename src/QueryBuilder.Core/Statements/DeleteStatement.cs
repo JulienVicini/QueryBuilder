@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.Core.Queries
+namespace QueryBuilder.Core.Statements
 {
-    public class DeleteQuery<TEntity>
+    public class DeleteStatement<TEntity>
     {
         public Expression<Func<TEntity, bool>> Predicate { get; private set; }
 
-        public DeleteQuery(Expression<Func<TEntity, bool>> predicate)
+        public DeleteStatement(Expression<Func<TEntity, bool>> predicate)
         {
             Predicate = predicate;
         }

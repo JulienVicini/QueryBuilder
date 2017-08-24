@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.SqlServer.Queries
+namespace QueryBuilder.SqlServer.Statements
 {
     public static class SqlOperatorTranslator
     {

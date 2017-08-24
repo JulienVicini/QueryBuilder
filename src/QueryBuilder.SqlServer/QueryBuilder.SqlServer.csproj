@@ -47,11 +47,11 @@
     <Compile Include="Bulk\SqlBulkCopyExecutor.cs" />
     <Compile Include="Bulk\SqlBulkMergeExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\SqlOperatorTranslator.cs" />
-    <Compile Include="Queries\SqlQueryBuilder.cs" />
-    <Compile Include="Queries\SqlQueryTranslator.cs" />
-    <Compile Include="Queries\SqlStatementGenerator.cs" />
-    <Compile Include="Queries\SqlTypeTranslator.cs" />
+    <Compile Include="Statements\SqlOperatorTranslator.cs" />
+    <Compile Include="Statements\SqlStatementBuilder.cs" />
+    <Compile Include="Statements\SqlStatementTranslator.cs" />
+    <Compile Include="Statements\SqlStatementGenerator.cs" />
+    <Compile Include="Statements\SqlTypeTranslator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QueryBuilder.Core\QueryBuilder.Core.csproj">
