@@ -48,6 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbContextBulkInsertExtensions.cs" />
+    <Compile Include="Factories\BulkFacadeFactory.cs" />
+    <Compile Include="Factories\DatabaseContextFactory.cs" />
+    <Compile Include="Factories\MappingAdapterFactory.cs" />
+    <Compile Include="Factories\StatementFacadeFactory.cs" />
     <Compile Include="FluentSyntax\UpdateStatementBuilder.cs" />
     <Compile Include="IQueryableDeleteExtensions.cs" />
     <Compile Include="IQueryableUpdateExtensions.cs" />
@@ -71,5 +75,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

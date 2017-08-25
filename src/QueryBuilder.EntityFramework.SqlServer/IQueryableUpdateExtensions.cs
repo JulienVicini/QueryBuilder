@@ -1,12 +1,8 @@
 ﻿using QueryBuilder.Core.Statements;
-using QueryBuilder.EntityFramework.Database;
 using QueryBuilder.EntityFramework.IQueryable;
-using QueryBuilder.EntityFramework.Mappings;
+using QueryBuilder.EntityFramework.SqlServer.Factories;
 using QueryBuilder.EntityFramework.SqlServer.FluentSyntax;
-using QueryBuilder.SqlServer.Statements;
 using System;
-using System.Data.Entity.Core.Objects;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -36,20 +32,11 @@ namespace QueryBuilder.EntityFramework.SqlServer
                 IQueryableHelpers.GetQueryPredicate(queryable)
             );
 
-            // Get info from IQueryable
-            ObjectContext objectContext = IQueryableHelpers.GetObjectContext(queryable);
+            // Create Statement Facade
+            StatementFacade<T> statementFacade
+                = new StatementFacadeFactory<T>().CreateFacade(queryable);
 
-            var objectContextAdapter = new ObjectContextDatabaseAdapter<SqlConnection, SqlTransaction>(objectContext);
-
-            var mappingAdapter = new EntityTypeMappingAdapter<T>(objectContext.GetEntityMetaData<T>());
-
-            // Create Query
-            var orchestrator = new StatementFacade<T>(
-                new SqlQueryTranslator<T>(mappingAdapter),
-                objectContextAdapter
-            );
-
-            return orchestrator.Update(query);
+            return statementFacade.Update(query);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace QueryBuilder.EntityFramework.IQueryable
             MethodCallExpression methodCallExpression = (queryable.Expression as MethodCallExpression)
                 ?? throw new InvalidOperationException($"The parameter \"{nameof(queryable)}\" hasn't been create from EntityFramework's DbSet.");
 
+
             ConstantExpression constantExpression 
                 = methodCallExpression?.Object as ConstantExpression
                     ?? (methodCallExpression.Arguments[0] as MethodCallExpression)?.Object as ConstantExpression; // TODO remove that crap
