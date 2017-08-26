@@ -78,7 +78,7 @@ namespace QueryBuilder.SqlServer.Bulk.DataReader
         protected SwitchCase BuildCase(int index, ParameterExpression itemParameter, PropertyInfo propertyInfo)
         {
             return Expression.SwitchCase(
-                Expression.MakeMemberAccess(itemParameter, propertyInfo),
+                Expression.Convert( Expression.MakeMemberAccess(itemParameter, propertyInfo), typeof(object)),
                 Expression.Constant(index)
             );
         }
