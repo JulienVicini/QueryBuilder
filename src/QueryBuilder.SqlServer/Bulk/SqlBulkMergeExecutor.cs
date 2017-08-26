@@ -1,7 +1,7 @@
 ﻿using QueryBuilder.Core.Database;
 using QueryBuilder.Core.Statements;
+using QueryBuilder.SqlServer.Bulk.DataReader;
 using System;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace QueryBuilder.SqlServer.Bulk
@@ -20,13 +20,13 @@ namespace QueryBuilder.SqlServer.Bulk
             _mergeQuery        = mergeQuery        ?? throw new ArgumentNullException(nameof(mergeQuery));
         }
 
-        public override void Write(string tableName, DataTable records, SqlConnection sqlConn, SqlTransaction transaction)
+        public override void Write(string tableName, IBulkDataReader dataReader, SqlConnection sqlConn, SqlTransaction transaction)
         {
             // Create Temporary Table
             DropCreateTemporaryTable(AlterTableStatement<TEntity>.AlterType.Create);
 
             // Insert Data
-            base.Write(_mergeQuery.TemporaryTableName, records, sqlConn, transaction);
+            base.Write(_mergeQuery.TemporaryTableName, dataReader, sqlConn, transaction);
 
             // Execute merge statement
             _queryOrchestrator.Merge(_mergeQuery);

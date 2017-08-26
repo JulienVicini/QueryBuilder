@@ -1,5 +1,6 @@
 ﻿using QueryBuilder.Core.Bulk;
 using QueryBuilder.Core.Database;
+using QueryBuilder.SqlServer.Bulk.DataReader;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -7,7 +8,7 @@ using System.Data.SqlClient;
 namespace QueryBuilder.SqlServer.Bulk
 {
     public class SqlBulkCopyExecutor
-        : IBulkExecutor<DataTable>
+        : IBulkExecutor<IBulkDataReader>
     {
         protected readonly IDatabaseContext<SqlConnection, SqlTransaction> _sqlContext;
 
@@ -16,7 +17,7 @@ namespace QueryBuilder.SqlServer.Bulk
             _sqlContext = sqlContext ?? throw new ArgumentNullException(nameof(sqlContext));
         }
 
-        public void Write(string tableName, DataTable records)
+        public void Write(string tableName, IBulkDataReader dataReader)
         {
             // Perform Bulk Copy
             SqlConnection sqlConn = _sqlContext.GetConnection();
@@ -27,21 +28,21 @@ namespace QueryBuilder.SqlServer.Bulk
 
             using (SqlTransaction sqlTransaction = _sqlContext.BeginTransaction())
             {
-                Write(tableName, records, sqlConn, sqlTransaction);
+                Write(tableName, dataReader, sqlConn, sqlTransaction);
 
                 sqlTransaction.Commit();
             }
         }
 
-        public virtual void Write(string tableName, DataTable records, SqlConnection sqlConn, SqlTransaction transaction)
+        public virtual void Write(string tableName, IBulkDataReader dataReader, SqlConnection sqlConn, SqlTransaction transaction)
         {
             using (var bulkCopy = new SqlBulkCopy(sqlConn, SqlBulkCopyOptions.KeepIdentity, transaction))
             {
-                foreach (DataColumn column in records.Columns)
-                    bulkCopy.ColumnMappings.Add(column.ColumnName, column.ColumnName);
+                foreach (string columnName in dataReader.Columns)
+                    bulkCopy.ColumnMappings.Add(columnName, columnName);
 
                 bulkCopy.DestinationTableName = tableName;
-                bulkCopy.WriteToServer(records);
+                bulkCopy.WriteToServer(dataReader);
             }
         }
     }

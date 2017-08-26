@@ -4,9 +4,9 @@ using QueryBuilder.Core.Statements;
 using QueryBuilder.EntityFramework.SqlServer.Factories;
 using QueryBuilder.Helpers;
 using QueryBuilder.SqlServer.Bulk;
+using QueryBuilder.SqlServer.Bulk.DataReader;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
@@ -28,7 +28,7 @@ namespace QueryBuilder.EntityFramework.SqlServer
         public static void BulkInsert<T>(this DbSet<T> dbSet, IEnumerable<T> data)
             where T : class
         {
-            BulkFacade<T, DataTable> bulkCopy
+            BulkFacade<T, IBulkDataReader> bulkCopy
                 = new BulkFacadeFactory<T>().CreateBulkCopy(dbSet);
 
             bulkCopy.WriteToServer(data);
@@ -49,9 +49,9 @@ namespace QueryBuilder.EntityFramework.SqlServer
             var queryFacade = new StatementFacadeFactory<TEntity>().CreateFacade(dbSet); 
 
             // TODO put in factory
-            var bulkCopy = new BulkFacade<TEntity, DataTable>(
+            var bulkCopy = new BulkFacade<TEntity, IBulkDataReader>(
                 bulkExecutor   : new SqlBulkMergeExecutor<TEntity>(databaseContext, queryFacade, mergeQuery),
-                dataTransformer: new DataTableDataTransformer<TEntity>(mappingAdapter),
+                dataTransformer: new DataReaderDataTransformer<TEntity>(mappingAdapter),
                 mappingAdapter : mappingAdapter
             );
 

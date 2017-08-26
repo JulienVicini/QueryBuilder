@@ -43,7 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bulk\DataReaderDataTransformer.cs" />
+    <Compile Include="Bulk\DataReader\BulkCopyDataReaderBase.cs" />
+    <Compile Include="Bulk\DataReader\IBulkDataReader.cs" />
     <Compile Include="Bulk\DataTableDataTransformer.cs" />
+    <Compile Include="Bulk\DataReader\LazyDataReader.cs" />
+    <Compile Include="Bulk\DataReader\OrdinalValueLookupBuilder.cs" />
     <Compile Include="Bulk\SqlBulkCopyExecutor.cs" />
     <Compile Include="Bulk\SqlBulkMergeExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
