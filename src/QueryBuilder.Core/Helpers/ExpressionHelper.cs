@@ -45,7 +45,6 @@ namespace QueryBuilder.Helpers
 
             return newExpression.Arguments.Select(arg => (MemberExpression)arg)
                                           .ToList();
-             //expression.Body;
         }
     }
 }
