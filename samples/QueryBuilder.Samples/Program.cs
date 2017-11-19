@@ -19,7 +19,8 @@ namespace QueryBuilder.Samples
                 context.Persons.BulkInsert(newPersons);
 
                 // Bulk Merge
-                IEnumerable<Person> dbPersons = context.Persons.AsNoTracking()
+                IEnumerable<Person> dbPersons = context.Persons
+                                                       .AsNoTracking()
                                                        .Take(1000)
                                                        .ToList();
 
@@ -31,7 +32,7 @@ namespace QueryBuilder.Samples
                 // Update
                 context.Persons.Where(p => p.Id % 2 == 0)
                                .SetValue(p => p.Age, 0)
-                               // TODO Do not work so far .SetValue(p => p.Age, p => p.Age / p.Id)
+                               // TODO Does not work so far .SetValue(p => p.Age, p => p.Age / p.Id)
                                .Update();
             }
         }

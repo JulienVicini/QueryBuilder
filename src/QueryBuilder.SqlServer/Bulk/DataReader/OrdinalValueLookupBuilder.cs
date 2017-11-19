@@ -57,11 +57,12 @@ namespace QueryBuilder.SqlServer.Bulk.DataReader
 
         protected SwitchExpression BuildSwitch(ParameterExpression itemParameter, ParameterExpression indexParamter)
         {
+            IEnumerable<SwitchCase> cases = _orderedColumns.Select((c, index) => BuildCase(index, itemParameter, c.PropertyInfo));
+
             return Expression.Switch(
                 switchValue: indexParamter,
                 defaultBody: BuildDefaultCase(),
-                cases      : _orderedColumns.Select((c, index) => BuildCase(index, itemParameter, c.PropertyInfo))
-                                            .ToArray()
+                cases      : cases.ToArray()
             );
         }
 
@@ -70,8 +71,11 @@ namespace QueryBuilder.SqlServer.Bulk.DataReader
             if (HasDefaultValue)
                 return Expression.Constant(DefaultValue);
             else
-                return Expression.Throw(
-                    Expression.Constant(new IndexOutOfRangeException())
+                return Expression.Block( // HACK - We use a block here to return an object, otherwise switch statement fail because "All case bodies and the default body must have the same type."
+                    Expression.Throw(
+                        Expression.Constant(new IndexOutOfRangeException())
+                    ),
+                    Expression.Constant(new object())
                 );
         }
 
