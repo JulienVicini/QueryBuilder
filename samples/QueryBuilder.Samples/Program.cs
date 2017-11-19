@@ -9,35 +9,35 @@ namespace QueryBuilder.Samples
     {
         static void Main(string[] args)
         {
-            using(var context = new SchoolDbContext())
+            using(var dbContext = new SampleDbContext())
             {
                 // Delete
-                context.Persons.Delete();
+                dbContext.Persons.Delete();
 
                 // Bulk Insert
                 IEnumerable<Person> newPersons = CreatePersons(count: 100); 
-                context.Persons.BulkInsert(newPersons);
+                dbContext.Persons.BulkInsert(newPersons);
 
                 // Bulk Merge
-                IEnumerable<Person> dbPersons = context.Persons
-                                                       .AsNoTracking()
-                                                       .Take(1000)
-                                                       .ToList();
+                IEnumerable<Person> dbPersons = dbContext.Persons
+                                                         .AsNoTracking()
+                                                         .Take(1000)
+                                                         .ToList();
 
                 foreach(Person person in dbPersons)
                     person.Age += 10;
 
-                context.Persons.BulkMerge(dbPersons, p => new { p.FirstName, p.LastName });
+                dbContext.Persons.BulkMerge(dbPersons, p => new { p.FirstName, p.LastName });
 
                 // Update
-                context.Persons.Where(p => p.Id % 2 == 0)
-                               .SetValue(p => p.Age, 0)
-                               // TODO Does not work so far .SetValue(p => p.Age, p => p.Age / p.Id)
-                               .Update();
+                dbContext.Persons.Where(p => p.Id % 2 == 0)
+                                 .SetValue(p => p.Age, 0)
+                                 // TODO Does not work so far .SetValue(p => p.Age, p => p.Age / p.Id)
+                                 .Update();
 
                 // Delete with predicate
-                context.Persons.Where(p => p.Age == 0)
-                               .Delete();
+                dbContext.Persons.Where(p => p.Age == 0)
+                                 .Delete();
             }
         }
 

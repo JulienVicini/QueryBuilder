@@ -5,13 +5,13 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace QueryBuilder.Samples
 {
-    public class SchoolDbContext : DbContext
+    public class SampleDbContext : DbContext
     {
         public DbSet<Person> Persons { get; set; }
 
-        static SchoolDbContext()
+        static SampleDbContext()
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SchoolDbContext>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SampleDbContext>());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
