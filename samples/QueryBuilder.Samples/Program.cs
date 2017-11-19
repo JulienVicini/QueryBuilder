@@ -34,6 +34,10 @@ namespace QueryBuilder.Samples
                                .SetValue(p => p.Age, 0)
                                // TODO Does not work so far .SetValue(p => p.Age, p => p.Age / p.Id)
                                .Update();
+
+                // Delete with predicate
+                context.Persons.Where(p => p.Age == 0)
+                               .Delete();
             }
         }
 
