@@ -11,11 +11,5 @@ namespace QueryBuilder.Samples.Entities
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
-        public List<Address> Addresses { get; set; }
-
-        public List<Course> AttendedCourses { get; set; }
-
-        public List<Course> GivenClasses { get; set; }
     }
 }
