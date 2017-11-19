@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace QueryBuilder.Helpers
 {
+    [DebuggerStepThrough]
     public static class ThrowHelper
     {
         public static void ThrowIfNull<T>(T value, string argumentName)
