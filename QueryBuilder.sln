@@ -24,7 +24,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramewor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramework.SqlServer", "src\QueryBuilder.EntityFramework.SqlServer\QueryBuilder.EntityFramework.SqlServer.csproj", "{D7062133-C8EA-4838-92BA-7C686335DD8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.SqlServer", "src\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj", "{AACBCD94-8A06-4DAC-9E3A-2FCD0AE0F52C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryBuilder.SqlServer", "src\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj", "{AACBCD94-8A06-4DAC-9E3A-2FCD0AE0F52C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EFCore", "src\QueryBuilder.EFCore\QueryBuilder.EFCore.csproj", "{5679447F-D013-4040-BFF0-623916FAD0AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +62,10 @@ Global
 		{AACBCD94-8A06-4DAC-9E3A-2FCD0AE0F52C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AACBCD94-8A06-4DAC-9E3A-2FCD0AE0F52C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AACBCD94-8A06-4DAC-9E3A-2FCD0AE0F52C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5679447F-D013-4040-BFF0-623916FAD0AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5679447F-D013-4040-BFF0-623916FAD0AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5679447F-D013-4040-BFF0-623916FAD0AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5679447F-D013-4040-BFF0-623916FAD0AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{08D8F66C-40CB-4B9A-B559-490E27D2290F} = {89E369EF-D066-4184-AB84-48675AA2BE79}
 		{D7062133-C8EA-4838-92BA-7C686335DD8B} = {89E369EF-D066-4184-AB84-48675AA2BE79}
 		{AACBCD94-8A06-4DAC-9E3A-2FCD0AE0F52C} = {89E369EF-D066-4184-AB84-48675AA2BE79}
+		{5679447F-D013-4040-BFF0-623916FAD0AA} = {89E369EF-D066-4184-AB84-48675AA2BE79}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2FDA7E24-10AC-4C9F-8A94-4B35740A9E70}
