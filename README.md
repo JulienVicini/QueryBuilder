@@ -12,7 +12,7 @@ using QueryBuilder.EntityFramework.SqlServer;
 
 **Bulk Insert**
 ```C#
-DbSet<Person> persons = dbContext.Persons;
+DbSet<Person> dbSet = dbContext.Persons;
 dbSet.BulkInsert(newPersons);
 ```
 
@@ -35,8 +35,8 @@ dbSet.Where(person => person.Age < 18)
 **Update**
 ```C#
 DbSet<Person> dbSet = dbContext.Persons;
-dbSet.Persons.Where(p => p.Id % 2 == 0)
-             .SetValue(p => p.Age      , 0     )
-             .SetValue(p => p.FirstName, "Even")
-             .Update();
+dbSet.Where(p => p.Id % 2 == 0)
+     .SetValue(p => p.Age      , 0     )
+     .SetValue(p => p.FirstName, "Even")
+     .Update();
 ```
