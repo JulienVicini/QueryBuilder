@@ -95,7 +95,7 @@
       <Name>QueryBuilder.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj">
-      <Project>{58A211A9-A2DD-42EF-B931-81E24224B454}</Project>
+      <Project>{aacbcd94-8a06-4dac-9e3a-2fcd0ae0f52c}</Project>
       <Name>QueryBuilder.SqlServer</Name>
     </ProjectReference>
   </ItemGroup>

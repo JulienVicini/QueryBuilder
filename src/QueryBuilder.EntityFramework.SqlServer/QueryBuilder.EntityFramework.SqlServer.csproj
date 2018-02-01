@@ -11,6 +11,7 @@
     <AssemblyName>QueryBuilder.EntityFramework.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +40,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlClient, Version=4.2.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Data.SqlClient.4.4.2\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,7 +71,7 @@
       <Name>QueryBuilder.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj">
-      <Project>{58A211A9-A2DD-42EF-B931-81E24224B454}</Project>
+      <Project>{aacbcd94-8a06-4dac-9e3a-2fcd0ae0f52c}</Project>
       <Name>QueryBuilder.SqlServer</Name>
     </ProjectReference>
   </ItemGroup>
