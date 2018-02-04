@@ -1,6 +1,6 @@
 ### Query Builder
 
-	The main purpose of this project is to generate queries using Expression Trees and Entity Framework 6 and Entity Framework Core mappings.
+	The main purpose of this project is to generate queries using Expression Trees and EF6 and EFCore mappings.
 	It provides a set of extension methods on both DbSet<> and IQueryable<> types.
 
 
