@@ -10,8 +10,6 @@ namespace QueryBuilder.Core.Statements
 
         public DeleteStatement(Expression<Func<TEntity, bool>> predicate)
         {
-            ThrowHelper.ThrowIfNull(predicate, nameof(predicate));
-
             Predicate = predicate;
         }
     }
