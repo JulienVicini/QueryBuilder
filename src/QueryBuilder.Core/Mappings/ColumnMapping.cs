@@ -1,4 +1,4 @@
-﻿using QueryBuilder.Helpers;
+﻿using QueryBuilder.Core.Helpers;
 using System;
 using System.Reflection;
 

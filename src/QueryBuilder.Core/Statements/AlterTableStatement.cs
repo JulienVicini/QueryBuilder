@@ -1,4 +1,6 @@
-﻿namespace QueryBuilder.Core.Statements
+﻿using QueryBuilder.Core.Helpers;
+
+namespace QueryBuilder.Core.Statements
 {
     public class AlterTableStatement<TEntity>
         where TEntity : class
@@ -9,12 +11,14 @@
             Drop
         }
 
-        public AlterType Type { get; private set; }
+        public AlterType Type { get; }
 
-        public string TableName { get; private set; }
+        public string TableName { get; }
 
         public AlterTableStatement(string tableName, AlterType type)
         {
+            ThrowHelper.ThrowIfNullOrEmpty(tableName, nameof(tableName));
+
             TableName = tableName;
             Type      = type;
         }
