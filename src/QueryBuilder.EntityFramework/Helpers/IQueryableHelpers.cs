@@ -2,8 +2,9 @@
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
+using QueryBuilder.Core.IQueryables;
 
-namespace QueryBuilder.EntityFramework.IQueryable
+namespace QueryBuilder.EntityFramework.Helpers
 {
     public static class IQueryableHelpers
     {

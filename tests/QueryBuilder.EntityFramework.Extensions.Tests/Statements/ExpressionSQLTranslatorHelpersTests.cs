@@ -3,7 +3,7 @@ using QueryBuilder.SqlServer.Statements;
 using System;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Extensions.Tests.QueriesHelpers
+namespace QueryBuilder.EntityFramework.Extensions.Tests.Statements
 {
     [TestClass]
     public class ExpressionSQLTranslatorHelpersTests

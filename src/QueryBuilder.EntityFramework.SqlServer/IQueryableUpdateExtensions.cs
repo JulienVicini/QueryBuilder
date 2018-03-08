@@ -1,5 +1,5 @@
 ﻿using QueryBuilder.Core.Statements;
-using QueryBuilder.EntityFramework.IQueryable;
+using QueryBuilder.EntityFramework.Helpers;
 using QueryBuilder.EntityFramework.SqlServer.Factories;
 using System;
 using System.Linq;

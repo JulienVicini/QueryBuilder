@@ -1,6 +1,6 @@
 ﻿using QueryBuilder.Core.Database;
 using QueryBuilder.EntityFramework.Database;
-using QueryBuilder.EntityFramework.IQueryable;
+using QueryBuilder.EntityFramework.Helpers;
 using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
 using System.Linq;

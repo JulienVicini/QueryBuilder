@@ -48,8 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\ObjectContextDatabaseAdapter.cs" />
-    <Compile Include="IQueryable\IQueryableHelpers.cs" />
-    <Compile Include="IQueryable\SearchWhereMethodCallExpressionVisitor.cs" />
+    <Compile Include="Helpers\IQueryableHelpers.cs" />
     <Compile Include="Mappings\EntityTypeMappingAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
