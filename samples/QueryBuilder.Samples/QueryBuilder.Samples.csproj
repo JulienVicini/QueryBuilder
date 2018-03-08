@@ -62,6 +62,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\QueryBuilder.Core\QueryBuilder.Core.csproj">
+      <Project>{a1b7c63d-7a16-4288-8d98-24755c1078cd}</Project>
+      <Name>QueryBuilder.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\QueryBuilder.EntityFramework.SqlServer\QueryBuilder.EntityFramework.SqlServer.csproj">
       <Project>{d7062133-c8ea-4838-92ba-7c686335dd8b}</Project>
       <Name>QueryBuilder.EntityFramework.SqlServer</Name>

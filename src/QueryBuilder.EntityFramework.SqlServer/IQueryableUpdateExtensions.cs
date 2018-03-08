@@ -1,7 +1,6 @@
 ﻿using QueryBuilder.Core.Statements;
 using QueryBuilder.EntityFramework.IQueryable;
 using QueryBuilder.EntityFramework.SqlServer.Factories;
-using QueryBuilder.EntityFramework.SqlServer.FluentSyntax;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

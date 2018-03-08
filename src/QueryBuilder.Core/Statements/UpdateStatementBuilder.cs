@@ -1,10 +1,10 @@
-﻿using QueryBuilder.Helpers;
+﻿using QueryBuilder.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.SqlServer.FluentSyntax
+namespace QueryBuilder.Core.Statements
 {
     public class UpdateStatementBuilder<T>
     {

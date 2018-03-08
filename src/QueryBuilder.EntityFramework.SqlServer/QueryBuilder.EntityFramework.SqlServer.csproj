@@ -56,7 +56,6 @@
     <Compile Include="Factories\DatabaseContextFactory.cs" />
     <Compile Include="Factories\MappingAdapterFactory.cs" />
     <Compile Include="Factories\StatementFacadeFactory.cs" />
-    <Compile Include="FluentSyntax\UpdateStatementBuilder.cs" />
     <Compile Include="IQueryableDeleteExtensions.cs" />
     <Compile Include="IQueryableUpdateExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

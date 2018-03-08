@@ -2,7 +2,7 @@
 using QueryBuilder.Core.Mappings;
 using QueryBuilder.Core.Statements;
 using QueryBuilder.EntityFramework.SqlServer.Factories;
-using QueryBuilder.Helpers;
+using QueryBuilder.Core.Helpers;
 using QueryBuilder.SqlServer.Bulk;
 using QueryBuilder.SqlServer.Bulk.DataReader;
 using System;
