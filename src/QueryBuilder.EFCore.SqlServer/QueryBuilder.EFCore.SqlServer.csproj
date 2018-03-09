@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QueryBuilder.Core\QueryBuilder.Core.csproj" />
+    <ProjectReference Include="..\QueryBuilder.EFCore\QueryBuilder.EFCore.csproj" />
+    <ProjectReference Include="..\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj" />
+  </ItemGroup>
+
+</Project>
