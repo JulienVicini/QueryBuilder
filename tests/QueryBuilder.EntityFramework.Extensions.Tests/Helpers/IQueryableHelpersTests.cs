@@ -6,15 +6,12 @@ using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace QueryBuilder.EntityFramework.Extensions.Tests.QueriesHelpers
 {
     [TestClass]
     public class IQueryableHelpersTests
     {
-        #region GetObjectContext
-
         [TestMethod]
         public void GetObjectContextReturnsObjectContext()
         {
@@ -54,57 +51,5 @@ namespace QueryBuilder.EntityFramework.Extensions.Tests.QueriesHelpers
                 IQueryableHelpers.GetObjectContext(queryable);
             });
         }
-
-        #endregion
-
-        #region GetQueryPredicate
-
-        [TestMethod]
-        public void GetQueryPredicateThrowsArgumentNullExceptionWhenQuerayableIsNull()
-        {
-            Assert.ThrowsException<ArgumentNullException>(() => IQueryableHelpers.GetQueryPredicate<Parent>(null));
-        }
-
-        [TestMethod]
-        public void GetQueryPredicateReturnsNullWhenNotFiltering()
-        {
-            using(var dbContext = new TestDbContext())
-            {
-                IQueryable<Parent> query = dbContext.Parents;
-
-                Assert.AreEqual( null, IQueryableHelpers.GetQueryPredicate(query) );
-            }
-        }
-
-        [TestMethod]
-        public void GetQueryPredicateReturnsPredicate()
-        {
-            using(var dbContext = new TestDbContext())
-            {
-                // prepare query
-                Expression<Func<Parent, bool>> predicate = p => p.Id == 3;
-
-                IQueryable<Parent> query = dbContext.Parents.Where(predicate);
-                
-                // act
-                Assert.AreEqual( predicate, IQueryableHelpers.GetQueryPredicate(query) );
-            }
-        }
-
-        [TestMethod]
-        public void GetQueryPredicateThrowsInvalidOperationExceptionWhenMultiplePredicateChained()
-        {
-            using (var dbContext = new TestDbContext())
-            {
-                // prepare query
-                IQueryable<Parent> query = dbContext.Parents.Where(p => p.Id == 3)
-                                                            .Where(p => p.SecondVariable == 18);
-
-                // act
-                Assert.ThrowsException<InvalidOperationException>( () => IQueryableHelpers.GetQueryPredicate(query) );
-            }
-        }
-
-        #endregion
     }
 }

@@ -1,29 +1,30 @@
-﻿using QueryBuilder.Core.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
+using QueryBuilder.Core.Database;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 
-namespace QueryBuilder.EntityFramework.Database
+namespace QueryBuilder.EFCore.Database
 {
     public class EFCoreContextAdapter<TConnection, TTransaction>
         : IDatabaseContext<TConnection, TTransaction>, ICommandProcessing
         where TConnection : DbConnection
         where TTransaction : DbTransaction
     {
-        public TTransaction BeginTransaction()
+        private readonly DatabaseFacade _dbFacade;
+
+        public EFCoreContextAdapter(DatabaseFacade dbFacade)
         {
-            throw new NotImplementedException();
+            _dbFacade = dbFacade ?? throw new ArgumentNullException(nameof(dbFacade));
         }
 
-        public int ExecuteCommand(string query, IEnumerable<object> parameters)
-        {
-            throw new NotImplementedException();
-        }
+        public TTransaction BeginTransaction() => (TTransaction) _dbFacade.BeginTransaction().GetDbTransaction();
 
-        public TConnection GetConnection()
-        {
-            throw new NotImplementedException();
-        }
+        public int ExecuteCommand(string query, IEnumerable<object> parameters) =>  _dbFacade.ExecuteSqlCommand(query, parameters);
+
+        public TConnection GetConnection() => _dbFacade.GetDbConnection() as TConnection;
     }
 }

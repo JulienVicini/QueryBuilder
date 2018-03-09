@@ -1,5 +1,5 @@
-﻿using QueryBuilder.Core.Statements;
-using QueryBuilder.EntityFramework.Helpers;
+﻿using QueryBuilder.Core.IQueryables;
+using QueryBuilder.Core.Statements;
 using QueryBuilder.EntityFramework.SqlServer.Factories;
 using System.Linq;
 
@@ -11,7 +11,7 @@ namespace QueryBuilder.EntityFramework.SqlServer
             where T : class
         {
             // BuilderQuery
-            var query = new DeleteStatement<T>(IQueryableHelpers.GetQueryPredicate(queryable));
+            var query = new DeleteStatement<T>(IQueryableHelper.GetQueryPredicate(queryable));
 
             // Create Statement Facade
             StatementFacade<T> statementFace = new StatementFacadeFactory<T>()
