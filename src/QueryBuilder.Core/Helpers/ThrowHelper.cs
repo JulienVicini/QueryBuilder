@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace QueryBuilder.Helpers
+namespace QueryBuilder.Core.Helpers
 {
     [DebuggerStepThrough]
     public static class ThrowHelper

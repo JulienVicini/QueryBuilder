@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QueryBuilder.Core.Mappings;
 using System;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 

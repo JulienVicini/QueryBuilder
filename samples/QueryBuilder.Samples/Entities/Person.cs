@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace QueryBuilder.Samples.Entities
+﻿namespace QueryBuilder.Samples.Entities
 {
     public class Person
     {

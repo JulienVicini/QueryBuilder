@@ -8,9 +8,10 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>QueryBuilder.Samples</RootNamespace>
     <AssemblyName>QueryBuilder.Samples</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,6 +63,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\QueryBuilder.Core\QueryBuilder.Core.csproj">
+      <Project>{a1b7c63d-7a16-4288-8d98-24755c1078cd}</Project>
+      <Name>QueryBuilder.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\QueryBuilder.EntityFramework.SqlServer\QueryBuilder.EntityFramework.SqlServer.csproj">
       <Project>{d7062133-c8ea-4838-92ba-7c686335dd8b}</Project>
       <Name>QueryBuilder.EntityFramework.SqlServer</Name>

@@ -1,5 +1,5 @@
 ﻿using QueryBuilder.Core.Mappings;
-using QueryBuilder.Helpers;
+using QueryBuilder.Core.Helpers;
 using System;
 using System.Collections.Generic;
 

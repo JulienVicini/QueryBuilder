@@ -1,5 +1,6 @@
 ﻿using QueryBuilder.Core.Mappings;
 using System;
+using System.Data;
 
 namespace QueryBuilder.SqlServer.Statements
 {

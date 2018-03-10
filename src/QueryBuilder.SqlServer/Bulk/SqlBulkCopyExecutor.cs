@@ -25,11 +25,9 @@ namespace QueryBuilder.SqlServer.Bulk
             if(sqlConn.State != ConnectionState.Open)
                 sqlConn.Open();
 
-
-            using (SqlTransaction sqlTransaction = _sqlContext.BeginTransaction())
+            using (ITransactionScope<SqlTransaction> sqlTransaction = _sqlContext.BeginTransaction())
             {
-                Write(tableName, dataReader, sqlConn, sqlTransaction);
-
+                Write(tableName, dataReader, sqlConn, sqlTransaction.Current);
                 sqlTransaction.Commit();
             }
         }
@@ -38,8 +36,12 @@ namespace QueryBuilder.SqlServer.Bulk
         {
             using (var bulkCopy = new SqlBulkCopy(sqlConn, SqlBulkCopyOptions.KeepIdentity, transaction))
             {
-                foreach (string columnName in dataReader.Columns)
-                    bulkCopy.ColumnMappings.Add(columnName, columnName);
+                foreach (Tuple<int, string> column in dataReader.Columns)
+                {
+                    // use ordinal when adding mapping instead of column name
+                    // bug will be solved in Standard Library 2.1 https://github.com/dotnet/corefx/pull/24655
+                    bulkCopy.ColumnMappings.Add(column.Item1, column.Item2);
+                }
 
                 bulkCopy.DestinationTableName = tableName;
                 bulkCopy.WriteToServer(dataReader);

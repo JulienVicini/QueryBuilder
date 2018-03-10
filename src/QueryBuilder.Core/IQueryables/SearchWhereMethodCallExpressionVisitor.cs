@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.IQueryable
+namespace QueryBuilder.Core.IQueryables
 {
     public class SearchWhereMethodCallExpressionVisitor
         : ExpressionVisitor

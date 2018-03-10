@@ -1,4 +1,4 @@
-﻿using QueryBuilder.EntityFramework.IQueryable;
+﻿using QueryBuilder.EntityFramework.Helpers;
 using QueryBuilder.EntityFramework.Mappings;
 using System.Data.Entity.Core.Objects;
 using System.Linq;

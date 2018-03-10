@@ -1,5 +1,6 @@
-﻿using QueryBuilder.Helpers;
+﻿using QueryBuilder.Core.Helpers;
 using System;
+using System.Data;
 using System.Reflection;
 
 namespace QueryBuilder.Core.Mappings

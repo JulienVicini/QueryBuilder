@@ -1,7 +1,6 @@
-﻿using QueryBuilder.Core.Statements;
-using QueryBuilder.EntityFramework.IQueryable;
+﻿using QueryBuilder.Core.IQueryables;
+using QueryBuilder.Core.Statements;
 using QueryBuilder.EntityFramework.SqlServer.Factories;
-using QueryBuilder.EntityFramework.SqlServer.FluentSyntax;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -29,7 +28,7 @@ namespace QueryBuilder.EntityFramework.SqlServer
             // Create Query
             var query = new UpdateStatement<T>(
                 updateBuilder.Assignements,
-                IQueryableHelpers.GetQueryPredicate(queryable)
+                IQueryableHelper.GetQueryPredicate(queryable)
             );
 
             // Create Statement Facade

@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QueryBuilder.Helpers;
+using QueryBuilder.Core.Helpers;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -20,8 +20,16 @@ namespace QueryBuilder.Core.Tests.Helpers
         [TestMethod]
         public void GetMemberExpressionThrowsArgumentNullExceptionWhenExpressionIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() =>
-                ExpressionHelper.GetMemberExpression<ThrowHelperTests, bool>(null)
+            Assert.ThrowsException<ArgumentNullException>(
+                () => ExpressionHelper.GetMemberExpression<ThrowHelperTests, bool>(null)
+            );
+        }
+
+        [TestMethod]
+        public void GetMemberExpressionThrowsArgumentExceptionWhenExpressionIsNotMemberExpression()
+        {
+            Assert.ThrowsException<ArgumentException>(
+                () => ExpressionHelper.GetMemberExpression<ThrowHelperTests, int>(_ => 3)
             );
         }
 

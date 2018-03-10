@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QueryBuilder.EntityFramework.IQueryable;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using QueryBuilder.Core.IQueryables;
 
-namespace QueryBuilder.EntityFramework.Extensions.Tests.ExpressionVisitors
+namespace QueryBuilder.Core.Tests.IQueryables
 {
     [TestClass]
     public class SearchMethodCallExpressionVisitorTests
