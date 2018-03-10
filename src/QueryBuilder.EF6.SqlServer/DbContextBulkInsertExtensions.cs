@@ -1,7 +1,7 @@
 ﻿using QueryBuilder.Core.Bulk;
 using QueryBuilder.Core.Mappings;
 using QueryBuilder.Core.Statements;
-using QueryBuilder.EntityFramework.SqlServer.Factories;
+using QueryBuilder.EF6.SqlServer.Factories;
 using QueryBuilder.Core.Helpers;
 using QueryBuilder.SqlServer.Bulk;
 using QueryBuilder.SqlServer.Bulk.DataReader;
@@ -13,7 +13,7 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.SqlServer
+namespace QueryBuilder.EF6.SqlServer
 {
     public static class DbContextBulkInsertExtensions
     {

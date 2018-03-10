@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QueryBuilder.EntityFramework.Extensions.Tests.Context;
-using QueryBuilder.EntityFramework.Helpers;
+using QueryBuilder.EF6.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;

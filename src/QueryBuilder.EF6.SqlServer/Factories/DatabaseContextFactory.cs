@@ -1,11 +1,11 @@
 ﻿using QueryBuilder.Core.Database;
-using QueryBuilder.EntityFramework.Database;
-using QueryBuilder.EntityFramework.Helpers;
+using QueryBuilder.EF6.Database;
+using QueryBuilder.EF6.Helpers;
 using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace QueryBuilder.EntityFramework.SqlServer.Factories
+namespace QueryBuilder.EF6.SqlServer.Factories
 {
     public class DatabaseAdapterFactory<T>
         where T : class

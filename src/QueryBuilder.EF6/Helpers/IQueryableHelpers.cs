@@ -3,7 +3,7 @@ using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace QueryBuilder.EntityFramework.Helpers
+namespace QueryBuilder.EF6.Helpers
 {
     public static class IQueryableHelpers
     {

@@ -1,4 +1,4 @@
-﻿using QueryBuilder.EntityFramework.SqlServer;
+﻿using QueryBuilder.EF6.SqlServer;
 using QueryBuilder.Samples.Entities;
 using System.Collections.Generic;
 using System.Linq;

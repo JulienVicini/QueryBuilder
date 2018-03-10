@@ -90,7 +90,7 @@
       <Project>{A1B7C63D-7A16-4288-8D98-24755C1078CD}</Project>
       <Name>QueryBuilder.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\QueryBuilder.EntityFramework\QueryBuilder.EntityFramework.csproj">
+    <ProjectReference Include="..\..\src\QueryBuilder.EF6\QueryBuilder.EF6.csproj">
       <Project>{08D8F66C-40CB-4B9A-B559-490E27D2290F}</Project>
       <Name>QueryBuilder.EntityFramework</Name>
     </ProjectReference>

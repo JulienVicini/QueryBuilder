@@ -6,7 +6,7 @@ using QueryBuilder.SqlServer.Bulk.DataReader;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace QueryBuilder.EntityFramework.SqlServer.Factories
+namespace QueryBuilder.EF6.SqlServer.Factories
 {
     public class BulkFacadeFactory<TRecord>
         where TRecord : class

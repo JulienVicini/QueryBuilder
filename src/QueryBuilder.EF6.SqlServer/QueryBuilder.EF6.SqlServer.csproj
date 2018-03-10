@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{08D8F66C-40CB-4B9A-B559-490E27D2290F}</ProjectGuid>
+    <ProjectGuid>{D7062133-C8EA-4838-92BA-7C686335DD8B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QueryBuilder.EntityFramework</RootNamespace>
-    <AssemblyName>QueryBuilder.EntityFramework</AssemblyName>
+    <RootNamespace>QueryBuilder.EF6.SqlServer</RootNamespace>
+    <AssemblyName>QueryBuilder.EF6.SqlServer</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -40,6 +40,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SqlClient, Version=4.2.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Data.SqlClient.4.4.2\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,16 +51,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\DbTransactionTransactionScope.cs" />
-    <Compile Include="Database\ObjectContextDatabaseAdapter.cs" />
-    <Compile Include="Helpers\IQueryableHelpers.cs" />
-    <Compile Include="Mappings\EntityTypeMappingAdapter.cs" />
+    <Compile Include="DbContextBulkInsertExtensions.cs" />
+    <Compile Include="Factories\BulkFacadeFactory.cs" />
+    <Compile Include="Factories\DatabaseContextFactory.cs" />
+    <Compile Include="Factories\MappingAdapterFactory.cs" />
+    <Compile Include="Factories\StatementFacadeFactory.cs" />
+    <Compile Include="IQueryableDeleteExtensions.cs" />
+    <Compile Include="IQueryableUpdateExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QueryBuilder.Core\QueryBuilder.Core.csproj">
       <Project>{A1B7C63D-7A16-4288-8D98-24755C1078CD}</Project>
       <Name>QueryBuilder.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.EF6\QueryBuilder.EF6.csproj">
+      <Project>{08d8f66c-40cb-4b9a-b559-490e27d2290f}</Project>
+      <Name>QueryBuilder.EF6</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj">
+      <Project>{aacbcd94-8a06-4dac-9e3a-2fcd0ae0f52c}</Project>
+      <Name>QueryBuilder.SqlServer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

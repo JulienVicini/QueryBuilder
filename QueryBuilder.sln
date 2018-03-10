@@ -20,9 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryBuilder.Core", "src\Qu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.Core.Tests", "tests\QueryBuilder.Core.Tests\QueryBuilder.Core.Tests.csproj", "{C1BB8A58-46A7-44EA-9E8A-559FBFE41BD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramework", "src\QueryBuilder.EntityFramework\QueryBuilder.EntityFramework.csproj", "{08D8F66C-40CB-4B9A-B559-490E27D2290F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EF6", "src\QueryBuilder.EF6\QueryBuilder.EF6.csproj", "{08D8F66C-40CB-4B9A-B559-490E27D2290F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EntityFramework.SqlServer", "src\QueryBuilder.EntityFramework.SqlServer\QueryBuilder.EntityFramework.SqlServer.csproj", "{D7062133-C8EA-4838-92BA-7C686335DD8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryBuilder.EF6.SqlServer", "src\QueryBuilder.EF6.SqlServer\QueryBuilder.EF6.SqlServer.csproj", "{D7062133-C8EA-4838-92BA-7C686335DD8B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryBuilder.SqlServer", "src\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj", "{AACBCD94-8A06-4DAC-9E3A-2FCD0AE0F52C}"
 EndProject

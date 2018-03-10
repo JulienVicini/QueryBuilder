@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity.Core.EntityClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using QueryBuilder.Core.Database;
 
-namespace QueryBuilder.EntityFramework.Database
+namespace QueryBuilder.EF6.Database
 {
     public class DbTransactionTransactionScope<TTransaction>
         : ITransactionScope<TTransaction>

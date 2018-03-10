@@ -1,9 +1,9 @@
 ﻿using QueryBuilder.Core.IQueryables;
 using QueryBuilder.Core.Statements;
-using QueryBuilder.EntityFramework.SqlServer.Factories;
+using QueryBuilder.EF6.SqlServer.Factories;
 using System.Linq;
 
-namespace QueryBuilder.EntityFramework.SqlServer
+namespace QueryBuilder.EF6.SqlServer
 {
     public static class IQueryableDeleteExtensions
     {

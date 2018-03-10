@@ -6,7 +6,7 @@ using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 
-namespace QueryBuilder.EntityFramework.Database
+namespace QueryBuilder.EF6.Database
 {
     public class ObjectContextDatabaseAdapter<TConnection, TTransaction>
         : IDatabaseContext<TConnection, TTransaction>, ICommandProcessing

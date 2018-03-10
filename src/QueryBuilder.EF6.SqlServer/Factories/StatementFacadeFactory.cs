@@ -4,7 +4,7 @@ using QueryBuilder.Core.Statements;
 using QueryBuilder.SqlServer.Statements;
 using System.Linq;
 
-namespace QueryBuilder.EntityFramework.SqlServer.Factories
+namespace QueryBuilder.EF6.SqlServer.Factories
 {
     public class StatementFacadeFactory<T>
         where T : class

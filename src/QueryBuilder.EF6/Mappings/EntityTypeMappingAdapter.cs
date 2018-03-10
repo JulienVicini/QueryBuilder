@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core.Metadata.Edm;
 
-namespace QueryBuilder.EntityFramework.Mappings
+namespace QueryBuilder.EF6.Mappings
 {
     public class EntityTypeMappingAdapter<TEntity>
         : IMappingAdapter<TEntity>
