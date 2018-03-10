@@ -3,7 +3,6 @@ using QueryBuilder.Core.Mappings;
 using QueryBuilder.SqlServer.Bulk.DataReader;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
 using System.Linq;
 
 namespace QueryBuilder.SqlServer.Bulk

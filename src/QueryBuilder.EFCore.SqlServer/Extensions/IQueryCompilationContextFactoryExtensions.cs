@@ -11,7 +11,7 @@ namespace QueryBuilder.EFCore.SqlServer.Extensions
 
         public static QueryCompilationContextDependencies GetDependencies(this IQueryCompilationContextFactory queryCompilationContextFactory)
         {
-            ThrowHelper.ThrowIfNull(queryCompilationContextFactory, nameof(queryCompilationContextFactory));
+            Check.NotNull(queryCompilationContextFactory, nameof(queryCompilationContextFactory));
 
             return (QueryCompilationContextDependencies)Dependencies_Property.GetValue(queryCompilationContextFactory);
         }

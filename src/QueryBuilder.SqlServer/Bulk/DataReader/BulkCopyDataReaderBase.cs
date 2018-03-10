@@ -16,7 +16,7 @@ namespace QueryBuilder.SqlServer.Bulk.DataReader
     {
         public BulkCopyDataReaderBase(IEnumerable<string> columns)
         {
-            ThrowHelper.ThrowIfNullOrEmpty(columns, nameof(columns));
+            Check.NotNullOrEmpty(columns, nameof(columns));
 
             Columns  = columns.Select((value, index) => Tuple.Create(index, value))
                               .ToList()
@@ -28,7 +28,7 @@ namespace QueryBuilder.SqlServer.Bulk.DataReader
         public int FieldCount => Columns.Count;
         public int GetOrdinal(string name)
         {
-            ThrowHelper.ThrowIfNullOrWhiteSpace(name, nameof(name));
+            Check.NotNullOrWhiteSpace(name, nameof(name));
 
             Tuple<int, string> column = Columns.First(c => c.Item2 == name);
             return column.Item1;

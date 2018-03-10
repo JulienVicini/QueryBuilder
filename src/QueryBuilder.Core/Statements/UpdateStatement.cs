@@ -14,7 +14,7 @@ namespace QueryBuilder.Core.Statements
 
         public UpdateStatement(IEnumerable<MemberAssignment> assignments, Expression<Func<TEntity, bool>> predicate)
         {
-            ThrowHelper.ThrowIfNullOrEmpty(assignments, nameof(assignments));
+            Check.NotNullOrEmpty(assignments, nameof(assignments));
 
             Assignments = assignments;
             Predicate   = predicate;

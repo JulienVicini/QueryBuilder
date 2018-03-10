@@ -14,9 +14,9 @@ namespace QueryBuilder.EntityFramework.Extensions.Tests.Helpers
         {
             var objectList = new List<object>() { new object() };
 
-            Assert.ThrowsException<ArgumentException>(() => ThrowHelper.ThrowIfNullOrEmpty(objectList, null));
-            Assert.ThrowsException<ArgumentException>(() => ThrowHelper.ThrowIfNullOrEmpty(objectList, string.Empty));
-            Assert.ThrowsException<ArgumentException>(() => ThrowHelper.ThrowIfNullOrEmpty(objectList, " "));
+            Assert.ThrowsException<ArgumentException>(() => Check.NotNullOrEmpty(objectList, null));
+            Assert.ThrowsException<ArgumentException>(() => Check.NotNullOrEmpty(objectList, string.Empty));
+            Assert.ThrowsException<ArgumentException>(() => Check.NotNullOrEmpty(objectList, " "));
         }
 
         [TestMethod]
@@ -24,8 +24,8 @@ namespace QueryBuilder.EntityFramework.Extensions.Tests.Helpers
         {
             const string argumentName = "argumentName";
 
-            Assert.ThrowsException<ArgumentException>(() => ThrowHelper.ThrowIfNullOrEmpty(null as IEnumerable<int>, argumentName));
-            Assert.ThrowsException<ArgumentException>(() => ThrowHelper.ThrowIfNullOrEmpty(Enumerable.Empty<int>() , argumentName));
+            Assert.ThrowsException<ArgumentException>(() => Check.NotNullOrEmpty(null as IEnumerable<int>, argumentName));
+            Assert.ThrowsException<ArgumentException>(() => Check.NotNullOrEmpty(Enumerable.Empty<int>() , argumentName));
         }
     }
 }

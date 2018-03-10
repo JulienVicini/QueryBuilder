@@ -10,7 +10,7 @@ namespace QueryBuilder.EFCore.SqlServer.Extensions
 
         public static QueryCompiler GetQueryCompiler(this EntityQueryProvider entityQueryProvider)
         {
-            ThrowHelper.ThrowIfNull(entityQueryProvider, nameof(entityQueryProvider));
+            Check.NotNull(entityQueryProvider, nameof(entityQueryProvider));
 
             return (QueryCompiler)QueryCompiler_FieldInfo.GetValue(entityQueryProvider);
         }

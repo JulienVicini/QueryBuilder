@@ -26,7 +26,7 @@ namespace QueryBuilder.Core.Mappings
 
         public ColumnMapping(string dbColumnName, DbType dbType, bool isIdentity, int? length, int? precision, int? scale, bool isRequired, PropertyInfo propertyInfo)
         {
-            ThrowHelper.ThrowIfNullOrWhiteSpace(dbColumnName, nameof(dbColumnName));
+            Check.NotNullOrWhiteSpace(dbColumnName, nameof(dbColumnName));
 
             DbColumnName = dbColumnName;
             DbType       = dbType;

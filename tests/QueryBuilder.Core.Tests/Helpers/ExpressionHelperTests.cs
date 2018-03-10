@@ -21,7 +21,7 @@ namespace QueryBuilder.Core.Tests.Helpers
         public void GetMemberExpressionThrowsArgumentNullExceptionWhenExpressionIsNull()
         {
             Assert.ThrowsException<ArgumentNullException>(
-                () => ExpressionHelper.GetMemberExpression<ThrowHelperTests, bool>(null)
+                () => ExpressionHelper.GetMemberExpression<CheckTests, bool>(null)
             );
         }
 
@@ -29,7 +29,7 @@ namespace QueryBuilder.Core.Tests.Helpers
         public void GetMemberExpressionThrowsArgumentExceptionWhenExpressionIsNotMemberExpression()
         {
             Assert.ThrowsException<ArgumentException>(
-                () => ExpressionHelper.GetMemberExpression<ThrowHelperTests, int>(_ => 3)
+                () => ExpressionHelper.GetMemberExpression<CheckTests, int>(_ => 3)
             );
         }
 

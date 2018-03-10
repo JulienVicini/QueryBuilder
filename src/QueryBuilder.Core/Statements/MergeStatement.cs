@@ -22,8 +22,8 @@ namespace QueryBuilder.Core.Statements
 
         public MergeStatement(IEnumerable<MemberExpression> keys, string temporaryTableName, MergeType mergeType)
         {
-            ThrowHelper.ThrowIfNullOrEmpty(keys, nameof(keys));
-            ThrowHelper.ThrowIfNullOrWhiteSpace(temporaryTableName, nameof(temporaryTableName));
+            Check.NotNullOrEmpty(keys, nameof(keys));
+            Check.NotNullOrWhiteSpace(temporaryTableName, nameof(temporaryTableName));
 
             Keys               = keys;
             TemporaryTableName = temporaryTableName;

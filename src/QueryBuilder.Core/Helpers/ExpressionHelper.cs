@@ -9,7 +9,7 @@ namespace QueryBuilder.Core.Helpers
     {
         public static MemberExpression GetMemberExpression<T, TValue>(Expression<Func<T, TValue>> expression)
         {
-            ThrowHelper.ThrowIfNull(expression, nameof(expression));
+            Check.NotNull(expression, nameof(expression));
 
             MemberExpression memberExpression = expression.Body as MemberExpression;
 
@@ -21,7 +21,7 @@ namespace QueryBuilder.Core.Helpers
 
         public static MemberExpression MakeMemberExpression(MemberAssignment memberAssignement)
         {
-            ThrowHelper.ThrowIfNull(memberAssignement, nameof(memberAssignement));
+            Check.NotNull(memberAssignement, nameof(memberAssignement));
 
             return Expression.MakeMemberAccess(
                 Expression.Parameter(memberAssignement.Member.DeclaringType),
@@ -31,7 +31,7 @@ namespace QueryBuilder.Core.Helpers
 
         public static BinaryExpression MakeAssign(MemberAssignment memberAssignment)
         {
-            ThrowHelper.ThrowIfNull(memberAssignment, nameof(memberAssignment));
+            Check.NotNull(memberAssignment, nameof(memberAssignment));
 
             return Expression.Assign(
                 MakeMemberExpression(memberAssignment),

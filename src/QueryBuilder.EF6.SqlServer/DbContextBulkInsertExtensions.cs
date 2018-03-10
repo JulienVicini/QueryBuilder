@@ -28,7 +28,7 @@ namespace QueryBuilder.EF6.SqlServer
         public static void BulkInsert<T>(this DbSet<T> dbSet, IEnumerable<T> data)
             where T : class
         {
-            BulkFacade<T, IBulkDataReader> bulkCopy
+            BulkService<T, IBulkDataReader> bulkCopy
                 = new BulkFacadeFactory<T>().CreateBulkCopy(dbSet);
 
             bulkCopy.WriteToServer(data);
@@ -49,7 +49,7 @@ namespace QueryBuilder.EF6.SqlServer
             var queryFacade = new StatementFacadeFactory<TEntity>().CreateFacade(dbSet); 
 
             // TODO put in factory
-            var bulkCopy = new BulkFacade<TEntity, IBulkDataReader>(
+            var bulkCopy = new BulkService<TEntity, IBulkDataReader>(
                 bulkExecutor   : new SqlBulkMergeExecutor<TEntity>(databaseContext, queryFacade, mergeQuery),
                 dataTransformer: new DataReaderDataTransformer<TEntity>(mappingAdapter),
                 mappingAdapter : mappingAdapter

@@ -17,7 +17,7 @@ namespace QueryBuilder.Core.Statements
 
         public AlterTableStatement(string tableName, AlterType type)
         {
-            ThrowHelper.ThrowIfNullOrEmpty(tableName, nameof(tableName));
+            Check.NotNullOrEmpty(tableName, nameof(tableName));
 
             TableName = tableName;
             Type      = type;

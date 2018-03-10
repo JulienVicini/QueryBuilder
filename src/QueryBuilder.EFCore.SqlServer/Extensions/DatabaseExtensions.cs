@@ -10,7 +10,7 @@
 
         public static DatabaseDependencies GetDependencies(this Database database)
         {
-            ThrowHelper.ThrowIfNull(database, nameof(database));
+            Check.NotNull(database, nameof(database));
 
             return (DatabaseDependencies)Dependencies_Property.GetValue(database);
         }

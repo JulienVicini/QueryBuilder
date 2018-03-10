@@ -20,7 +20,7 @@ namespace QueryBuilder.EFCore.SqlServer.Factories
             _mappingFactory         = new MappingAdapterFactory<TRecord>();
         }
 
-        public BulkFacade<TRecord, IBulkDataReader> CreateBulkCopy(IQueryable<TRecord> queryable)
+        public BulkService<TRecord, IBulkDataReader> CreateBulkCopy(IQueryable<TRecord> queryable)
         {
             IDatabaseContext<SqlConnection, SqlTransaction> databaseContext
                 = _databaseAdapterFactory.CreateDatabaseContext(queryable);
@@ -31,12 +31,12 @@ namespace QueryBuilder.EFCore.SqlServer.Factories
             return CreateBulkFacade(queryable, executor);
         }
 
-        public BulkFacade<TRecord, IBulkDataReader> CreateBulkFacade(IQueryable<TRecord> queryable, IBulkExecutor<IBulkDataReader> executor)
+        public BulkService<TRecord, IBulkDataReader> CreateBulkFacade(IQueryable<TRecord> queryable, IBulkExecutor<IBulkDataReader> executor)
         {
             IMappingAdapter<TRecord> mappingAdapter
                 = _mappingFactory.CreateMappingAdapter(queryable);
 
-            return new BulkFacade<TRecord, IBulkDataReader>(
+            return new BulkService<TRecord, IBulkDataReader>(
                 bulkExecutor   : executor,
                 // TOTO select which strategy is better dataTransformer: new DataTableDataTransformer<TRecord>(mappingAdapter),
                 dataTransformer: new DataReaderDataTransformer<TRecord>(mappingAdapter),

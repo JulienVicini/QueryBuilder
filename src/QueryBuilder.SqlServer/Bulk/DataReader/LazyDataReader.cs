@@ -19,7 +19,7 @@ namespace QueryBuilder.SqlServer.Bulk.DataReader
         public LazyDataReader(IEnumerable<T> items, IReadOnlyCollection<string> columns, OrdinalValueLookup<T> ordinalValueLookup)
             : base(columns)
         {
-            ThrowHelper.ThrowIfNullOrEmpty(items, nameof(items));
+            Check.NotNullOrEmpty(items, nameof(items));
 
 
             _enumerator           = items.GetEnumerator();

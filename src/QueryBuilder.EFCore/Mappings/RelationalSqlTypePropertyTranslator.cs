@@ -14,7 +14,7 @@ namespace QueryBuilder.EFCore.Mappings
 
         public void GetMetaData(string sqlType, out int? precision, out int? scale, out DbType dbType)
         {
-            ThrowHelper.ThrowIfNullOrWhiteSpace(sqlType, nameof(sqlType));
+            Check.NotNullOrWhiteSpace(sqlType, nameof(sqlType));
 
 
             Match match = REGEX.Match(sqlType);
@@ -40,7 +40,7 @@ namespace QueryBuilder.EFCore.Mappings
         // from https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-data-type-mappings
         public DbType ParseType(string sqlType)
         {
-            ThrowHelper.ThrowIfNullOrWhiteSpace(sqlType, nameof(sqlType));
+            Check.NotNullOrWhiteSpace(sqlType, nameof(sqlType));
 
             switch (sqlType.ToLower())
             {

@@ -12,7 +12,7 @@ namespace QueryBuilder.EFCore.SqlServer.Extensions
 
         public static Database GetDatabase(this QueryCompiler entityQueryProvider)
         {
-            ThrowHelper.ThrowIfNull(entityQueryProvider, nameof(entityQueryProvider));
+            Check.NotNull(entityQueryProvider, nameof(entityQueryProvider));
 
             return (Database)Database_Property.GetValue(entityQueryProvider);
         }
