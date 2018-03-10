@@ -20,9 +20,11 @@ namespace QueryBuilder.EntityFramework.Database
             _objectContext = objectContext ?? throw new ArgumentNullException(nameof(objectContext));
         }
 
-        public TTransaction BeginTransaction()
+        public ITransactionScope<TTransaction> BeginTransaction()
         {
-            return ((EntityTransaction)_objectContext.Connection.BeginTransaction()).StoreTransaction as TTransaction;
+            DbTransaction dbTransaction = _objectContext.Connection.BeginTransaction();
+
+            return new DbTransactionTransactionScope<TTransaction>(dbTransaction);
         }
 
         public TConnection GetConnection()

@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\DbTransactionTransactionScope.cs" />
     <Compile Include="Database\ObjectContextDatabaseAdapter.cs" />
     <Compile Include="Helpers\IQueryableHelpers.cs" />
     <Compile Include="Mappings\EntityTypeMappingAdapter.cs" />

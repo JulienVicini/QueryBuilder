@@ -21,7 +21,12 @@ namespace QueryBuilder.EFCore.Database
             _dbFacade = dbFacade ?? throw new ArgumentNullException(nameof(dbFacade));
         }
 
-        public TTransaction BeginTransaction() => (TTransaction) _dbFacade.BeginTransaction().GetDbTransaction();
+        public ITransactionScope<TTransaction> BeginTransaction() {
+            IDbContextTransaction transaction = _dbFacade.CurrentTransaction 
+                                                    ?? _dbFacade.BeginTransaction();
+
+            return new DbContextTransactionScope<TTransaction>(transaction);
+        }
 
         public int ExecuteCommand(string query, IEnumerable<object> parameters) =>  _dbFacade.ExecuteSqlCommand(query, parameters);
 

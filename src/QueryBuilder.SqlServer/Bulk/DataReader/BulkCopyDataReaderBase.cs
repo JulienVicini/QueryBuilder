@@ -18,26 +18,20 @@ namespace QueryBuilder.SqlServer.Bulk.DataReader
         {
             ThrowHelper.ThrowIfNullOrEmpty(columns, nameof(columns));
 
-            Columns  = new ReadOnlyCollection<string>(columns.ToList());
+            Columns  = columns.Select((value, index) => Tuple.Create(index, value))
+                              .ToList()
+                              .AsReadOnly();
             IsClosed = false;
         }
 
-        public IReadOnlyCollection<string> Columns { get; private set; }
+        public IReadOnlyCollection<Tuple<int, string>> Columns { get; private set; }
         public int FieldCount => Columns.Count;
         public int GetOrdinal(string name)
         {
             ThrowHelper.ThrowIfNullOrWhiteSpace(name, nameof(name));
 
-            int index = 0;
-
-            using(IEnumerator<string> columnEnumerator = Columns.GetEnumerator())
-            {
-                while (columnEnumerator.MoveNext())
-                    if (columnEnumerator.Current == name) return index;
-                    else index++;
-            }
-
-            throw new ArgumentOutOfRangeException();
+            Tuple<int, string> column = Columns.First(c => c.Item2 == name);
+            return column.Item1;
         }
 
         public bool IsClosed { get; private set; }

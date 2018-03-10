@@ -4,8 +4,7 @@
         where TConnection  : class
         where TTransaction : class
     {
-        // TODO move it elsewhere
-        TTransaction BeginTransaction();
+        ITransactionScope<TTransaction> BeginTransaction();
 
         TConnection GetConnection();
     }
