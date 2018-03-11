@@ -10,6 +10,7 @@ namespace QueryBuilder.Core.IQueryables
         #region Members
 
         private MethodCallExpression _expressionCall;
+        private bool _hasBeenCalled;
 
         #endregion
 
@@ -17,6 +18,10 @@ namespace QueryBuilder.Core.IQueryables
 
         public MethodCallExpression GetMethodCall<T>(IQueryable<T> queryable)
         {
+            if (_hasBeenCalled)
+                throw new InvalidOperationException($"The method \"{nameof(SearchWhereMethodCallExpressionVisitor)}.{nameof(GetMethodCall)}\" can be called only once.");
+
+            _hasBeenCalled = true;
             _expressionCall = null;
 
             Visit(queryable.Expression);

@@ -22,9 +22,9 @@ namespace QueryBuilder.SqlServer.Statements
                 case DbType.UInt16 : return "int";
                 case DbType.UInt32 : return "bigint";
                 case DbType.UInt64 : return "NUMERIC(20)";
+                // We consider Money as decimal(19, 4)
                 case DbType.Decimal: return $"decimal({columnMapping.Precision}, {columnMapping.Scale})";
                 case DbType.Boolean: return "bit";
-                // TODO MONEY
 
                 // Floating
                 case DbType.Double: return "float";

@@ -33,6 +33,19 @@ namespace QueryBuilder.Core.Tests.IQueryables
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void GetMethodCallThrowsInvalideOperatorExceptionWhenCalledTwice()
+        {
+            // Arrange
+            Expression<Func<string, bool>> predicate = str => true;
+            IQueryable<string> filteredQuery = _query.Where(predicate);
+
+            // Act
+            _visitor.GetMethodCall(filteredQuery);
+            _visitor.GetMethodCall(filteredQuery);
+        }
+
+        [TestMethod]
         public void GetPredicateThrowArgumentExceptionWhenMultipleFilter()
         {
             IQueryable<string> multipleFilterQuery = _query.Where(s => s != null)
