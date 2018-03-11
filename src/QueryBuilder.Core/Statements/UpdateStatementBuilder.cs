@@ -39,13 +39,18 @@ namespace QueryBuilder.Core.Statements
         {
             MemberExpression memberExpression = ExpressionHelper.GetMemberExpression(memberLambdaExpression);
 
-            if (_assignements.Any(a => a.Member == memberExpression.Member))
-                throw new Exception("duplicate member assignement");
-
             var memberAssignment = Expression.Bind(
                 memberExpression.Member,
                 value
             );
+
+            AppendMemberAssignment(memberAssignment);
+        }
+
+        public void AppendMemberAssignment(MemberAssignment memberAssignment)
+        {
+            if (_assignements.Any(a => a.Member == memberAssignment.Member))
+                throw new Exception("duplicate member assignement");
 
             _assignements.Add(memberAssignment);
         }

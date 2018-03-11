@@ -39,4 +39,11 @@ dbSet.Where(p => p.Id % 2 == 0)
      .SetValue(p => p.Age      , 0     )
      .SetValue(p => p.FirstName, "Even")
      .Update();
+
+// OR
+dbSet.Where(p => p.Id % 2 == 1)
+     .Update(p => new Person(){
+		Age = p.Age + 1,
+		FirstName = "Odd"
+     });
 ```

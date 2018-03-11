@@ -1,4 +1,5 @@
-﻿using QueryBuilder.Core.IQueryables;
+﻿using QueryBuilder.Core.Helpers;
+using QueryBuilder.Core.IQueryables;
 using QueryBuilder.Core.Statements;
 using QueryBuilder.EF6.SqlServer.Factories;
 using System;
@@ -36,6 +37,27 @@ namespace QueryBuilder.EF6.SqlServer
                 = new StatementFacadeFactory<T>().CreateFacade(queryable);
 
             return statementFacade.Update(query);
+        }
+
+        public static int Update<T>(this IQueryable<T> queryable, Expression<Func<T, T>> constructorExpression) where T : class
+        {
+            // Check & Cast parameters
+            Check.NotNull(queryable, nameof(queryable));
+
+            MemberInitExpression memberInit 
+                = constructorExpression.Body as MemberInitExpression
+                    ?? throw new ArgumentException(nameof(constructorExpression), $"The body of the expression must be of type\"{typeof(MemberInitExpression).Name}\".");
+
+            // Create statement
+            var statementBuilder = new UpdateStatementBuilder<T>(queryable);
+
+            foreach(MemberAssignment assignement in memberInit.Bindings)
+            {
+                statementBuilder.AppendMemberAssignment(assignement);
+            }
+
+            // Act
+            return Update<T>(statementBuilder);
         }
     }
 }

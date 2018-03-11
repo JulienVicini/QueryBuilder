@@ -11,6 +11,8 @@ namespace QueryBuilder.Samples
         {
             using(var dbContext = new SampleDbContext())
             {
+                dbContext.Database.Log = (log) => System.Diagnostics.Debug.WriteLine(log);
+
                 // Delete
                 dbContext.Persons.Delete();
 
@@ -31,12 +33,15 @@ namespace QueryBuilder.Samples
 
                 // Update
                 dbContext.Persons.Where(p => p.Id % 2 == 0)
-                                 .SetValue(p => p.Age, 0)
-                                 // TODO Does not work so far .SetValue(p => p.Age, p => p.Age / p.Id)
+                                 .Update(p => new Person() {
+                                     Age = p.Id / p.Age
+                                 });
+                // OR
+                dbContext.Persons.SetValue(p => p.Age, p => p.Age + 1)
                                  .Update();
 
                 // Delete with predicate
-                dbContext.Persons.Where(p => p.Age == 0)
+                dbContext.Persons.Where(p => p.Age > 50)
                                  .Delete();
             }
         }
