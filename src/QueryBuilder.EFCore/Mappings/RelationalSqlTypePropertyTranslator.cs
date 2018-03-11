@@ -25,8 +25,7 @@ namespace QueryBuilder.EFCore.Mappings
 
                 if (dbType == DbType.Decimal)
                 {
-                    precision = ParseGroup(match.Groups[3]);
-                    scale     = ParseGroup(match.Groups[5]);
+                    GetPrecisionAndScale(match, out precision, out scale);
                 }
                 else
                 {
@@ -82,9 +81,18 @@ namespace QueryBuilder.EFCore.Mappings
             }
         }
 
-        public int ParseGroup(Group group)
+        public void GetPrecisionAndScale(Match match, out int? precision, out int? scale)
         {
-             return int.Parse(group.Value);
+            if(match.Groups[1].Value == "money")
+            {
+                precision = 19;
+                scale     = 4;
+            }
+            else
+            {
+                precision = int.Parse(match.Groups[3].Value);
+                scale     = int.Parse(match.Groups[5].Value);
+            }
         }
     }
 }

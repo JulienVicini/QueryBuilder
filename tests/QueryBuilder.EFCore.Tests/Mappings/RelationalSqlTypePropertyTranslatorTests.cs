@@ -18,7 +18,7 @@ namespace QueryBuilder.EFCore.Tests.Mappings
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
-        public void GetPrecisionAndScaleThrowsArgumentExceptionWhenSqlTypeIsNullOrWhiteSpace(string sqlType)
+        public void GetMetaDataThrowsArgumentExceptionWhenSqlTypeIsNullOrWhiteSpace(string sqlType)
         {
             Assert.Throws<ArgumentException>(
                 () => _typeReader.GetMetaData(sqlType, out int? precision, out int? scale, out DbType expectedDbType)
@@ -31,7 +31,7 @@ namespace QueryBuilder.EFCore.Tests.Mappings
         [InlineData("decimal(18, 8)"      , DbType.Decimal)]
         [InlineData("   numeric(18, 8)   ", DbType.Decimal)]
         [InlineData("numeric( 18,8 )"     , DbType.Decimal)]
-        public void GetPrecisionAndScaleReturnsPrecisionAndScaleWhenSqlTypeIsDecimalOrNumeric(string sqlType, DbType expectedDbType)
+        public void GetMetaDataReturnsPrecisionAndScaleWhenSqlTypeIsDecimalOrNumeric(string sqlType, DbType expectedDbType)
         {
             // Act
             _typeReader.GetMetaData(sqlType, out int? precision, out int? scale, out DbType actualDbType);
@@ -51,8 +51,7 @@ namespace QueryBuilder.EFCore.Tests.Mappings
         [InlineData("date", DbType.Date)]
         [InlineData("binary(16)", DbType.Binary)]
         [InlineData("int", DbType.Int32)]
-        [InlineData("money", DbType.Decimal)]
-        public void GetPrecisionAndScaleReturnsNullWhenSqlTypeIsNotDecimalOrNumeric(string sqlType, DbType expectedDbType)
+        public void GetMetaDataReturnsNullWhenSqlTypeIsNotDecimalOrNumeric(string sqlType, DbType expectedDbType)
         {
             // Act
             _typeReader.GetMetaData(sqlType, out int? precision, out int? scale, out DbType actualDbType);
@@ -61,6 +60,18 @@ namespace QueryBuilder.EFCore.Tests.Mappings
             Assert.Equal(expectedDbType, actualDbType);
             Assert.Null(precision);
             Assert.Null(scale);
+        }
+
+        [Fact]
+        public void GetMetaDataReturnsDecimal19_8WhenSqlTypeMoney()
+        {
+            // Act
+            _typeReader.GetMetaData("money", out int? precision, out int? scale, out DbType actualDbType);
+
+            // Assert
+            Assert.Equal(DbType.Decimal, actualDbType);
+            Assert.Equal(19, precision);
+            Assert.Equal(4, scale);
         }
 
         [Theory]
