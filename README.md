@@ -7,7 +7,9 @@
 ### Samples
 
 ```C#
-using QueryBuilder.EntityFramework.SqlServer;
+using QueryBuilder.EF6.SqlServer;
+// OR
+using QueryBuilder.EFCore.SqlServer;
 ```
 
 **Bulk Insert**
