@@ -1,21 +1,28 @@
-﻿using QueryBuilder.EF6.Helpers;
+﻿using QueryBuilder.Core.Mappings;
 using QueryBuilder.EF6.Mappings;
+using QueryBuilder.SqlServer;
+using System;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
-using System.Linq;
 
 namespace QueryBuilder.EF6.SqlServer.Factories
 {
     public class MappingAdapterFactory<T>
+        : IMappingAdapterFactory<T>
         where T : class
     {
+        private readonly ObjectContext _objectContext;
 
-        public EntityTypeMappingAdapter<T> CreateMappingAdapter(IQueryable<T> queryable)
+        public MappingAdapterFactory(ObjectContext objectContext)
         {
-            ObjectContext objectContext = IQueryableHelpers.GetObjectContext(queryable);
+            _objectContext = objectContext ?? throw new ArgumentNullException(nameof(objectContext));
+        }
 
-            return new EntityTypeMappingAdapter<T>(
-                objectContext.GetEntityMetaData<T>()
-            );
+        public IMappingAdapter<T> Create()
+        {
+            EntityType entityType = _objectContext.GetEntityMetaData<T>();
+
+            return new EntityTypeMappingAdapter<T>(entityType);
         }
     }
 }

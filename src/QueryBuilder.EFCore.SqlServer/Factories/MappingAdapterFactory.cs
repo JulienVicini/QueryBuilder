@@ -1,21 +1,26 @@
 ﻿using QueryBuilder.Core.Mappings;
 using QueryBuilder.EFCore.Mappings;
-using QueryBuilder.EFCore.SqlServer.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using System.Linq;
+using QueryBuilder.SqlServer;
+using System;
 
 namespace QueryBuilder.EFCore.SqlServer.Factories
 {
     public class MappingAdapterFactory<T>
+        : IMappingAdapterFactory<T>
         where T : class
     {
+        private readonly DbContext _dbContext;
 
-        public IMappingAdapter<T> CreateMappingAdapter(IQueryable<T> queryable)
+        public MappingAdapterFactory(DbContext dbContext)
         {
-            DbContext dbContext = IQueryableHelper.GetDbContext(queryable);
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        }
 
-            IModel model = dbContext.Model;
+        public IMappingAdapter<T> Create()
+        {
+            IModel model = _dbContext.Model;
 
             return new EFCoreMappingAdapter<T>(
                 model.FindEntityType(typeof(T))

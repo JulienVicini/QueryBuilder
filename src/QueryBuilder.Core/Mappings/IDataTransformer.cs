@@ -1,4 +1,4 @@
-﻿namespace QueryBuilder.Core.Bulk
+﻿namespace QueryBuilder.Core.Mappings
 {
     public interface IDataTransformer<TSource, TResult>
     {

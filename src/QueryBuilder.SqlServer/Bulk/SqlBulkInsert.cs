@@ -1,5 +1,4 @@
-﻿using QueryBuilder.Core.Bulk;
-using QueryBuilder.Core.Database;
+﻿using QueryBuilder.Core.Database;
 using QueryBuilder.SqlServer.Bulk.DataReader;
 using System;
 using System.Data;
@@ -7,12 +6,12 @@ using System.Data.SqlClient;
 
 namespace QueryBuilder.SqlServer.Bulk
 {
-    public class SqlBulkCopyExecutor
-        : IBulkExecutor<IBulkDataReader>
+    public class SqlBulkInsert
+        : IBulkInsert<IBulkDataReader>
     {
         protected readonly IDatabaseContext<SqlConnection, SqlTransaction> _sqlContext;
 
-        public SqlBulkCopyExecutor(IDatabaseContext<SqlConnection, SqlTransaction> sqlContext)
+        public SqlBulkInsert(IDatabaseContext<SqlConnection, SqlTransaction> sqlContext)
         {
             _sqlContext = sqlContext ?? throw new ArgumentNullException(nameof(sqlContext));
         }

@@ -1,26 +1,30 @@
 ﻿using QueryBuilder.Core.Database;
 using QueryBuilder.EFCore.Database;
-using QueryBuilder.EFCore.SqlServer.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Data.SqlClient;
-using System.Linq;
+using QueryBuilder.SqlServer;
+using System;
 
 namespace QueryBuilder.EFCore.SqlServer.Factories
 {
     public class DatabaseAdapterFactory<T>
+        : ISQLCommandProcessorFactory, ISQLDatabaseContextFactory
         where T : class
     {
-        public ICommandProcessing CreateCommandProcessor(IQueryable<T> queryable) => CreateObjectContextAdapter(queryable);
+        private readonly DbContext _dbContext;
 
-        public IDatabaseContext<SqlConnection, SqlTransaction> CreateDatabaseContext(IQueryable<T> queryable) => CreateObjectContextAdapter(queryable);
-
-        public EFCoreContextAdapter<SqlConnection, SqlTransaction> CreateObjectContextAdapter(IQueryable<T> queryable)
+        public DatabaseAdapterFactory(DbContext dbContext)
         {
-            DbContext dbContext = IQueryableHelper.GetDbContext(queryable);
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        }
 
-            DatabaseFacade databaseFace = dbContext.Database;
+        ICommandProcessing<SqlTransaction> ISQLCommandProcessorFactory.Create() => CreateObjectContextAdapter();
+        IDatabaseContext<SqlConnection, SqlTransaction> ISQLDatabaseContextFactory.Create() => CreateObjectContextAdapter();
 
+        private EFCoreContextAdapter<SqlConnection, SqlTransaction> CreateObjectContextAdapter()
+        {
+            DatabaseFacade databaseFace = _dbContext.Database;
 
             return new EFCoreContextAdapter<SqlConnection, SqlTransaction>(databaseFace);
         }

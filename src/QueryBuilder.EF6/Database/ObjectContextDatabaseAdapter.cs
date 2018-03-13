@@ -9,7 +9,7 @@ using System.Linq;
 namespace QueryBuilder.EF6.Database
 {
     public class ObjectContextDatabaseAdapter<TConnection, TTransaction>
-        : IDatabaseContext<TConnection, TTransaction>, ICommandProcessing
+        : IDatabaseContext<TConnection, TTransaction>, ICommandProcessing<TTransaction>
         where TConnection  : DbConnection
         where TTransaction : DbTransaction
     {
@@ -37,6 +37,11 @@ namespace QueryBuilder.EF6.Database
             if (query == null) throw new ArgumentNullException(nameof(query));
 
             return _objectContext.ExecuteStoreCommand( query, parameters.ToArray() );
+        }
+
+        public int ExecuteCommand(string query, IEnumerable<object> parameters, TTransaction transaction)
+        {
+            return ExecuteCommand(query, parameters); // TODO ensure transactional behavior is OK
         }
     }
 }

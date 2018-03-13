@@ -1,10 +1,5 @@
-﻿using QueryBuilder.Core.Bulk;
-using QueryBuilder.Core.Mappings;
-using QueryBuilder.Core.Statements;
-using QueryBuilder.EF6.SqlServer.Factories;
+﻿using QueryBuilder.EF6.SqlServer.Factories;
 using QueryBuilder.Core.Helpers;
-using QueryBuilder.SqlServer.Bulk;
-using QueryBuilder.SqlServer.Bulk.DataReader;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,6 +7,7 @@ using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
+using QueryBuilder.Core.Services;
 
 namespace QueryBuilder.EF6.SqlServer
 {
@@ -28,34 +24,26 @@ namespace QueryBuilder.EF6.SqlServer
         public static void BulkInsert<T>(this DbSet<T> dbSet, IEnumerable<T> data)
             where T : class
         {
-            BulkService<T, IBulkDataReader> bulkCopy
-                = new BulkFacadeFactory<T>().CreateBulkCopy(dbSet);
+            // Resolve Service
+            var serviceFactory = new ServiceFactory<T>(dbSet);
+            IBulkInsertService<T> bulkInsertService = serviceFactory.CreateBulkInsert();
 
-            bulkCopy.WriteToServer(data);
+            // Perform Bulk Insert
+            bulkInsertService.WriteToServer(data);
         }
 
         public static void BulkMerge<TEntity, TColumns>( this DbSet<TEntity> dbSet, IEnumerable<TEntity> data, Expression<Func<TEntity, TColumns>> mergeOnColumns, bool updateOnly = false)
             where TEntity : class
         {
-            var databaseContext = new DatabaseAdapterFactory<TEntity>().CreateDatabaseContext(dbSet);
-            IMappingAdapter<TEntity> mappingAdapter = new MappingAdapterFactory<TEntity>().CreateMappingAdapter(dbSet);
+            // Resolve service
+            var serviceFactory = new ServiceFactory<TEntity>(dbSet);
+            IBulkMergeService<TEntity> bulkMergeService = serviceFactory.CreateBulkMerge();
 
-            IEnumerable<MemberExpression> mergeKeys = ExpressionHelper.GetSelectedMemberInAnonymousType(mergeOnColumns);
+            // Perform Bulk Merge
+            IEnumerable<MemberExpression> mergeKeys 
+                = ExpressionHelper.GetSelectedMemberInAnonymousType(mergeOnColumns); // TODO move this logic inside the service
 
-            string temporaryTable = "#tmp_bulk";
-
-            // TODO change update or insert selection
-            var mergeQuery = new MergeStatement<TEntity>(mergeKeys, temporaryTable, updateOnly ? MergeStatement<TEntity>.MergeType.UpdateOnly : MergeStatement<TEntity>.MergeType.InsertOrUpdate);
-            var queryFacade = new StatementFacadeFactory<TEntity>().CreateFacade(dbSet); 
-
-            // TODO put in factory
-            var bulkCopy = new BulkService<TEntity, IBulkDataReader>(
-                bulkExecutor   : new SqlBulkMergeExecutor<TEntity>(databaseContext, queryFacade, mergeQuery),
-                dataTransformer: new DataReaderDataTransformer<TEntity>(mappingAdapter),
-                mappingAdapter : mappingAdapter
-            );
-
-            bulkCopy.WriteToServer(data);
+            bulkMergeService.WriteToServer(data, mergeKeys, updateOnly);
         }
     }
 }

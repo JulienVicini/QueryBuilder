@@ -26,17 +26,17 @@ namespace QueryBuilder.EF6.SqlServer
         {
             IQueryable<T> queryable = updateBuilder.Queryable;
 
-            // Create Query
+            // Resolve Service
+            var serviceFactory = new ServiceFactory<T>(queryable);
+            var commandService = serviceFactory.CreateCommandService();
+
+            // Create & Execute Query
             var query = new UpdateStatement<T>(
                 updateBuilder.Assignements,
                 IQueryableHelper.GetQueryPredicate(queryable)
             );
 
-            // Create Statement Facade
-            StatementFacade<T> statementFacade
-                = new StatementFacadeFactory<T>().CreateFacade(queryable);
-
-            return statementFacade.Update(query);
+            return commandService.Update(query);
         }
 
         public static int Update<T>(this IQueryable<T> queryable, Expression<Func<T, T>> constructorExpression) where T : class

@@ -1,6 +1,6 @@
-﻿namespace QueryBuilder.Core.Bulk
+﻿namespace QueryBuilder.Core.Database
 {
-    public interface IBulkExecutor<T>
+    public interface IBulkInsert<T>
         where T : class
     {
         void Write(string tableName, T records);

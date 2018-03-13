@@ -1,5 +1,4 @@
-﻿using QueryBuilder.Core.Bulk;
-using QueryBuilder.Core.Mappings;
+﻿using QueryBuilder.Core.Mappings;
 using QueryBuilder.SqlServer.Bulk.DataReader;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

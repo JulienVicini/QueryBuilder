@@ -2,25 +2,34 @@
 using QueryBuilder.Core.Helpers;
 using System;
 using System.Collections.Generic;
+using QueryBuilder.Core.Database;
 
-namespace QueryBuilder.Core.Bulk
+namespace QueryBuilder.Core.Services
 {
-    public class BulkService<TData, TBulkData>
+    public class BulkInsertService<TData, TBulkData>
+        : IBulkInsertService<TData>
         where TData : class
         where TBulkData : class
     {
-        private readonly IBulkExecutor<TBulkData> _bulkExcecutor;
+        private readonly IBulkInsert<TBulkData> _bulkInsert;
         private readonly IDataTransformer<IEnumerable<TData>, TBulkData> _dataTransformer;
         private readonly IMappingAdapter<TData> _mappingAdapter;
 
-        public BulkService(IBulkExecutor<TBulkData> bulkExecutor, IDataTransformer<IEnumerable<TData>, TBulkData> dataTransformer, IMappingAdapter<TData> mappingAdapter)
+        public BulkInsertService(IBulkInsert<TBulkData> bulkInsert, IDataTransformer<IEnumerable<TData>, TBulkData> dataTransformer, IMappingAdapter<TData> mappingAdapter)
         {
-            _bulkExcecutor   = bulkExecutor    ?? throw new ArgumentNullException(nameof(bulkExecutor));
+            _bulkInsert      = bulkInsert      ?? throw new ArgumentNullException(nameof(bulkInsert));
             _dataTransformer = dataTransformer ?? throw new ArgumentNullException(nameof(dataTransformer));
             _mappingAdapter  = mappingAdapter  ?? throw new ArgumentNullException(nameof(mappingAdapter));
         }
 
         public void WriteToServer(IEnumerable<TData> records)
+        {
+            string tableName = _mappingAdapter.GetTableName();
+
+            WriteToServer(records, tableName);
+        }
+
+        public void WriteToServer(IEnumerable<TData> records, string tableName)
         {
             Check.NotNullOrEmpty(records, nameof(records));
             
@@ -28,9 +37,9 @@ namespace QueryBuilder.Core.Bulk
             TBulkData bulkData = _dataTransformer.Transform(records);
 
             // Insert Data
-            _bulkExcecutor.Write(
-                tableName: _mappingAdapter.GetTableName(),
-                records  : bulkData
+            _bulkInsert.Write(
+                records  : bulkData,
+                tableName: tableName
             );
 
             // Dipose bulkData if needed
