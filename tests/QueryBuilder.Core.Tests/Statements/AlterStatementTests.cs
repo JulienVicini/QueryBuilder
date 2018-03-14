@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QueryBuilder.Core.Statements;
+using Xunit;
 
 namespace QueryBuilder.Core.Tests.Statements
 {
-    [TestClass]
     public class AlterStatementTests
     {
-        [TestMethod]
+        [Fact]
         public void ConstructorShouldAssignValues()
         {
             // Arrange
@@ -25,22 +20,22 @@ namespace QueryBuilder.Core.Tests.Statements
             );
 
             // Assert
-            Assert.AreSame(tableName, statment.TableName);
-            Assert.AreEqual(actionType, statment.Type);
+            Assert.Same(tableName, statment.TableName);
+            Assert.Equal(actionType, statment.Type);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConstructorShouldThrowArgumentExceptionWhenTableNameIsNull()
         {
-            Assert.ThrowsException<ArgumentException>(
+            Assert.Throws<ArgumentException>(
                 () => new AlterTableStatement<object>(null, AlterTableStatement<object>.AlterType.Create)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void ConstructorShouldThrowArgumentExceptionWhenTableNameIsEmpty()
         {
-            Assert.ThrowsException<ArgumentException>(
+            Assert.Throws<ArgumentException>(
                 () => new AlterTableStatement<object>(string.Empty, AlterTableStatement<object>.AlterType.Create)
             );
         }

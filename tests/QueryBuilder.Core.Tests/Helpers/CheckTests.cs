@@ -1,49 +1,48 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QueryBuilder.Core.Helpers;
+﻿using QueryBuilder.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xunit;
 
 namespace QueryBuilder.Core.Tests.Helpers
 {
-    [TestClass]
     public class CheckTests
     {
         #region NotNull
 
-        [TestMethod]
+        [Fact]
         public void NotNullThrowsArgumentExceptionWhenValueIsNull()
         {
             string value = null;
 
-            Assert.ThrowsException<ArgumentNullException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
                 Check.NotNull(value, "parameter")
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullThrowsArgumentExceptionWhenParameterNameIsNull()
         {
             string paramterName = null;
             var data = "NotEmpty";
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNull(data, paramterName)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullThrowsArgumentExceptionWhenParameterNameIsWhiteSpace()
         {
             var paramterName = "   ";
             var data = "NotEmpty";
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNull(data, paramterName)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullShouldNotThrowException()
         {
             var paramterName = "parameter";
@@ -56,49 +55,49 @@ namespace QueryBuilder.Core.Tests.Helpers
 
         #region NotNullOrWhiteSpace
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrWhiteSpaceThrowsArgumentExceptionWhenValueIsNull()
         {
             string value = null;
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNullOrWhiteSpace(value, "parameter")
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrWhiteSpaceThrowsArgumentExceptionWhenValueIsWhiteSpace()
         {
             var value = "   ";
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNullOrWhiteSpace(value, "parameter")
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrWhiteSpaceThrowsArgumentExceptionWhenParameterNameIsNull()
         {
             string paramterName = null;
             var data = "NotEmpty";
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNullOrWhiteSpace(data, paramterName)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrWhiteSpaceThrowsArgumentExceptionWhenParameterNameIsWhiteSpace()
         {
             var paramterName = "   ";
             var data = "NotEmpty";
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNullOrEmpty(data, paramterName)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrWhiteSpaceShouldNotThrowException()
         {
             var paramterName = "parameter";
@@ -111,49 +110,49 @@ namespace QueryBuilder.Core.Tests.Helpers
 
         #region NotNullOrEmpty
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrEmptyThrowsArgumentExceptionWhenValueIsNull()
         {
             IEnumerable<int> nullData = null;
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNullOrEmpty(nullData, "parameter")
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrEmptyThrowsArgumentExceptionWhenValueIsEmpty()
         {
             var emptyData = Enumerable.Empty<int>();
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNullOrEmpty(emptyData, "parameter")
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrEmptyThrowsArgumentExceptionWhenParameterNameIsNull()
         {
             string paramterName = null;
             var data = new List<int>() { 1 };
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNullOrEmpty(data, paramterName)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrEmptyThrowsArgumentExceptionWhenParameterNameIsWhiteSpace()
         {
             string paramterName = "   ";
             var data = new List<int>() { 1 };
 
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 Check.NotNullOrEmpty(data, paramterName)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void NotNullOrEmptyShouldNotThrowException()
         {
             string paramterName = "parameter";

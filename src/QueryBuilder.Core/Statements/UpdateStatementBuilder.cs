@@ -8,7 +8,7 @@ namespace QueryBuilder.Core.Statements
 {
     public class UpdateStatementBuilder<T>
     {
-        public IQueryable<T> Queryable { get; private set; }
+        public IQueryable<T> Queryable { get; }
 
         public IEnumerable<MemberAssignment> Assignements => _assignements.AsReadOnly();
         private readonly List<MemberAssignment> _assignements;
@@ -28,14 +28,14 @@ namespace QueryBuilder.Core.Statements
             return this;
         }
 
+        // TODO Throw Exception if valueExpression contains navigation property
         public UpdateStatementBuilder<T> SetValue<TValue>(Expression<Func<T, TValue>> memberExpression, Expression<Func<T, TValue>> valueExpression)
         {
             AppendMemberAssignment(memberExpression, valueExpression.Body);
             return this;
         }
 
-        // TODO refactor this
-        public void AppendMemberAssignment<TValue>(Expression<Func<T, TValue>> memberLambdaExpression, Expression value)
+        private void AppendMemberAssignment<TValue>(Expression<Func<T, TValue>> memberLambdaExpression, Expression value)
         {
             MemberExpression memberExpression = ExpressionHelper.GetMemberExpression(memberLambdaExpression);
 
@@ -47,10 +47,16 @@ namespace QueryBuilder.Core.Statements
             AppendMemberAssignment(memberAssignment);
         }
 
+        // TODO Throw Exception if memberAssignement contains navigation property
         public void AppendMemberAssignment(MemberAssignment memberAssignment)
         {
+            Check.NotNull(memberAssignment, nameof(memberAssignment));
+
+            if (memberAssignment.Member.DeclaringType != typeof(T))
+                throw new ArgumentException(nameof(memberAssignment), $"The parameter must be a member of type \"{typeof(T).FullName}\" instead of \"{memberAssignment.Member.DeclaringType.FullName}\".");
+
             if (_assignements.Any(a => a.Member == memberAssignment.Member))
-                throw new Exception("duplicate member assignement");
+                throw new InvalidOperationException("duplicate member assignement");
 
             _assignements.Add(memberAssignment);
         }

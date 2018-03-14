@@ -32,6 +32,7 @@ namespace QueryBuilder.Core.Services
         public void WriteToServer(IEnumerable<TData> records, string tableName)
         {
             Check.NotNullOrEmpty(records, nameof(records));
+            Check.NotNullOrWhiteSpace(tableName, nameof(tableName));
             
             // Transform records
             TBulkData bulkData = _dataTransformer.Transform(records);

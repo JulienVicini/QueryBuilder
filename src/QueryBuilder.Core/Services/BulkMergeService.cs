@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using QueryBuilder.Core.Helpers;
 using QueryBuilder.Core.Statements;
 
 namespace QueryBuilder.Core.Services
@@ -21,6 +22,9 @@ namespace QueryBuilder.Core.Services
 
         public void WriteToServer(IEnumerable<TRecord> records, IEnumerable<MemberExpression> mergeKeys, bool updateOnly)
         {
+            Check.NotNullOrEmpty(records, nameof(records));
+            Check.NotNullOrEmpty(mergeKeys, nameof(mergeKeys));
+
             // Create Temp table
             DropCreateTemporaryTable(AlterTableStatement<TRecord>.AlterType.Create);
 

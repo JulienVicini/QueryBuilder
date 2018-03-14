@@ -8,21 +8,21 @@ namespace QueryBuilder.Core.Mappings
     public class ColumnMapping<TEntity>
         where TEntity : class
     {
-        public string DbColumnName { get; private set; }
+        public string DbColumnName { get; }
 
-        public DbType DbType { get; private set; }
+        public DbType DbType { get; }
 
-        public bool IsIdentity { get; private set; }
+        public bool IsIdentity { get; }
 
-        public int? Length { get; private set; }
+        public int? Length { get; }
 
-        public int? Precision { get; private set; }
+        public int? Precision { get; }
 
-        public int? Scale { get; private set; }
+        public int? Scale { get; }
 
-        public bool IsRequired { get; private set; }
+        public bool IsRequired { get; }
 
-        public PropertyInfo PropertyInfo { get; private set; }
+        public PropertyInfo PropertyInfo { get; }
 
         public ColumnMapping(string dbColumnName, DbType dbType, bool isIdentity, int? length, int? precision, int? scale, bool isRequired, PropertyInfo propertyInfo)
         {

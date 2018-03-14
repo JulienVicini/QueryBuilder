@@ -1,26 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QueryBuilder.Core.Mappings;
+﻿using QueryBuilder.Core.Mappings;
+using QueryBuilder.Core.Tests.FakeModels;
 using System;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using Xunit;
 
 namespace QueryBuilder.Core.Tests.Mappings
 {
-    [TestClass]
     public class ColumnMappingTests
     {
         #region
-
-        private class TestClass
-        {
-            public int Id { get; set; }
-        }
-
-        private class OtherClass
-        {
-            public int Id { get; set; }
-        }
 
         private ColumnMapping<TestClass> CreateTestClassInstance(string dbColumnName, PropertyInfo property)
         {
@@ -38,9 +28,10 @@ namespace QueryBuilder.Core.Tests.Mappings
 
         #endregion
 
+        [Fact]
         public void ConstructorThrowsArgumentExceptionWhenColumnNameIsNull()
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 CreateTestClassInstance(
                     dbColumnName: null,
                     property    : typeof(TestClass).GetProperties().First()
@@ -48,9 +39,10 @@ namespace QueryBuilder.Core.Tests.Mappings
             );
         }
 
+        [Fact]
         public void ConstructorThrowsArgumentExceptionWhenColumnNameIsWhiteSpace()
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentException>(() =>
                 CreateTestClassInstance(
                     dbColumnName: "    ",
                     property    : typeof(TestClass).GetProperties().First()
@@ -58,9 +50,10 @@ namespace QueryBuilder.Core.Tests.Mappings
             );
         }
 
+        [Fact]
         public void ConstructorThrowsArgumentNullExceptionWhenPropertyInfoIsNull()
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<ArgumentNullException>(() =>
                 CreateTestClassInstance(
                     dbColumnName: "MyDbColumnName",
                     property    : null
@@ -68,9 +61,10 @@ namespace QueryBuilder.Core.Tests.Mappings
             );
         }
 
+        [Fact]
         public void ConstructorThrowsInvalidOperationExceptionWhenPropertyInfoIsNotAPropertyOfTEntity()
         {
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.Throws<InvalidOperationException>(() =>
                 CreateTestClassInstance(
                     dbColumnName: "MyDbColumnName",
                     property    : typeof(OtherClass).GetProperties().First()
@@ -78,7 +72,7 @@ namespace QueryBuilder.Core.Tests.Mappings
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void ConstructorShouldSetProperties()
         {
             const string columnName = "ABCDE";
@@ -91,14 +85,14 @@ namespace QueryBuilder.Core.Tests.Mappings
             );
 
             // Assert
-            Assert.AreEqual(columnName              , mapping.DbColumnName );
-            Assert.AreEqual(DbType.StringFixedLength, mapping.DbType       );
-            Assert.AreEqual(true                    , mapping.IsIdentity   );
-            Assert.AreEqual(true                    , mapping.IsRequired   );
-            Assert.AreEqual(10                      , mapping.Length       );
-            Assert.AreEqual(11                      , mapping.Precision    );
-            Assert.AreEqual(12                      , mapping.Scale        );
-            Assert.AreEqual(property                , mapping.PropertyInfo );
+            Assert.Equal(columnName              , mapping.DbColumnName );
+            Assert.Equal(DbType.StringFixedLength, mapping.DbType       );
+            Assert.Equal(10                      , mapping.Length       );
+            Assert.Equal(11                      , mapping.Precision    );
+            Assert.Equal(12                      , mapping.Scale        );
+            Assert.Equal(property                , mapping.PropertyInfo );
+            Assert.True(mapping.IsIdentity);
+            Assert.True(mapping.IsRequired);
         }
     }
 }

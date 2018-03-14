@@ -41,10 +41,19 @@ namespace QueryBuilder.Core.Helpers
 
         public static IEnumerable<MemberExpression> GetSelectedMemberInAnonymousType<TEntity, TColumns>(Expression<Func<TEntity, TColumns>> expression)
         {
-            var newExpression = expression.Body as NewExpression;
+            Check.NotNull(expression, nameof(expression));
 
-            return newExpression.Arguments.Select(arg => (MemberExpression)arg)
+            var newExpression = expression.Body as NewExpression 
+                                    ?? throw new InvalidOperationException($"Expression body should be of type \"{typeof(NewArrayExpression).FullName}\".");
+
+            return newExpression.Arguments.Select(CastArgumentToMemberExpression<TEntity>)
                                           .ToList();
+        }
+
+        private static MemberExpression CastArgumentToMemberExpression<TEntity>(Expression expression)
+        {
+            return expression as MemberExpression 
+                ?? throw new ArgumentException(nameof(expression), $"The expression body should be a \"{nameof(NewExpression)}\" of members of type\"{typeof(TEntity).FullName}\".");
         }
     }
 }

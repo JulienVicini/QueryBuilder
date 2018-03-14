@@ -2,36 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QueryBuilder.Core.IQueryables;
+using Xunit;
 
 namespace QueryBuilder.Core.Tests.IQueryables
 {
-    [TestClass]
     public class IQueryableHelperTests
     {
         IQueryable<int> _queryable = new List<int>() { 1, 2, 3, 4 }.AsQueryable();
 
-        [TestMethod]
+        [Fact]
         public void GetQueryPredicateThrowsArgumentNullExceptionWhenQuerayableIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(
+            Assert.Throws<ArgumentNullException>(
                 () => IQueryableHelper.GetQueryPredicate<int>(null)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void GetQueryPredicateReturnsNullWhenNotFiltering()
         {
             
             IQueryable<int> query = _queryable;
 
-            Assert.IsNull(IQueryableHelper.GetQueryPredicate(query));
+            Assert.Null(IQueryableHelper.GetQueryPredicate(query));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetQueryPredicateReturnsPredicate()
         {
 
@@ -42,10 +39,10 @@ namespace QueryBuilder.Core.Tests.IQueryables
             IQueryable<int> query = _queryable.Where(predicate);
 
             // Assert
-            Assert.AreSame(predicate, IQueryableHelper.GetQueryPredicate(query));
+            Assert.Same(predicate, IQueryableHelper.GetQueryPredicate(query));
         }
 
-        [TestMethod]
+        [Fact]
         public void GetQueryPredicateThrowsInvalidOperationExceptionWhenMultiplePredicateChained()
         {
             // Arrange and Act
@@ -53,7 +50,7 @@ namespace QueryBuilder.Core.Tests.IQueryables
                                               .Where(p => p == 18);
 
             // Assert
-            Assert.ThrowsException<InvalidOperationException>(
+            Assert.Throws<InvalidOperationException>(
                 () => IQueryableHelper.GetQueryPredicate(query)
             );
         }

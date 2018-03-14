@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QueryBuilder.Core.Helpers;
+﻿using QueryBuilder.Core.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Xunit;
 
 namespace QueryBuilder.Core.Tests.Helpers
 {
-    [TestClass]
     public class ExpressionHelperTests
     {
         private class FakeModel
@@ -17,23 +17,23 @@ namespace QueryBuilder.Core.Tests.Helpers
 
         #region GetMemberExpression
 
-        [TestMethod]
+        [Fact]
         public void GetMemberExpressionThrowsArgumentNullExceptionWhenExpressionIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(
+            Assert.Throws<ArgumentNullException>(
                 () => ExpressionHelper.GetMemberExpression<CheckTests, bool>(null)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void GetMemberExpressionThrowsArgumentExceptionWhenExpressionIsNotMemberExpression()
         {
-            Assert.ThrowsException<ArgumentException>(
+            Assert.Throws<ArgumentException>(
                 () => ExpressionHelper.GetMemberExpression<CheckTests, int>(_ => 3)
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void GetMemberExpressionShouldReturnMemberExpression()
         {
             // Act
@@ -47,24 +47,24 @@ namespace QueryBuilder.Core.Tests.Helpers
             MemberInfo member = typeof(FakeModel).GetMember(propertyToTest)
                                                  .Single();
 
-            Assert.AreEqual(propertyToTest, memberExpression.Member.Name);
-            Assert.AreEqual(typeof(FakeModel), memberExpression.Member.DeclaringType);
-            Assert.AreEqual(member, memberExpression.Member);
+            Assert.Equal(propertyToTest, memberExpression.Member.Name);
+            Assert.Equal(typeof(FakeModel), memberExpression.Member.DeclaringType);
+            Assert.Equal(member, memberExpression.Member);
         }
 
         #endregion
 
         #region MakeMemberExpression
 
-        [TestMethod]
+        [Fact]
         public void MakeMemberExpressionThrowsArgumentNullExceptionWhenMemberAssignementIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => {
+            Assert.Throws<ArgumentNullException>(() => {
                 ExpressionHelper.MakeMemberExpression(null);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void MakeMemberExpressionShouldReturnsMemberExpression()
         {
             // Create Test
@@ -80,22 +80,22 @@ namespace QueryBuilder.Core.Tests.Helpers
             // Act
             MemberExpression expression = ExpressionHelper.MakeMemberExpression(assignment);
 
-            Assert.AreEqual(memberInfo, expression.Member);
+            Assert.Equal(memberInfo, expression.Member);
         }
 
         #endregion
 
         #region MakeAssign
 
-        [TestMethod]
+        [Fact]
         public void MakeAssignThrowsArgumentNullExceptionWhenMemberAssignementIsNull()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => {
+            Assert.Throws<ArgumentNullException>(() => {
                 ExpressionHelper.MakeAssign(null);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void MakeAssignShouldReturnsBinaryExpression()
         {
             // Create Test
@@ -112,12 +112,63 @@ namespace QueryBuilder.Core.Tests.Helpers
             BinaryExpression expression = ExpressionHelper.MakeAssign(assignment);
 
             // Left
-            Assert.IsInstanceOfType(expression.Left, typeof(MemberExpression));
-            Assert.AreEqual(memberInfo, ((MemberExpression)expression.Left).Member);
+            Assert.IsAssignableFrom<MemberExpression>(expression.Left);
+            Assert.Equal(memberInfo, ((MemberExpression)expression.Left).Member);
 
             // Right
-            Assert.IsInstanceOfType(expression.Right, typeof(ConstantExpression));
-            Assert.AreEqual(3, ((ConstantExpression)expression.Right).Value);
+            Assert.IsAssignableFrom<ConstantExpression>(expression.Right);
+            Assert.Equal(3, ((ConstantExpression)expression.Right).Value);
+        }
+
+        #endregion
+
+        #region GetSelectedMemberInAnonymousType
+
+        [Fact]
+        public void GetSelectedMemberInAnonymousTypeThrowsArgumentNullExceptionWhenExpressionIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => ExpressionHelper.GetSelectedMemberInAnonymousType<FakeModel, FakeModel>(null)
+            );
+        }
+
+        [Fact]
+        public void GetSelectedMemberInAnonymousTypeThrowsInvalidOperationExceptionWhenExpressionBodyIsNotNewExpression()
+        {
+            Assert.Throws<InvalidOperationException>(
+                () => ExpressionHelper.GetSelectedMemberInAnonymousType((FakeModel model) => model)
+            );
+        }
+
+        [Fact]
+        public void GetSelectedMemberInAnonymousTypeThrowsArgumentExceptionWhenExpressionArgumentsIsNotAMemberExpression()
+        {
+            Assert.Throws<ArgumentException>(() => {
+                ExpressionHelper.GetSelectedMemberInAnonymousType((FakeModel model) => new { data = 3 });
+            });
+        }
+
+        [Fact]
+        public void GetSelectedMemberShouldReturnsSelectedMember()
+        {
+            // Arrange
+            Type expectedParameterType = typeof(FakeModel);
+            MemberInfo expectedMember = typeof(FakeModel).GetProperty(nameof(FakeModel.PropertyToTest));
+
+            // Act
+            IEnumerable<MemberExpression> members 
+                = ExpressionHelper.GetSelectedMemberInAnonymousType((FakeModel model) => new { model.PropertyToTest });
+
+            // Assert Result COunt
+            Assert.Single(members);
+            MemberExpression selectedMember = members.First();
+
+            // Asset Expression parameter
+            Assert.IsAssignableFrom<ParameterExpression>(selectedMember.Expression);
+            Assert.Equal(typeof(FakeModel), selectedMember.Expression.Type);
+
+            // Assert MemberINfo
+            Assert.Equal(expectedMember, selectedMember.Member);
         }
 
         #endregion

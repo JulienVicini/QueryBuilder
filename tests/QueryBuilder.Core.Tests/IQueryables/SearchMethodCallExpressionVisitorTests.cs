@@ -1,19 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using QueryBuilder.Core.IQueryables;
+using Xunit;
 
 namespace QueryBuilder.Core.Tests.IQueryables
 {
-    [TestClass]
     public class SearchMethodCallExpressionVisitorTests
     {
         private IQueryable<string> _query;
         private SearchWhereMethodCallExpressionVisitor _visitor;
 
-        [TestInitialize]
-        public void Init()
+        public SearchMethodCallExpressionVisitorTests()
         {
             // create queryable
             string[] strings = Enumerable.Range(0, 100).Select(index => "item number " + index)
@@ -24,16 +22,15 @@ namespace QueryBuilder.Core.Tests.IQueryables
             _visitor = new SearchWhereMethodCallExpressionVisitor();
         }
 
-        [TestMethod]
+        [Fact]
         public void GetPredicateShouldReturnsNullWhenNotFiltering()
         {
             MethodCallExpression methodCallExpr = _visitor.GetMethodCall(_query);
 
-            Assert.IsNull( methodCallExpr );
+            Assert.Null(methodCallExpr);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void GetMethodCallThrowsInvalideOperatorExceptionWhenCalledTwice()
         {
             // Arrange
@@ -42,23 +39,27 @@ namespace QueryBuilder.Core.Tests.IQueryables
 
             // Act
             _visitor.GetMethodCall(filteredQuery);
-            _visitor.GetMethodCall(filteredQuery);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(
+                () => _visitor.GetMethodCall(filteredQuery)
+            );
         }
 
-        [TestMethod]
+        [Fact]
         public void GetPredicateThrowArgumentExceptionWhenMultipleFilter()
         {
             IQueryable<string> multipleFilterQuery = _query.Where(s => s != null)
                                                            .Where(s => s.Length > 10);
 
             // Multiple Where Call
-            Assert.ThrowsException<InvalidOperationException>(() =>
+            Assert.Throws<InvalidOperationException>(() =>
             {
                 _visitor.GetMethodCall(multipleFilterQuery);
             });
         }
 
-        [TestMethod]
+        [Fact]
         public void GetPredicateReturnsMethodCallExpression()
         {
             // build query
@@ -66,14 +67,14 @@ namespace QueryBuilder.Core.Tests.IQueryables
             IQueryable<string> filteredQuery = _query.Where(predicate);
 
             // Act
-            MethodCallExpression methodCallExpression = _visitor.GetMethodCall( filteredQuery );
+            MethodCallExpression methodCallExpression = _visitor.GetMethodCall(filteredQuery);
 
             // Assert
-            Assert.IsNotNull(methodCallExpression);
+            Assert.NotNull(methodCallExpression);
 
             UnaryExpression unaryExpr = methodCallExpression.Arguments[1] as UnaryExpression;
-            Assert.IsNotNull(unaryExpr);
-            Assert.AreEqual(unaryExpr.Operand, predicate);
+            Assert.NotNull(unaryExpr);
+            Assert.Equal(unaryExpr.Operand, predicate);
         }
     }
 }

@@ -92,7 +92,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\src\QueryBuilder.EF6\QueryBuilder.EF6.csproj">
       <Project>{08D8F66C-40CB-4B9A-B559-490E27D2290F}</Project>
-      <Name>QueryBuilder.EntityFramework</Name>
+      <Name>QueryBuilder.EF6</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\QueryBuilder.SqlServer\QueryBuilder.SqlServer.csproj">
       <Project>{aacbcd94-8a06-4dac-9e3a-2fcd0ae0f52c}</Project>

@@ -4,15 +4,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using QueryBuilder.Core.Statements;
+using Xunit;
 
 namespace QueryBuilder.Core.Tests.Statements
 {
-    [TestClass]
     public class DeleteStatementTests
     {
-        [TestMethod]
+        [Fact]
         public void ConstructorShouldAssignPredicate()
         {
             // Arrange
@@ -22,10 +21,10 @@ namespace QueryBuilder.Core.Tests.Statements
             var deleteStatement = new DeleteStatement<Exception>(predicate);
 
             // Assert
-            Assert.AreSame(predicate, deleteStatement.Predicate);
+            Assert.Same(predicate, deleteStatement.Predicate);
         }
 
-        [TestMethod]
+        [Fact]
         public void ConstructorShouldAcceptNullPredicate()
         {
             // Arrage
@@ -35,7 +34,7 @@ namespace QueryBuilder.Core.Tests.Statements
             var statement = new DeleteStatement<Exception>(predicate);
 
             // Assert
-            Assert.IsNull(statement.Predicate);
+            Assert.Null(statement.Predicate);
         }
     }
 }

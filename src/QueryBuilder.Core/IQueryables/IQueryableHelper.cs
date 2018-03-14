@@ -18,6 +18,7 @@ namespace QueryBuilder.Core.IQueryables
                 return GetPredicateFromMethodCall<T>(methodCall);
         }
 
+        // TODO unit test
         public static Expression<Func<T, bool>> GetPredicateFromMethodCall<T>(MethodCallExpression methodCallExpression)
         {
             UnaryExpression quote = methodCallExpression.Arguments[1] as UnaryExpression;
